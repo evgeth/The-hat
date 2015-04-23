@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		881697C51AE7FFB3006BD0C2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */; };
+		881697C81AE801A2006BD0C2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 881697C71AE801A2006BD0C2 /* MGSwipeButton.m */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
-		889325011AE41C3D009B68B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325001AE41C3D009B68B2 /* ViewController.swift */; };
+		889325011AE41C3D009B68B2 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325001AE41C3D009B68B2 /* MenuController.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
 		889325061AE41C3D009B68B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889325051AE41C3D009B68B2 /* Images.xcassets */; };
 		889325091AE41C3D009B68B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889325071AE41C3D009B68B2 /* LaunchScreen.xib */; };
 		889325151AE41C3D009B68B2 /* thehatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325141AE41C3D009B68B2 /* thehatTests.swift */; };
+		88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */; };
+		88BBC1FA1AE7D8F4003B3964 /* PreparationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */; };
+		88EF7CB21AE4249600D2822B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF7CB11AE4249600D2822B /* GameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +31,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
+		881697C31AE7FFB3006BD0C2 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
+		881697C61AE801A2006BD0C2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		881697C71AE801A2006BD0C2 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		889324F91AE41C3D009B68B2 /* thehat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thehat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889324FD1AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889324FE1AE41C3D009B68B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		889325001AE41C3D009B68B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		889325001AE41C3D009B68B2 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		889325031AE41C3D009B68B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		889325051AE41C3D009B68B2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		889325081AE41C3D009B68B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8893250E1AE41C3D009B68B2 /* thehatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = thehatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		889325131AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889325141AE41C3D009B68B2 /* thehatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thehatTests.swift; sourceTree = "<group>"; };
+		88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsViewController.swift; sourceTree = "<group>"; };
+		88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreparationViewController.swift; sourceTree = "<group>"; };
+		88EF7CB11AE4249600D2822B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +91,19 @@
 			isa = PBXGroup;
 			children = (
 				889324FE1AE41C3D009B68B2 /* AppDelegate.swift */,
-				889325001AE41C3D009B68B2 /* ViewController.swift */,
+				889325001AE41C3D009B68B2 /* MenuController.swift */,
+				88EF7CB11AE4249600D2822B /* GameViewController.swift */,
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
+				88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */,
+				88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */,
+				881697C31AE7FFB3006BD0C2 /* MGSwipeTableCell.h */,
+				881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */,
+				881697C61AE801A2006BD0C2 /* MGSwipeButton.h */,
+				881697C71AE801A2006BD0C2 /* MGSwipeButton.m */,
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
 				889325071AE41C3D009B68B2 /* LaunchScreen.xib */,
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
+				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
 			);
 			path = thehat;
 			sourceTree = "<group>";
@@ -161,6 +182,7 @@
 				TargetAttributes = {
 					889324F81AE41C3D009B68B2 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = Y2V78VDHEV;
 					};
 					8893250D1AE41C3D009B68B2 = {
 						CreatedOnToolsVersion = 6.3;
@@ -212,8 +234,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				889325011AE41C3D009B68B2 /* ViewController.swift in Sources */,
+				889325011AE41C3D009B68B2 /* MenuController.swift in Sources */,
+				881697C51AE7FFB3006BD0C2 /* MGSwipeTableCell.m in Sources */,
+				88BBC1FA1AE7D8F4003B3964 /* PreparationViewController.swift in Sources */,
+				88EF7CB21AE4249600D2822B /* GameViewController.swift in Sources */,
+				88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
+				881697C81AE801A2006BD0C2 /* MGSwipeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +369,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = thehat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "thehat/thehat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -352,9 +386,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = thehat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "thehat/thehat-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -411,6 +451,7 @@
 				8893251A1AE41C3D009B68B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8893251B1AE41C3D009B68B2 /* Build configuration list for PBXNativeTarget "thehatTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +460,7 @@
 				8893251D1AE41C3D009B68B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
