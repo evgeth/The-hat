@@ -12,7 +12,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var roundTimeLabel: UILabel!
     @IBOutlet weak var playersTableView: UITableView!
-    
+    var isReadyToDeleteRow: Bool = false
+    var readyToDeleteRow: Int = 0
     var players: [String] = ["", "", "", ""]
 
     override func viewDidLoad() {
@@ -38,20 +39,98 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         roundTimeLabel.text = "\(Int(sender.value))"
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Player") as! MGSwipeTableCell
-        cell.showsReorderControl = true
-        if let textField = cell.viewWithTag(1) as? UITextField {
-            if indexPath.row != players.count {
-                textField.text = players[indexPath.row]
-            } else {
-                textField.text = ""
+    
+    
+    @IBAction func cellLeftSwipe(sender: UISwipeGestureRecognizer) {
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            println(players)
+            let swipeLocation = sender.locationInView(playersTableView)
+            let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
+            if swipedIndexPath?.row == players.count || isReadyToDeleteRow {
+                return
+            }
+            var swipedCell = playersTableView.cellForRowAtIndexPath(swipedIndexPath!)! as UITableViewCell
+            
+            
+            isReadyToDeleteRow = true
+            readyToDeleteRow = swipedIndexPath!.row
+            playersTableView.reloadRowsAtIndexPaths([swipedIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    func hideDeleteButton() {
+        if isReadyToDeleteRow {
+            isReadyToDeleteRow = false
+            
+            playersTableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: readyToDeleteRow, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
+    @IBAction func playerNameModified(sender: UITextField, forEvent event: UIEvent) {
+        println("modification")
+        if let cell = sender.superview?.superview as? UITableViewCell {
+            let indexPath = playersTableView.indexPathForCell(cell)
+            if indexPath != nil {
+                players[indexPath!.row] = sender.text
             }
         }
-        cell.leftButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor())]
+    }
+    
+    @IBAction func addPlayerButtonPressed(sender: UIButton) {
+        players.append("")
+        playersTableView.reloadData()
+    }
+    
+    @IBAction func tapOnPlayersTable(sender: UITapGestureRecognizer) {
+        hideDeleteButton()
+    }
+    
+    @IBAction func hideButtonPressed(sender: UIButton) {
+        sender.enabled = false
+        hideDeleteButton()
+    }
+    
+    @IBAction func deleteButtonPressed(sender: UIButton) {
+        println("should delete")
+        if let cell = sender.superview?.superview as? UITableViewCell {
+            let indexPath = playersTableView.indexPathForCell(cell)
+            hideDeleteButton()
+            players.removeAtIndex(indexPath!.row)
+            playersTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
+    @IBAction func textFieldEditBegin(sender: UITextField) {
+        hideDeleteButton()
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.row == players.count {
+            var cell = tableView.dequeueReusableCellWithIdentifier("Add Player") as! UITableViewCell
+            return cell
+        }
+        var cell = tableView.dequeueReusableCellWithIdentifier("Player") as! UITableViewCell
+        cell.showsReorderControl = true
+        if let textField = cell.viewWithTag(1) as? UITextField {
+            textField.text = players[indexPath.row]
+        }
+        var deleteButton = cell.viewWithTag(2)! as! UIButton
+        var hideButton = cell.viewWithTag(3)! as! UIButton
+        deleteButton.alpha = 0
+        hideButton.enabled = false
+        if isReadyToDeleteRow && readyToDeleteRow == indexPath.row {
+            println("here")
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                deleteButton.alpha = 1
+            })
+            hideButton.enabled = true
+        }
         return cell
     }
     
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
     
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
@@ -60,6 +139,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if isReadyToDeleteRow && readyToDeleteRow == indexPath.row {
+            return false
+        }
         if indexPath.row != players.count {
             return true
         } else {
@@ -68,6 +150,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        hideDeleteButton()
         if proposedDestinationIndexPath.row == players.count {
             return NSIndexPath(forRow: players.count - 1, inSection: sourceIndexPath.section)
         } else {
@@ -76,6 +159,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        if isReadyToDeleteRow && sourceIndexPath.row == readyToDeleteRow {
+            readyToDeleteRow = destinationIndexPath.row
+        }
         let previousString = players[sourceIndexPath.row]
         players.removeAtIndex(sourceIndexPath.row)
         players.insert(previousString, atIndex: destinationIndexPath.row)
@@ -96,6 +182,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
         }
     }
+    
     /*
     // MARK: - Navigation
 

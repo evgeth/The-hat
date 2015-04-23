@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		881697C51AE7FFB3006BD0C2 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */; };
-		881697C81AE801A2006BD0C2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 881697C71AE801A2006BD0C2 /* MGSwipeButton.m */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
 		889325011AE41C3D009B68B2 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325001AE41C3D009B68B2 /* MenuController.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
@@ -32,10 +30,6 @@
 
 /* Begin PBXFileReference section */
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
-		881697C31AE7FFB3006BD0C2 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
-		881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
-		881697C61AE801A2006BD0C2 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
-		881697C71AE801A2006BD0C2 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		889324F91AE41C3D009B68B2 /* thehat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thehat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889324FD1AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889324FE1AE41C3D009B68B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,10 +90,6 @@
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
 				88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */,
 				88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */,
-				881697C31AE7FFB3006BD0C2 /* MGSwipeTableCell.h */,
-				881697C41AE7FFB3006BD0C2 /* MGSwipeTableCell.m */,
-				881697C61AE801A2006BD0C2 /* MGSwipeButton.h */,
-				881697C71AE801A2006BD0C2 /* MGSwipeButton.m */,
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
 				889325071AE41C3D009B68B2 /* LaunchScreen.xib */,
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
@@ -235,12 +225,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				889325011AE41C3D009B68B2 /* MenuController.swift in Sources */,
-				881697C51AE7FFB3006BD0C2 /* MGSwipeTableCell.m in Sources */,
 				88BBC1FA1AE7D8F4003B3964 /* PreparationViewController.swift in Sources */,
 				88EF7CB21AE4249600D2822B /* GameViewController.swift in Sources */,
 				88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
-				881697C81AE801A2006BD0C2 /* MGSwipeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
