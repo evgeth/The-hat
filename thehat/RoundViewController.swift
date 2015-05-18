@@ -13,6 +13,7 @@ class RoundViewController: UIViewController {
     
     var delegate: GameDelegate?
     var roundDuration: Float!
+    var extraRoundDuration: Float!
     var secondsLeft: Float!
     var timer: NSTimer?
     var timerRate: Float!
@@ -20,21 +21,27 @@ class RoundViewController: UIViewController {
     var currentWord: String!
     var wordsGuessed: [String]!
     
+    var isGameEnded = false
+    
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var timerView: TimerView!
+    @IBOutlet weak var timerViewHeightContraint: NSLayoutConstraint!
     
-    @IBOutlet weak var progressBar: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         roundDuration = delegate?.game().roundDuration
+        extraRoundDuration = delegate?.game().extraRoundDuration
         timerRate = 0.1
-        secondsLeft = roundDuration + timerRate
+        secondsLeft = roundDuration + timerRate - 0.01
         timerFired()
         reloadWord()
         wordsGuessed = []
+        timerView.layer.cornerRadius = 50
+        timerView.layer.masksToBounds = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,24 +50,31 @@ class RoundViewController: UIViewController {
     
     func timerFired() {
         secondsLeft = secondsLeft - timerRate
-        progressBar.setProgress(Float(secondsLeft / roundDuration), animated: true)
-        if secondsLeft <= 0.0 {
-            delegate?.setGuessedWordsInRound(self.wordsGuessed)
-            delegate?.nextRound()
+        
+        timerView.percent = CGFloat(secondsLeft / roundDuration)
+        
+        if secondsLeft <= -extraRoundDuration + 0.01 {
             timer!.invalidate()
             timer = nil
-            dismissViewControllerAnimated(true, completion: { () -> Void in
-                let alert = UIAlertView(title: "Guessed", message: ", ".join(self.wordsGuessed), delegate: nil, cancelButtonTitle: "Okay")
-//                alert.show()
-
-            })
+            timerView.percent = 0
+            timerLabel.text = "0"
+            isGameEnded = true
+        } else if secondsLeft < 0 {
+            timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
+            timerLabel.text = "\(Int(secondsLeft))"
+            
         } else {
-            if (Int(secondsLeft) == 1) {
-                timerLabel.text = "1 second"
-            } else {
-                timerLabel.text = "\(Int(secondsLeft)) seconds"
-            }
+            timerLabel.text = "\(Int(secondsLeft + 1))"
         }
+        timerView.setNeedsDisplay()
+    }
+    
+    func endRound() {
+        delegate?.setGuessedWordsInRound(self.wordsGuessed)
+        delegate?.nextRound()
+        
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+        })
     }
     
     func reloadWord() {
@@ -82,12 +96,20 @@ class RoundViewController: UIViewController {
             scale.toValue = NSNumber(float: 2.0)
            self.wordLabel.layer.addAnimation(scale, forKey: nil)
         })
+        if isGameEnded {
+            endRound()
+        }
     }
     
 
     @IBAction func guessed(sender: AnyObject) {
         wordsGuessed.append(currentWord)
-        reloadWord()
+        if isGameEnded {
+            endRound()
+        } else {
+            reloadWord()
+        }
+        
     }
     /*
     // MARK: - Navigation

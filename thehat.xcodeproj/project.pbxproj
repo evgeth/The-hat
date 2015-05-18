@@ -10,6 +10,7 @@
 		881BBE321AEA855C00547BB4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881BBE311AEA855C00547BB4 /* Game.swift */; };
 		881BBE341AEA8B4200547BB4 /* GameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881BBE331AEA8B4200547BB4 /* GameDelegate.swift */; };
 		88630AAB1B09F984009170FF /* EditWordsGuessedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */; };
+		8891DEFD1B0A8EFE00BC04AF /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8891DEFC1B0A8EFE00BC04AF /* TimerView.swift */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
 		889325011AE41C3D009B68B2 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325001AE41C3D009B68B2 /* MenuController.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		881BBE311AEA855C00547BB4 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		881BBE331AEA8B4200547BB4 /* GameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDelegate.swift; sourceTree = "<group>"; };
 		88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWordsGuessedViewController.swift; sourceTree = "<group>"; };
+		8891DEFC1B0A8EFE00BC04AF /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		889324F91AE41C3D009B68B2 /* thehat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thehat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889324FD1AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889324FE1AE41C3D009B68B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				889325001AE41C3D009B68B2 /* MenuController.swift */,
 				88EF7CB11AE4249600D2822B /* RoundViewController.swift */,
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
+				8891DEFC1B0A8EFE00BC04AF /* TimerView.swift */,
 				88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */,
 				88E587C51B0A0ED1005B6F17 /* GuessedWordCell.swift */,
 				88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */,
@@ -245,6 +248,7 @@
 				88630AAB1B09F984009170FF /* EditWordsGuessedViewController.swift in Sources */,
 				88EF7CB21AE4249600D2822B /* RoundViewController.swift in Sources */,
 				88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */,
+				8891DEFD1B0A8EFE00BC04AF /* TimerView.swift in Sources */,
 				881BBE341AEA8B4200547BB4 /* GameDelegate.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
 				88E587C81B0A2325005B6F17 /* Round.swift in Sources */,

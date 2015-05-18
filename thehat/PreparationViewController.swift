@@ -14,6 +14,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     @IBOutlet weak var listener: UILabel!
     @IBOutlet weak var speaker: UILabel!
     
+    @IBOutlet weak var startImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
         
         // Do any additional setup after loading the view.
+        startImageView.layer.cornerRadius = 50
+        startImageView.layer.masksToBounds = true
         
     }
     

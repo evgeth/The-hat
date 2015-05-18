@@ -23,8 +23,16 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
         newGameLabel.layer.masksToBounds = true
         rulesLabel.layer.cornerRadius = 12
         rulesLabel.layer.masksToBounds = true
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
