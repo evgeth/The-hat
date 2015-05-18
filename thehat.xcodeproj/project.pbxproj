@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		881BBE321AEA855C00547BB4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881BBE311AEA855C00547BB4 /* Game.swift */; };
+		881BBE341AEA8B4200547BB4 /* GameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881BBE331AEA8B4200547BB4 /* GameDelegate.swift */; };
+		88630AAB1B09F984009170FF /* EditWordsGuessedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
 		889325011AE41C3D009B68B2 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325001AE41C3D009B68B2 /* MenuController.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
@@ -15,7 +18,9 @@
 		889325151AE41C3D009B68B2 /* thehatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889325141AE41C3D009B68B2 /* thehatTests.swift */; };
 		88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */; };
 		88BBC1FA1AE7D8F4003B3964 /* PreparationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */; };
-		88EF7CB21AE4249600D2822B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF7CB11AE4249600D2822B /* GameViewController.swift */; };
+		88E587C61B0A0ED1005B6F17 /* GuessedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E587C51B0A0ED1005B6F17 /* GuessedWordCell.swift */; };
+		88E587C81B0A2325005B6F17 /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E587C71B0A2325005B6F17 /* Round.swift */; };
+		88EF7CB21AE4249600D2822B /* RoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF7CB11AE4249600D2822B /* RoundViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
+		881BBE311AEA855C00547BB4 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		881BBE331AEA8B4200547BB4 /* GameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDelegate.swift; sourceTree = "<group>"; };
+		88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWordsGuessedViewController.swift; sourceTree = "<group>"; };
 		889324F91AE41C3D009B68B2 /* thehat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thehat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889324FD1AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889324FE1AE41C3D009B68B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +50,9 @@
 		889325141AE41C3D009B68B2 /* thehatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thehatTests.swift; sourceTree = "<group>"; };
 		88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsViewController.swift; sourceTree = "<group>"; };
 		88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreparationViewController.swift; sourceTree = "<group>"; };
-		88EF7CB11AE4249600D2822B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		88E587C51B0A0ED1005B6F17 /* GuessedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GuessedWordCell.swift; path = ../GuessedWordCell.swift; sourceTree = "<group>"; };
+		88E587C71B0A2325005B6F17 /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Round.swift; sourceTree = "<group>"; };
+		88EF7CB11AE4249600D2822B /* RoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +96,15 @@
 			children = (
 				889324FE1AE41C3D009B68B2 /* AppDelegate.swift */,
 				889325001AE41C3D009B68B2 /* MenuController.swift */,
-				88EF7CB11AE4249600D2822B /* GameViewController.swift */,
+				88EF7CB11AE4249600D2822B /* RoundViewController.swift */,
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
+				88630AAA1B09F984009170FF /* EditWordsGuessedViewController.swift */,
+				88E587C51B0A0ED1005B6F17 /* GuessedWordCell.swift */,
 				88BBC1F91AE7D8F4003B3964 /* PreparationViewController.swift */,
+				881BBE331AEA8B4200547BB4 /* GameDelegate.swift */,
 				88BBC1F71AE7CEE8003B3964 /* GameSettingsViewController.swift */,
+				881BBE311AEA855C00547BB4 /* Game.swift */,
+				88E587C71B0A2325005B6F17 /* Round.swift */,
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
 				889325071AE41C3D009B68B2 /* LaunchScreen.xib */,
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
@@ -225,10 +240,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				889325011AE41C3D009B68B2 /* MenuController.swift in Sources */,
+				881BBE321AEA855C00547BB4 /* Game.swift in Sources */,
 				88BBC1FA1AE7D8F4003B3964 /* PreparationViewController.swift in Sources */,
-				88EF7CB21AE4249600D2822B /* GameViewController.swift in Sources */,
+				88630AAB1B09F984009170FF /* EditWordsGuessedViewController.swift in Sources */,
+				88EF7CB21AE4249600D2822B /* RoundViewController.swift in Sources */,
 				88BBC1F81AE7CEE8003B3964 /* GameSettingsViewController.swift in Sources */,
+				881BBE341AEA8B4200547BB4 /* GameDelegate.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
+				88E587C81B0A2325005B6F17 /* Round.swift in Sources */,
+				88E587C61B0A0ED1005B6F17 /* GuessedWordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

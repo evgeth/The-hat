@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "timer-100-2.png"
+      "filename" : "speech_bubble-100-2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "timer-100-1.png"
+      "filename" : "speech_bubble-100-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "timer-100.png"
+      "filename" : "speech_bubble-100.png"
     }
   ],
   "info" : {

@@ -15,7 +15,10 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     var isReadyToDeleteRow: Bool = false
     var readyToDeleteRow: Int = 0
     var players: [String] = ["", "", "", ""]
-
+    var delegate: GameDelegate?
+    
+    @IBOutlet weak var stepper: UIStepper!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +40,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func roundTimeChanged(sender: UIStepper) {
         roundTimeLabel.text = "\(Int(sender.value))"
+        
     }
     
     
@@ -46,7 +50,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             println(players)
             let swipeLocation = sender.locationInView(playersTableView)
             let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
-            if swipedIndexPath?.row == players.count || isReadyToDeleteRow {
+            if swipedIndexPath == nil || swipedIndexPath?.row == players.count || isReadyToDeleteRow {
                 return
             }
             var swipedCell = playersTableView.cellForRowAtIndexPath(swipedIndexPath!)! as UITableViewCell
@@ -67,7 +71,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func playerNameModified(sender: UITextField, forEvent event: UIEvent) {
-        println("modification")
         if let cell = sender.superview?.superview as? UITableViewCell {
             let indexPath = playersTableView.indexPathForCell(cell)
             if indexPath != nil {
@@ -78,7 +81,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func addPlayerButtonPressed(sender: UIButton) {
         players.append("")
-        playersTableView.reloadData()
+        playersTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: players.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.None)
+        playersTableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: players.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     @IBAction func tapOnPlayersTable(sender: UITapGestureRecognizer) {
@@ -180,6 +184,16 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             }
         } else if editingStyle == UITableViewCellEditingStyle.Delete {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Start Round" {
+            if let destinationVC = segue.destinationViewController as? PreparationViewController {
+                destinationVC.delegate = self.delegate
+                delegate?.setPlayers(players)
+                delegate?.game().roundDuration = Float(Int(stepper.value))
+            }
         }
     }
     
