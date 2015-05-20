@@ -16,18 +16,25 @@ class RoundViewController: UIViewController {
     var extraRoundDuration: Float!
     var secondsLeft: Float!
     var timer: NSTimer?
-    var timerRate: Float!
+    var timerRate: Float = 0.01
     
     var currentWord: String!
     var wordsGuessed: [String]!
     
     var isGameEnded = false
+    var isBasicTimeEnded = false
     
     @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var timerView: TimerView!
     @IBOutlet weak var timerViewHeightContraint: NSLayoutConstraint!
     
+    @IBOutlet weak var redErrorView: UIView!
+    var mistakeTouchTimer: NSTimer?
+    var inactiveColor: UIColor!
+    var mistakeTouchDuraton: CGFloat = 0
+    var mistakeTouchTimerRate: Double = 0.03
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +42,20 @@ class RoundViewController: UIViewController {
         // Do any additional setup after loading the view.
         roundDuration = delegate?.game().roundDuration
         extraRoundDuration = delegate?.game().extraRoundDuration
-        timerRate = 0.1
         secondsLeft = roundDuration + timerRate - 0.01
         timerFired()
         reloadWord()
         wordsGuessed = []
         timerView.layer.cornerRadius = 50
         timerView.layer.masksToBounds = true
+        inactiveColor = redErrorView.backgroundColor
     }
     
     override func viewDidAppear(animated: Bool) {
         timer = NSTimer.scheduledTimerWithTimeInterval(Double(timerRate), target: self, selector: "timerFired", userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
     }
     
     func timerFired() {
@@ -54,19 +64,36 @@ class RoundViewController: UIViewController {
         timerView.percent = CGFloat(secondsLeft / roundDuration)
         
         if secondsLeft <= -extraRoundDuration + 0.01 {
-            timer!.invalidate()
-            timer = nil
-            timerView.percent = 0
-            timerLabel.text = "0"
-            isGameEnded = true
-        } else if secondsLeft < 0 {
-            timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
-            timerLabel.text = "\(Int(secondsLeft))"
-            
+            setRoundEndedState()
+        } else if secondsLeft < 1 {
+            isBasicTimeEnded = true
+            if secondsLeft < 0 {
+                timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
+                timerLabel.text = "\(Int(secondsLeft))"
+            } else {
+                timerLabel.text = "\(Int(secondsLeft + 1))"
+            }
         } else {
             timerLabel.text = "\(Int(secondsLeft + 1))"
         }
         timerView.setNeedsDisplay()
+    }
+    
+    func setRoundEndedState() {
+        timer?.invalidate()
+        timer = nil
+        timerView.percent = 0
+        timerLabel.text = "0"
+        isGameEnded = true
+        let transitionOptions = UIViewAnimationOptions.TransitionCurlUp
+//        UIView.transitionWithView(redErrorView, duration: 0.3, options: transitionOptions, animations: {
+//            self.errorLabel.text = "No way (hold for mistake)"
+//            },
+//            completion: nil)
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.redErrorView.backgroundColor = UIColor.redColor()
+            self.errorLabel.text = "No way (hold for mistake)"
+        })
     }
     
     func endRound() {
@@ -79,31 +106,28 @@ class RoundViewController: UIViewController {
     
     func reloadWord() {
         currentWord = delegate!.getWord()
-        wordLabel.text = currentWord
+        let transitionOptions = UIViewAnimationOptions.TransitionFlipFromBottom
+        UIView.transitionWithView(wordLabel, duration: 0.3, options: transitionOptions, animations: {
+            self.wordLabel.text = self.currentWord
+            },
+            completion: nil)
+        
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func errorButtonPressed(sender: AnyObject) {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            var scale = CABasicAnimation(keyPath: "transform.scale")
-            scale.duration = 0.3
-            scale.repeatCount = 1
-            scale.autoreverses = true
-            scale.toValue = NSNumber(float: 2.0)
-           self.wordLabel.layer.addAnimation(scale, forKey: nil)
-        })
-        if isGameEnded {
-            endRound()
-        }
-    }
-    
 
     @IBAction func guessed(sender: AnyObject) {
         wordsGuessed.append(currentWord)
+        if isBasicTimeEnded {
+            setRoundEndedState()
+            endRound()
+        }
         if isGameEnded {
             endRound()
         } else {
@@ -111,6 +135,42 @@ class RoundViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func mistakeButtonTouchStarted(sender: UIButton) {
+        mistakeTouchTimer = NSTimer.scheduledTimerWithTimeInterval(mistakeTouchTimerRate, target: self, selector: "mistakeTouchTimerFired", userInfo: nil, repeats: true)
+    }
+    
+    @IBAction func mistakeButtonTouchEnded(sender: AnyObject) {
+        if isBasicTimeEnded {
+            endRound()
+        }
+        clearMistakeTouchTimer()
+    }
+    
+    @IBAction func mistakeButtonTouchCancelled(sender: UIButton) {
+        clearMistakeTouchTimer()
+    }
+    
+    func clearMistakeTouchTimer() {
+        mistakeTouchTimer?.invalidate()
+        mistakeTouchTimer = nil
+        redErrorView.backgroundColor = inactiveColor
+        mistakeTouchDuraton = 0
+    }
+    
+    func mistakeTouchTimerFired() {
+        mistakeTouchDuraton += CGFloat(mistakeTouchTimerRate)
+
+        var neededTouchDuration: CGFloat = 1.5
+        if mistakeTouchDuraton >= neededTouchDuration {
+            endRound()
+        }
+        var components = CGColorGetComponents(UIColor.redColor().CGColor)
+        var inactiveColorComponents = CGColorGetComponents(inactiveColor.CGColor)
+        redErrorView.backgroundColor = UIColor(red: inactiveColorComponents[0] + (components[0] - inactiveColorComponents[0]) * (mistakeTouchDuraton / neededTouchDuration), green: inactiveColorComponents[1] + (components[1] - inactiveColorComponents[1]) * (mistakeTouchDuraton / neededTouchDuration), blue: inactiveColorComponents[2] + (components[2] - inactiveColorComponents[2]) * (mistakeTouchDuraton / neededTouchDuration), alpha: 1)
+    }
+    
+    
     /*
     // MARK: - Navigation
 

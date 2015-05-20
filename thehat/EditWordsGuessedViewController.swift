@@ -37,6 +37,17 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         return cell
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        view.backgroundColor = UIColor.redColor()
+        return view
+    }
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wordList.count
     }
