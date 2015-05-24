@@ -8,11 +8,15 @@
 
 import UIKit
 
-class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate, ColorChangingViewDelegate {
 
     @IBOutlet weak var guessedWordsTableView: UITableView!
     var wordList: [String] = []
-    var gameDelegate: GameDelegate?
+    var gameInstance: Game?
+    
+    @IBOutlet weak var saveView: UIView!
+    var pullToMarkMistakeLabel: UILabel!
+    var isPulledEnough = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +24,43 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         guessedWordsTableView.delegate = self
         guessedWordsTableView.dataSource = self
         // Do any additional setup after loading the view.
-        if (gameDelegate != nil) {
-            var rounds = gameDelegate!.game().rounds
+        if (gameInstance != nil) {
+            var rounds = gameInstance!.rounds
             wordList = rounds[rounds.count - 2].guessedWords
+        }
+        
+        var label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
+        label.font = UIFont(name: "Avenir Next", size: 24)
+        label.text = "Pull to mark mistake"
+        label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
+        label.textAlignment = NSTextAlignment.Center
+        pullToMarkMistakeLabel = label
+        guessedWordsTableView.addSubview(label)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        pullToMarkMistakeLabel.frame.size = CGSize(width: scrollView.frame.width, height: pullToMarkMistakeLabel.frame.height)
+        var percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
+        var color = UIColor(r: 180, g: 60, b: 10, a: 80)
+        let finishColorComponents = CGColorGetComponents(color.CGColor)
+        let startColorComponents = CGColorGetComponents(UIColor(r: 203, g: 222, b: 203, a: 80).CGColor)
+        pullToMarkMistakeLabel.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        scrollView.contentOffset.y = -pullToMarkMistakeLabel.frame.height
+        if -scrollView.contentOffset.y >= pullToMarkMistakeLabel.frame.height {
+            isPulledEnough = true
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 
+    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+        if isPulledEnough {
+             scrollView.setContentOffset(CGPoint(x: 0, y: -pullToMarkMistakeLabel.frame.height), animated: true)
+        }
+//        scrollView.setContentOffset(CGPoint(x: 0, y: -pullToMarkMistakeLabel.frame.height), animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -35,16 +70,6 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         var cell = tableView.dequeueReusableCellWithIdentifier("word") as! GuessedWordCell
         cell.wordLabel.text = wordList[indexPath.row]
         return cell
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        view.backgroundColor = UIColor.redColor()
-        return view
     }
     
     
@@ -59,6 +84,14 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
+    }
+    
+    func touchEnded() {
+        
+    }
+    
+    func requiredTouchDurationReached() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // MARK: - Navigation

@@ -11,11 +11,11 @@ import Foundation
 class Round: NSObject {
     
     var number: Int = 0
-    var speaker: String = ""
-    var listener: String = ""
+    var speaker: Player
+    var listener: Player
     var guessedWords: [String] = []
     
-    init(number: Int, speaker: String, listener: String) {
+    init(number: Int, speaker: Player, listener: Player) {
         self.number = number
         self.speaker = speaker
         self.listener = listener

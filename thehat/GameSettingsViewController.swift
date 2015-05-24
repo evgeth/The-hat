@@ -8,6 +8,8 @@
 
 import UIKit
 
+let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
+
 class GameSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var roundTimeLabel: UILabel!
@@ -15,7 +17,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     var isReadyToDeleteRow: Bool = false
     var readyToDeleteRow: Int = 0
     var players: [String] = ["", "", "", ""]
-    var delegate: GameDelegate?
+    var gameInstance: Game?
     
     @IBOutlet weak var stepper: UIStepper!
     
@@ -27,6 +29,21 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         playersTableView.delegate = self
         
         playersTableView.setEditing(true, animated: true)
+        roundTimeLabel.text = "\(Int(stepper.value))"
+        
+        if gameInstance != nil {
+            if gameInstance!.players.count != 0 {
+                var playersList = [String]()
+                for player in gameInstance!.players {
+                    playersList.append(player.name)
+                }
+                players = playersList
+            }
+            
+        }
+        
+        setNavigationBarTitleWithCustomFont("Game Settings")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,14 +57,12 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func roundTimeChanged(sender: UIStepper) {
         roundTimeLabel.text = "\(Int(sender.value))"
-        
     }
     
     
     
     @IBAction func cellLeftSwipe(sender: UISwipeGestureRecognizer) {
         if (sender.state == UIGestureRecognizerState.Ended) {
-            println(players)
             let swipeLocation = sender.locationInView(playersTableView)
             let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
             if swipedIndexPath == nil || swipedIndexPath?.row == players.count || isReadyToDeleteRow {
@@ -95,7 +110,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func deleteButtonPressed(sender: UIButton) {
-        println("should delete")
         if let cell = sender.superview?.superview as? UITableViewCell {
             let indexPath = playersTableView.indexPathForCell(cell)
             hideDeleteButton()
@@ -123,7 +137,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         deleteButton.alpha = 0
         hideButton.enabled = false
         if isReadyToDeleteRow && readyToDeleteRow == indexPath.row {
-            println("here")
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 deleteButton.alpha = 1
             })
@@ -190,11 +203,50 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Start Round" {
             if let destinationVC = segue.destinationViewController as? PreparationViewController {
-                destinationVC.delegate = self.delegate
-                delegate?.setPlayers(players)
-                delegate?.game().roundDuration = Float(Int(stepper.value))
+                destinationVC.gameInstance = self.gameInstance
+                var playersList: [Player] = []
+                for playerName in players {
+                    playersList.append(Player(name: playerName))
+                }
+                gameInstance?.players = playersList
+                gameInstance?.roundDuration = Float(Int(stepper.value))
+                gameInstance?.rounds = []
+                gameInstance?.initFirstRound()
+                gameInstance?.updatePool()
             }
         }
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        println("should")
+        if identifier == "Start Round" {
+            println("should perform segue for round")
+            if gameInstance!.didWordsLoad == false {
+                println("didWordsLoad = false")
+                var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("wordsLoadedNotificationArrived:"), name: loadedWordsNotifictionKey, object: nil)
+                activityIndicator.center = view.center
+                activityIndicator.hidden = false
+                activityIndicator.startAnimating()
+//                self.view.addSubview(activityIndicator)
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+                return false
+            } else {
+                return true
+            }
+        }
+        return true
+    }
+    
+    func wordsLoadedNotificationArrived(notification: NSNotification) {
+        println("notification arrived")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("startRound"))
+        startRound()
+    }
+    
+    func startRound() {
+        println("up to make segue")
+        self.performSegueWithIdentifier("Start Round", sender: nil)
     }
     
     /*
@@ -208,3 +260,4 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     */
 
 }
+

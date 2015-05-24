@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuController: UIViewController, UIPopoverPresentationControllerDelegate, GameDelegate {
+class MenuController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     var gameInstance: Game!
     
@@ -19,10 +19,14 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         gameInstance = Game()
+        
+        self.gameInstance.loadWords()
         newGameLabel.layer.cornerRadius = 15
         newGameLabel.layer.masksToBounds = true
         rulesLabel.layer.cornerRadius = 12
         rulesLabel.layer.masksToBounds = true
+        
+//        UIBarButtonItem.appearance().setTitleTextAttributes(<#attributes: [NSObject : AnyObject]!#>, forState: <#UIControlState#>)
         
     }
     
@@ -33,6 +37,7 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     override func viewWillDisappear(animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,7 +55,7 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
             }
         } else if segue.identifier == "New Game" {
             if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
-                destinationVC.delegate = self
+                destinationVC.gameInstance = self.gameInstance
             }
         }
     }
@@ -58,39 +63,7 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     // Game Delegate implementation
     
     
-    func setPlayers(players: [String]) {
-        gameInstance.players = players
-    }
-    
-    func nextRound() {
-        gameInstance.nextRound()
-    }
-    
-    func state() -> (Int, Int) {
-        return gameInstance.state
-    }
-    
-    func currentPlayers() -> (String, String) {
-        let state = gameInstance.state
-        return (gameInstance.players[state.0], gameInstance.players[state.1])
-    }
-    
-    func getWord() -> String {
-        return gameInstance.getWord()
-    }
-    
-    func game() -> Game {
-        return gameInstance
-    }
-    
-    func getRoundNumber() -> Int {
-        return gameInstance.roundNumber
-    }
-    
-    func setGuessedWordsInRound(guessedWords: [String]) {
-        gameInstance.rounds.last?.guessedWords = guessedWords
-        println(guessedWords)
-    }
+   
 
 }
 
