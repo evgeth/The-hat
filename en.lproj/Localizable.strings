@@ -1,0 +1,12 @@
+/* 
+  russian.strings
+  thehat
+
+  Created by Eugene Yurtaev on 29/05/15.
+  Copyright (c) 2015 dpfbop. All rights reserved.
+*/
+
+NEW_GAME = "New Game";
+CONTINUE = "Continue";
+
+"WORDS_FILE" = "english";

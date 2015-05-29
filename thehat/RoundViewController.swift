@@ -19,7 +19,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var timerRate: Float = 0.01
     
     var currentWord: String!
-    var wordsGuessed = [String]()
+    var wordsGuessed = [Word]()
     
     var isRoundEnded = false
     var isBasicTimeEnded = false
@@ -74,7 +74,9 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
                 timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
                 timerLabel.text = "\(Int(secondsLeft))"
             } else {
-                timerLabel.text = "\(Int(secondsLeft + 1))"
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    self.timerLabel.text = "\(Int(self.secondsLeft + 1))"
+                })
             }
         } else {
             timerLabel.text = "\(Int(secondsLeft + 1))"
@@ -97,9 +99,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     func endRound() {
         if !isRoundVCDismissed {
-            var round = gameInstance!.getCurrentRound()
-            gameInstance?.setGuessedWordsForRound(self.wordsGuessed, roundIndex: round.number)
             gameInstance?.nextRound()
+            gameInstance?.setGuessedWordsForRound(self.wordsGuessed)
             dismissViewControllerAnimated(true, completion: nil)
             isRoundVCDismissed = true
         }
@@ -128,7 +129,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
 
     @IBAction func guessed(sender: AnyObject) {
-        wordsGuessed.append(currentWord)
+        wordsGuessed.append(Word(word: currentWord))
+        wordsGuessed.last!.state = .Guessed
         if isBasicTimeEnded {
             setRoundEndedState()
             endRound()
@@ -142,6 +144,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     func requiredTouchDurationReached() {
+        wordsGuessed.append(Word(word: currentWord))
+        wordsGuessed.last!.state = State.Fail
         endRound()
     }
     

@@ -1,20 +1,24 @@
 //
-//  GuessedWordCell.swift
+//  PlayerTableViewCell.swift
 //  thehat
 //
-//  Created by Eugene Yurtaev on 18/05/15.
+//  Created by Eugene Yurtaev on 25/05/15.
 //  Copyright (c) 2015 dpfbop. All rights reserved.
 //
 
 import UIKit
 
-class GuessedWordCell: UITableViewCell {
+class PlayerTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var playerLabel: UITextField!
+    
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var hideButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

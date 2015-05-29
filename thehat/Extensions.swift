@@ -19,12 +19,6 @@ extension UIViewController {
     }
 }
 
-//extension UIColor {
-//    convenience init(r: Int, g: Int, b: Int, a: Int) {
-//        self.init(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(a) / 100.0)
-//    }
-//}
-
 
 extension UIColor
 {
@@ -36,5 +30,14 @@ extension UIColor
         let newAlpha = CGFloat(Double(a) / 100.0)
         
         self.init(red: newRed, green: newGreen, blue: newBlue, alpha: newAlpha)
+    }
+}
+
+extension Array {
+    mutating func shuffle() {
+        for i in 0..<(count - 1) {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            swap(&self[i], &self[j])
+        }
     }
 }

@@ -16,9 +16,16 @@ enum State {
 class Word: NSObject {
     var word: String = ""
     var state: State = .New
+    var complexity = 0
     
-    init(var word: String) {
+    init(word: String) {
         self.word = word
         self.state = State.New
+    }
+    
+    init(word: String, complexity: Int) {
+        self.word = word
+        self.state = State.New
+        self.complexity = complexity
     }
 }

@@ -8,12 +8,14 @@
 
 import UIKit
 
-class MenuController: UIViewController, UIPopoverPresentationControllerDelegate {
+class MenuController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
 
     var gameInstance: Game!
     
     @IBOutlet weak var newGameLabel: UILabel!
+    @IBOutlet weak var holdToStartNewGameLabel: UILabel!
     @IBOutlet weak var rulesLabel: UILabel!
+    @IBOutlet weak var newGameView: ColorChangingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +27,11 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate 
         newGameLabel.layer.masksToBounds = true
         rulesLabel.layer.cornerRadius = 12
         rulesLabel.layer.masksToBounds = true
-        
-//        UIBarButtonItem.appearance().setTitleTextAttributes(<#attributes: [NSObject : AnyObject]!#>, forState: <#UIControlState#>)
-        
+        initNewGameButton()
     }
     
     override func viewWillAppear(animated: Bool) {
+        initNewGameButton()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
@@ -43,6 +44,18 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate 
         // Dispose of any resources that can be recreated.
     }
     
+    func initNewGameButton() {
+        if gameInstance.isGameInProgress {
+            holdToStartNewGameLabel.hidden = false
+            newGameLabel.text = NSLocalizedString("CONTINUE", comment: "Continue")
+            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 250, b: 130, a: 90), requiredTouchDuration: 0.6, delegate: self)
+        } else {
+            holdToStartNewGameLabel.hidden = true
+            newGameLabel.text = NSLocalizedString("NEW_GAME",comment:"New Game")
+            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 236, b: 158, a: 80), requiredTouchDuration: 100, delegate: self)
+        }
+    }
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
     }
@@ -53,15 +66,30 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate 
                 destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
                 destinationViewController.popoverPresentationController!.delegate = self
             }
-        } else if segue.identifier == "New Game" {
+        } else if segue.identifier == "New Game Segue" {
             if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
+                destinationVC.gameInstance = self.gameInstance
+            }
+        } else if segue.identifier == "Continue Segue" {
+            if let destinationVC = segue.destinationViewController as? PreparationViewController {
                 destinationVC.gameInstance = self.gameInstance
             }
         }
     }
     
-    // Game Delegate implementation
+    func touchEnded() {
+        if gameInstance.isGameInProgress {
+            performSegueWithIdentifier("Continue Segue", sender: nil)
+        } else {
+            performSegueWithIdentifier("New Game Segue", sender: nil)
+        }
+    }
     
+    func requiredTouchDurationReached() {
+        if gameInstance.isGameInProgress {
+            performSegueWithIdentifier("New Game Segue", sender: nil)
+        }
+    }
     
    
 

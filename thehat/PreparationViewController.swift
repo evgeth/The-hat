@@ -19,6 +19,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     @IBOutlet weak var startButtonView: ColorChangingView!
     var inactiveColor: UIColor!
     @IBOutlet weak var holdToStartLabel: UILabel!
+    @IBOutlet weak var startLabel: UILabel!
     var notUndestandingHowToStartCounter = 0
     
     var isProceedingToResults: Bool = false
@@ -39,9 +40,6 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     override func viewWillAppear(animated: Bool) {
-        if (gameInstance!.isNoMoreWords) {
-            proceedToResults()
-        }
         
         if let currentPlayers = gameInstance?.currentPlayers() {
             speaker.text = currentPlayers.0.name
@@ -50,8 +48,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         
         if gameInstance != nil {
-            if gameInstance!.isNoMoreWords {
-                proceedToResults()
+            if (gameInstance!.isNoMoreWords) {
+                startLabel.text = "Finish"
             }
             let roundNumber = gameInstance!.getCurrentRound().number
             self.navigationItem.title = ""
@@ -79,10 +77,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func closeButtonPressed() {
-//        var menuVC = storyboard?.instantiateViewControllerWithIdentifier("Menu Controller") as! MenuController
         navigationController?.popToRootViewControllerAnimated(true)
-//        navigationController?.pushViewController(menuVC, animated: true)
-//        presentViewController(menuVC, animated: true, completion: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -116,6 +111,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func touchEnded() {
+        if (gameInstance!.isNoMoreWords) {
+            proceedToResults()
+        }
         notUndestandingHowToStartCounter += 1
         if notUndestandingHowToStartCounter == 2 {
             UIView.animateWithDuration(0.2, animations: { () -> Void in
@@ -126,7 +124,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     
     func requiredTouchDurationReached() {
         if (gameInstance!.isNoMoreWords) {
-            proceedToResults()
+//            proceedToResults()
         }
         var roundVC = storyboard?.instantiateViewControllerWithIdentifier("RoundViewController") as! RoundViewController
         roundVC.gameInstance = self.gameInstance

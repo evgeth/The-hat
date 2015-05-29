@@ -19,6 +19,6 @@ protocol WordsLoaderDelegate {
 //    func getCurrentRound() -> Round?
 //    func setGuessedWordsInRound([String])
     
-    func getWords(count: Int) -> [String]
+    func getWords(count: Int, averageDifficulty: Int) -> [String]
     
 }

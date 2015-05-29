@@ -70,6 +70,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func doneButtonPressed() {
+        gameInstance?.isGameInProgress = false
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     /*

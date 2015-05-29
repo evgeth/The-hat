@@ -13,7 +13,7 @@ class Round: NSObject {
     var number: Int = 0
     var speaker: Player
     var listener: Player
-    var guessedWords: [String] = []
+    var guessedWords = [Word]()
     
     init(number: Int, speaker: Player, listener: Player) {
         self.number = number

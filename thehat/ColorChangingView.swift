@@ -66,9 +66,9 @@ class ColorChangingView: UIView {
         }
         let finishColorComponents = CGColorGetComponents(finishColor.CGColor)
         let startColorComponents = CGColorGetComponents(startColor.CGColor)
-        
-        let percentage = CGFloat(touchDuration / requiredTouchDuration)
-        self.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
+
+        let percentage = min(CGFloat(touchDuration / requiredTouchDuration), 1.0)
+        self.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[3]) * percentage)
     }
     
 }

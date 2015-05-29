@@ -10,32 +10,41 @@ import Foundation
 
 //let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
 
+enum GameType {
+    case EachToEach, Pairs
+}
+
 class Game: NSObject {
     
-    var roundDuration: Float = 5
+    var isGameInProgress = false
+    
+    var roundDuration: Float = 20
+    var difficulty: Int = 50
     var extraRoundDuration: Float = 3
+    var type = GameType.EachToEach
+    var wordsPerPlayer = 10
     
     var players: [Player] = []
+    var previousPair: (Int, Int) = (0, 0)
     var playingPair: (Int, Int) = (0, 1)
     
-    var areWordsLoading = false
     
+    var isPoolShouldBeUpdated = true
+    var words = [Word]()
+    var newWords = Set<String>()
+    
+    var rounds = [Round]()
+    var roundNumber: Int = 0
+    
+    var areWordsLoading = false
     var didWordsLoad = false {
         didSet {
             if didWordsLoad == true && didWordsLoad != oldValue {
-                println("\(oldValue) -> \(didWordsLoad)")
                 NSNotificationCenter.defaultCenter().postNotificationName(loadedWordsNotifictionKey, object: nil)
             }
         }
     }
     var wordsLoader: WordsLoaderDelegate!
-    
-    var isPoolShouldBeUpdated = true
-    var words = [Word]()
-    var newWords: Set<Word> = Set<Word>()
-    
-    var rounds = [Round]()
-    var roundNumber: Int = 0
     
     var isNoMoreWords: Bool {
         get {
@@ -75,28 +84,39 @@ class Game: NSObject {
         if !isPoolShouldBeUpdated {
             return
         }
-        var wordsStrings: [String] = wordsLoader.getWords(players.count * 5)
-        var listOfWords: [Word] = []
+        var wordsStrings: [String] = wordsLoader.getWords(players.count * wordsPerPlayer, averageDifficulty: difficulty)
+        newWords.removeAll(keepCapacity: true)
         for word in wordsStrings {
-            newWords.insert(Word(word: word))
+            newWords.insert(word)
             words.append(Word(word: word))
         }
         isPoolShouldBeUpdated = false
     }
     
     func nextRound() {
-        playingPair.0 += 1
-        playingPair.1 += 1
-        playingPair.1 %= players.count
-        if playingPair.0 == players.count {
-            playingPair.0 = 0
+        previousPair = playingPair
+        roundNumber = roundNumber + 1
+        if type == GameType.EachToEach {
+            playingPair.0 += 1
             playingPair.1 += 1
             playingPair.1 %= players.count
+            if playingPair.0 == players.count {
+                playingPair.0 = 0
+                playingPair.1 += 1
+                playingPair.1 %= players.count
+            }
+            if playingPair.0 == 0 && playingPair.0 == playingPair.1 {
+                playingPair.1 += 1
+            }
+            
+        } else {
+            let numberOfPairs = Int(players.count / 2)
+            playingPair.0 = (roundNumber % numberOfPairs) * 2
+            playingPair.1 = (roundNumber % numberOfPairs) * 2 + 1
+            if (roundNumber / numberOfPairs) % 2 == 1 {
+                playingPair = (playingPair.1, playingPair.0)
+            }
         }
-        if playingPair.0 == 0 && playingPair.0 == playingPair.1 {
-            playingPair.1 += 1
-        }
-        roundNumber = roundNumber + 1
         rounds.append(Round(number: roundNumber, speaker: players[playingPair.0], listener: players[playingPair.1]))
     }
     
@@ -110,7 +130,7 @@ class Game: NSObject {
         for element in newWords {
             if currentIndex == index {
                 newWords.remove(element)
-                return element.word
+                return element
             }
             currentIndex += 1
         }
@@ -118,13 +138,21 @@ class Game: NSObject {
     }
     
     func initFirstRound() {
-        self.rounds = [Round]()
-        let players = currentPlayers()
-        rounds.append(Round(number: 0, speaker: players.0, listener: players.1))
+        if !isGameInProgress {
+            self.rounds = [Round]()
+            let curPlayers = currentPlayers()
+            rounds.append(Round(number: 0, speaker: curPlayers.0, listener: curPlayers.1))
+            isGameInProgress = true
+        }
     }
     
     func currentPlayers() -> (Player, Player) {
         let state = self.playingPair
+        return (self.players[state.0], self.players[state.1])
+    }
+    
+    func previousPlayers() -> (Player, Player) {
+        let state = self.previousPair
         return (self.players[state.0], self.players[state.1])
     }
     
@@ -135,19 +163,40 @@ class Game: NSObject {
         return self.rounds.last!
     }
     
-    func setGuessedWordsForRound(guessedWords: [String], roundIndex: Int) {
-        self.rounds.last?.guessedWords = guessedWords
-        var players = currentPlayers()
-        players.0.explained += guessedWords.count
-        players.1.guessed += guessedWords.count
+    func setGuessedWordsForRound(guessedWords: [Word]) {
+        var roundIndex = self.rounds.count - 2
+        if roundIndex < 0 || roundIndex >= rounds.count {
+            return
+        }
+        var round = rounds[roundIndex]
+        var players = previousPlayers()
+        if round.guessedWords.count == guessedWords.count {
+            for word in round.guessedWords {
+                if word.state == State.Guessed {
+                    players.0.explained -= 1
+                    players.1.guessed -= 1
+                } else if word.state == State.New {
+                    newWords.remove(word.word)
+                }
+            }
+        }
+        for word in guessedWords {
+            if word.state == State.Guessed {
+                players.0.explained += 1
+                players.1.guessed += 1
+            } else if word.state == State.New {
+                newWords.insert(word.word)
+            }
+        }
+        round.guessedWords = guessedWords
     }
     
     func reinitialize() {
-//        players = []
         initFirstRound()
         isPoolShouldBeUpdated = true
         updatePool()
         roundNumber = 0
+        previousPair = (0, 0)
         playingPair = (0, 1)
     }
 }
