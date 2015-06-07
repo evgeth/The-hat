@@ -41,7 +41,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         difficultyPicker.delegate = self
         difficultyPicker.dataSource = self
         
-        setNavigationBarTitleWithCustomFont("Game Settings")
+        setNavigationBarTitleWithCustomFont(NSLocalizedString("GAME_SETTINGS", comment: "Game Settings"))
         
         playersTableView.setEditing(true, animated: true)
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
@@ -164,6 +164,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             let indexPath = playersTableView.indexPathForCell(cell)
             if indexPath != nil {
                 players[countRowNumberForIndexPath(indexPath!)] = sender.text
+                println(players)
                 if countRowNumberForIndexPath(indexPath!) < players.count - 1 {
                     cell.playerLabel.returnKeyType = UIReturnKeyType.Next
                 } else {
@@ -210,7 +211,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             if players.count > 2 {
                 if isPairsMode() {
                     if indexPath?.section == playersTableView.numberOfSections() - 1 {
-                        players.removeAtIndex(indexPath!.row)
+                        players.removeAtIndex(countRowNumberForIndexPath(indexPath!))
                         if players.count % 2 == 1 {
                             numberOfRowsInLastSection = 2
                             playersTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -323,7 +324,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isPairsMode() {
-            return 20
+            return 22
         } else {
             return 0
         }
@@ -426,7 +427,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                     return false
                 }
             }
-            if players.count % 2 == 1 {
+            if isPairsMode() && players.count % 2 == 1 {
                 var alertView = UIAlertView(title: "Error", message: "Each pair should have exactly 2 players", delegate: nil, cancelButtonTitle: "Ok")
                 alertView.show()
                 return false

@@ -41,3 +41,12 @@ extension Array {
         }
     }
 }
+
+extension UIFont {
+    func sizeOfString (string: String, constrainedToWidth width: Double) -> CGSize {
+        return (string as NSString).boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
+            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+            attributes: [NSFontAttributeName: self],
+            context: nil).size
+    }
+}

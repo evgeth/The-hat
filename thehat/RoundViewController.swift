@@ -90,10 +90,12 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         timerView.percent = 0
         timerLabel.text = "0"
         isRoundEnded = true
+        wordsGuessed.append(Word(word: currentWord))
+        wordsGuessed.last!.state = State.New
         let transitionOptions = UIViewAnimationOptions.TransitionCurlUp
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
-            self.errorLabel.text = "No way (hold for mistake)"
+            self.errorLabel.text = NSLocalizedString("NO_WAY", comment: "No way (hold for mistake)")
         })
     }
     

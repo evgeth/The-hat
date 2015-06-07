@@ -38,6 +38,7 @@ class ColorChangingView: UIView {
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        delegate?.touchBegan?()
         startTouchTimer = NSTimer.scheduledTimerWithTimeInterval(timerRate, target: self, selector: "touchTimerFired", userInfo: nil, repeats: true)
     }
     

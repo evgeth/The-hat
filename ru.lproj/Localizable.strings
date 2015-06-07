@@ -9,4 +9,16 @@
 NEW_GAME = "Новая игра";
 CONTINUE = "Продолжить";
 
-"WORDS_FILE" = "russian";
+WORDS_FILE = "russian";
+
+GAME_SETTINGS = "Настройки игры";
+
+TIMER_STRING = "3. 2. 1. Старт!";
+
+WORDS_LEFT = "слов осталось";
+
+NO_WAY = "Не угадано (держите, если партнер ошибся)";
+
+FINISH = "Закончить";
+
+RESULTS = "Результаты";

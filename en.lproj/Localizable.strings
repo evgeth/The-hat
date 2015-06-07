@@ -9,4 +9,16 @@
 NEW_GAME = "New Game";
 CONTINUE = "Continue";
 
-"WORDS_FILE" = "english";
+WORDS_FILE = "english";
+
+GAME_SETTINGS = "Game Settings";
+
+TIMER_STRING = "3. 2. 1. Start!";
+
+WORDS_LEFT = "words left";
+
+NO_WAY = "No way (hold for mistake)";
+
+FINISH = "Finish";
+
+RESULTS = "Results";

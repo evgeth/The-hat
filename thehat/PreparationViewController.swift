@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
     var gameInstance: Game?
@@ -24,6 +25,11 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     
     var isProceedingToResults: Bool = false
     
+    
+    let synth = AVSpeechSynthesizer()
+    var myUtterance = AVSpeechUtterance(string: "")
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +40,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(startColor: inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 0.5, delegate: self)
+        startButtonView.initializer(startColor: inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.5, delegate: self)
         
         
     }
@@ -49,7 +55,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         if gameInstance != nil {
             if (gameInstance!.isNoMoreWords) {
-                startLabel.text = "Finish"
+                startLabel.text = NSLocalizedString("FINISH", comment: "Finish")
             }
             let roundNumber = gameInstance!.getCurrentRound().number
             self.navigationItem.title = ""
@@ -61,10 +67,10 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
                 navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!, NSForegroundColorAttributeName : UIColor.redColor()], forState: UIControlState.Normal)
             }
 //            setNavigationBarTitleWithCustomFont("№\(roundNumber + 1)")
-            var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance!.newWords.count) words left", constrainedToWidth: 200)
+            var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
             size.width += 10
             var label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-            label.text = "\(gameInstance!.newWords.count) words left"
+            label.text = "\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
             label.textColor = view.tintColor
             label.font = UIFont(name: "Avenir Next", size: 18)
             label.textAlignment = NSTextAlignment.Right
@@ -110,7 +116,15 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         return .None
     }
     
+    func touchBegan() {
+        myUtterance = AVSpeechUtterance(string: NSLocalizedString("TIMER_STRING", comment: "3. 2. 1.   Go!"))
+        myUtterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
+        myUtterance.rate = 0.07
+        synth.speakUtterance(myUtterance)
+    }
+    
     func touchEnded() {
+        synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         if (gameInstance!.isNoMoreWords) {
             proceedToResults()
         }
@@ -148,11 +162,3 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
 }
 
-extension UIFont {
-    func sizeOfString (string: String, constrainedToWidth width: Double) -> CGSize {
-        return (string as NSString).boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
-            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: self],
-            context: nil).size
-    }
-}
