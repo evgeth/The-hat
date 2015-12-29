@@ -40,7 +40,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(startColor: inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.5, delegate: self)
+        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.5, delegate: self)
         
         
     }
@@ -61,7 +61,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             self.navigationItem.title = ""
             if roundNumber != 0 {
                 self.navigationItem.setHidesBackButton(true, animated: false)
-                var editWordsImage = UIImage(named: "Edit words")
+                let editWordsImage = UIImage(named: "Edit words")
                 self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .Plain, target: self, action: Selector("editGuessedWords"))
             } else {
                 navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!, NSForegroundColorAttributeName : UIColor.redColor()], forState: UIControlState.Normal)
@@ -69,7 +69,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
 //            setNavigationBarTitleWithCustomFont("№\(roundNumber + 1)")
             var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
             size.width += 10
-            var label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+            let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
             label.text = "\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
             label.textColor = view.tintColor
             label.font = UIFont(name: "Avenir Next", size: 18)
@@ -96,11 +96,11 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func editGuessedWords() {
-        var editWordsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("EditGuessedWords") as! EditWordsGuessedViewController
+        let editWordsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("EditGuessedWords") as! EditWordsGuessedViewController
         editWordsViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         editWordsViewController.gameInstance = self.gameInstance
         
-        var popoverPC = editWordsViewController.popoverPresentationController
+        let popoverPC = editWordsViewController.popoverPresentationController
         popoverPC!.delegate = self
         popoverPC!.barButtonItem = self.navigationItem.leftBarButtonItem
         popoverPC!.backgroundColor = UIColor.whiteColor()
@@ -117,6 +117,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func touchBegan() {
+        if gameInstance!.isNoMoreWords {
+            return
+        }
         myUtterance = AVSpeechUtterance(string: NSLocalizedString("TIMER_STRING", comment: "3. 2. 1.   Go!"))
         myUtterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
         myUtterance.rate = 0.07
@@ -127,6 +130,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         if (gameInstance!.isNoMoreWords) {
             proceedToResults()
+            return
         }
         notUndestandingHowToStartCounter += 1
         if notUndestandingHowToStartCounter == 2 {
@@ -138,9 +142,10 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     
     func requiredTouchDurationReached() {
         if (gameInstance!.isNoMoreWords) {
-//            proceedToResults()
+            proceedToResults()
+            return
         }
-        var roundVC = storyboard?.instantiateViewControllerWithIdentifier("RoundViewController") as! RoundViewController
+        let roundVC = storyboard?.instantiateViewControllerWithIdentifier("RoundViewController") as! RoundViewController
         roundVC.gameInstance = self.gameInstance
         self.presentViewController(roundVC, animated: true, completion: nil)
     }

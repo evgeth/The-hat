@@ -29,18 +29,18 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         if isPairsMode() {
-            for (index, player) in enumerate(gameInstance?.players ?? []) {
+            for (index, player) in (gameInstance?.players ?? []).enumerate() {
                 if index % 2 == 0 {
-                    var element = PlayersPair(first: gameInstance!.players[index], second: gameInstance!.players[index + 1])
+                    let element = PlayersPair(first: gameInstance!.players[index], second: gameInstance!.players[index + 1])
                     sortedPairs.append(element)
                 }
             }
-            sortedPairs = sorted(sortedPairs, { (a: PlayersPair , b: PlayersPair) -> Bool in
+            sortedPairs = sortedPairs.sort({ (a: PlayersPair , b: PlayersPair) -> Bool in
                 return a.first.score + a.second.score > b.first.score + b.second.score
             })
         } else {
             sortedPlayers = gameInstance?.players ?? []
-            sortedPlayers = sorted(sortedPlayers, { (a: Player, b: Player) -> Bool in
+            sortedPlayers = sortedPlayers.sort({ (a: Player, b: Player) -> Bool in
                 return a.score > b.score
             })
         }
@@ -63,15 +63,15 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if isPairsMode() {
             if indexPath.section == 0 {
-                return tableView.dequeueReusableCellWithIdentifier("Header Cell") as! UITableViewCell
+                return tableView.dequeueReusableCellWithIdentifier("Header Cell")! as UITableViewCell
             } else {
-                var playersPair = sortedPairs[indexPath.section - 1]
+                let playersPair = sortedPairs[indexPath.section - 1]
                 let player = indexPath.row == 0 ? playersPair.first : playersPair.second
                 return playerCellForPlayer(tableView, player: player)
             }
         } else {
             if indexPath.row == 0 {
-                return tableView.dequeueReusableCellWithIdentifier("Header Cell") as! UITableViewCell
+                return tableView.dequeueReusableCellWithIdentifier("Header Cell")! as UITableViewCell
             } else {
                 let player = sortedPlayers[indexPath.row - 1]
                 return playerCellForPlayer(tableView, player: player)
@@ -80,7 +80,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func playerCellForPlayer(tableView: UITableView, player: Player) -> PlayerResultCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Player Result Cell") as? PlayerResultCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Player Result Cell") as? PlayerResultCell
         cell?.playerNameLabel.text = player.name
         cell?.playerExplainedLabel.text = "\(player.explained)"
         cell?.playerGuessedLabel.text = "\(player.guessed)"

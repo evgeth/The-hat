@@ -24,11 +24,11 @@ class TimerView: UIView {
     }
     
     override func drawRect(rect: CGRect) {
-        var bezierPath = UIBezierPath()
-        var center = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
+        let bezierPath = UIBezierPath()
+        let center = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
         bezierPath.addArcWithCenter(center, radius: CGFloat(47.0), startAngle: degreesToRadians(-90), endAngle: degreesToRadians(270) - degreesToRadians(360) * (1 - percent), clockwise: true)
         bezierPath.lineWidth = 6
-        bezierPath.lineCapStyle = kCGLineCapRound
+        bezierPath.lineCapStyle = CGLineCap.Round
         if percent < 0 {
             UIColor.redColor().setStroke()
         } else {

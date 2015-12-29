@@ -11,8 +11,8 @@ import UIKit
 
 extension UIViewController {
     func setNavigationBarTitleWithCustomFont(title: String) {
-        var size = UIFont(name: "Avenir Next", size: 18)?.sizeOfString(title, constrainedToWidth: 200)
-        var label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size!))
+        let size = UIFont(name: "Avenir Next", size: 18)?.sizeOfString(title, constrainedToWidth: 200)
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size!))
         label.text = title
         label.font = UIFont(name: "Avenir Next", size: 18)
         self.navigationItem.titleView = label

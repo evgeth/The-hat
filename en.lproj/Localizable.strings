@@ -22,3 +22,5 @@ NO_WAY = "No way (hold for mistake)";
 FINISH = "Finish";
 
 RESULTS = "Results";
+
+RULES = "Rules";

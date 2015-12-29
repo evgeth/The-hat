@@ -26,7 +26,7 @@ class ColorChangingView: UIView {
     var touchDuration: Double = 0
     var delegate: ColorChangingViewDelegate?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -37,17 +37,17 @@ class ColorChangingView: UIView {
         self.delegate = delegate
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         delegate?.touchBegan?()
         startTouchTimer = NSTimer.scheduledTimerWithTimeInterval(timerRate, target: self, selector: "touchTimerFired", userInfo: nil, repeats: true)
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         delegate?.touchEnded?()
         clearTouchTimer()
     }
     
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         clearTouchTimer()
     }
     

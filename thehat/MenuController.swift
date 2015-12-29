@@ -48,11 +48,11 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
         if gameInstance.isGameInProgress {
             holdToStartNewGameLabel.hidden = false
             newGameLabel.text = NSLocalizedString("CONTINUE", comment: "Continue")
-            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 250, b: 130, a: 90), requiredTouchDuration: 0.6, delegate: self)
+            newGameView.initializer(UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 250, b: 130, a: 90), requiredTouchDuration: 0.6, delegate: self)
         } else {
             holdToStartNewGameLabel.hidden = true
             newGameLabel.text = NSLocalizedString("NEW_GAME",comment:"New Game")
-            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 236, b: 158, a: 80), requiredTouchDuration: 100, delegate: self)
+            newGameView.initializer(UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 236, b: 158, a: 80), requiredTouchDuration: 100, delegate: self)
         }
     }
     
@@ -63,8 +63,8 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Rules Segue" {
             if let destinationViewController = segue.destinationViewController as? UIViewController {
-                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
-                destinationViewController.popoverPresentationController!.delegate = self
+//                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
+//                destinationViewController.popoverPresentationController!.delegate = self
             }
         } else if segue.identifier == "New Game Segue" {
             if let destinationVC = segue.destinationViewController as? GameSettingsViewController {

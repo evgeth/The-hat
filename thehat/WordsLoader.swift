@@ -16,7 +16,7 @@ class LocalWordsLoader: WordsLoaderDelegate {
         let jsonData = NSData.dataWithContentsOfMappedFile(path!) as! NSData
         let json = JSON(data: jsonData)
         let listOfWordsInJson = json["words"]
-        for (index: String, subJson: JSON) in listOfWordsInJson {
+        for (index, subJson): (String, JSON) in listOfWordsInJson {
             localPool.append(Word(word: subJson["word"].stringValue, complexity: subJson["complexity"].intValue))
         }
     }
@@ -33,7 +33,7 @@ class LocalWordsLoader: WordsLoaderDelegate {
         }
         localPoolWithDifficulty.shuffle()
         
-        for (index, word) in enumerate(localPoolWithDifficulty) {
+        for (index, word) in localPoolWithDifficulty.enumerate() {
             list.append(word.word)
             if list.count == numberOfWordsRequired {
                 break

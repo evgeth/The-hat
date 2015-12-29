@@ -14,6 +14,7 @@ class PlayerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var hideButton: UIButton!
+    var delegate: PlayerTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,4 +28,8 @@ class PlayerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func deleteButtonPressed(sender: UIButton) {
+        let indexPath = delegate?.indexPathForCell(self)
+        delegate?.deleteButtonPressed(indexPath!)
+    }
 }

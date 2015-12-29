@@ -16,6 +16,8 @@ enum GameType {
 
 class Game: NSObject {
     
+    static let gameInstance = Game()
+    
     var isGameInProgress = false
     
     var roundDuration: Float = 20
@@ -84,7 +86,7 @@ class Game: NSObject {
         if !isPoolShouldBeUpdated {
             return
         }
-        var wordsStrings: [String] = wordsLoader.getWords(players.count * wordsPerPlayer, averageDifficulty: difficulty)
+        let wordsStrings: [String] = wordsLoader.getWords(players.count * wordsPerPlayer, averageDifficulty: difficulty)
         newWords.removeAll(keepCapacity: true)
         for word in wordsStrings {
             newWords.insert(word)
@@ -125,7 +127,7 @@ class Game: NSObject {
         if newWords.count == 0 {
             return ""
         }
-        var index = Int(arc4random() % UInt32(newWords.count))
+        let index = Int(arc4random() % UInt32(newWords.count))
         var currentIndex = 0
         for element in newWords {
             if currentIndex == index {
@@ -164,12 +166,12 @@ class Game: NSObject {
     }
     
     func setGuessedWordsForRound(guessedWords: [Word]) {
-        var roundIndex = self.rounds.count - 2
+        let roundIndex = self.rounds.count - 2
         if roundIndex < 0 || roundIndex >= rounds.count {
             return
         }
-        var round = rounds[roundIndex]
-        var players = previousPlayers()
+        let round = rounds[roundIndex]
+        let players = previousPlayers()
         if round.guessedWords.count == guessedWords.count {
             for word in round.guessedWords {
                 if word.state == State.Guessed {

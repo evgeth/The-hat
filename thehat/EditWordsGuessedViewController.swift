@@ -32,7 +32,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
             }
         }
         
-        var label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
+        let label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
         label.font = UIFont(name: "Avenir Next", size: 24)
         label.text = "Pull to mark mistake"
         label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
@@ -47,8 +47,8 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         pullToMarkMistakeLabel.frame.size = CGSize(width: scrollView.frame.width, height: pullToMarkMistakeLabel.frame.height)
-        var percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
-        var color = UIColor(r: 180, g: 60, b: 10, a: 80)
+        let percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
+        let color = UIColor(r: 180, g: 60, b: 10, a: 80)
         let finishColorComponents = CGColorGetComponents(color.CGColor)
         let startColorComponents = CGColorGetComponents(UIColor(r: 203, g: 222, b: 203, a: 80).CGColor)
         pullToMarkMistakeLabel.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
@@ -71,7 +71,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("word") as! GuessedWordCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("word") as! GuessedWordCell
         cell.wordLabel.text = wordList[indexPath.row].word
         if wordList[indexPath.row].state == State.Fail {
             
@@ -94,7 +94,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var cell = tableView.cellForRowAtIndexPath(indexPath) as! GuessedWordCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! GuessedWordCell
         cell.wordLabel.textColor = UIColor.blackColor()
         if wordList[indexPath.row].state == State.Guessed{
             cell.accessoryType = UITableViewCellAccessoryType.None
