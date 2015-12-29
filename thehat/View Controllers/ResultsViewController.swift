@@ -29,7 +29,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         if isPairsMode() {
-            for (index, player) in (gameInstance?.players ?? []).enumerate() {
+            for (index, _) in (gameInstance?.players ?? []).enumerate() {
                 if index % 2 == 0 {
                     let element = PlayersPair(first: gameInstance!.players[index], second: gameInstance!.players[index + 1])
                     sortedPairs.append(element)

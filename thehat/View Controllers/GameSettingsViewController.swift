@@ -75,30 +75,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         return 5
     }
     
-//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        var difficulties = [
-//            NSLocalizedString("VERY_EASY", comment: "difficulty"),
-//            NSLocalizedString("EASY", comment: "difficulty"),
-//            NSLocalizedString("NORMAL", comment: "difficulty"),
-//            NSLocalizedString("HARD", comment: "difficulty"),
-//            NSLocalizedString("VERY_HARD", comment: "difficulty")
-//        ]
-//        return difficulties[row]
-//    }
-    
-//    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//        var difficulties = [
-//            NSLocalizedString("VERY_EASY", comment: "difficulty"),
-//            NSLocalizedString("EASY", comment: "difficulty"),
-//            NSLocalizedString("NORMAL", comment: "difficulty"),
-//            NSLocalizedString("HARD", comment: "difficulty"),
-//            NSLocalizedString("VERY_HARD", comment: "difficulty")
-//        ]
-//        let attrs = [NSFontAttributeName : UIFont.systemFontOfSize(8.0)]
-//        let rowTitle = NSAttributedString(string: difficulties[row], attributes: attrs)
-//        return rowTitle
-//    }
-    
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         var difficulties = [
             NSLocalizedString("VERY_EASY", comment: "difficulty"),
@@ -109,7 +85,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         ]
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSizeForComponent(component)))
         label.text = difficulties[row]
-        label.font = UIFont.systemFontOfSize(14)
+        label.font = UIFont.systemFontOfSize(16)
         label.textAlignment = NSTextAlignment.Center
         
         return label
@@ -162,7 +138,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             if isPairsMode() && swipedIndexPath!.section != playersTableView.numberOfSections - 1 {
                 return
             }
-            var swipedCell = playersTableView.cellForRowAtIndexPath(swipedIndexPath!)! as UITableViewCell
             
             
             isReadyToDeleteRow = true
@@ -297,11 +272,11 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         if countRowNumberForIndexPath(indexPath) == players.count {
-            var cell = tableView.dequeueReusableCellWithIdentifier("Add Player")! as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("Add Player")! as UITableViewCell
             cell.showsReorderControl = false
             return cell
         }
-        var cell = tableView.dequeueReusableCellWithIdentifier("Player") as! PlayerTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Player") as! PlayerTableViewCell
         cell.showsReorderControl = true
         if let textField = cell.playerLabel {
             textField.text = players[countRowNumberForIndexPath(indexPath)]
@@ -312,8 +287,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 textField.returnKeyType = UIReturnKeyType.Done
             }
         }
-        var deleteButton = cell.deleteButton
-        var hideButton = cell.hideButton
+        let deleteButton = cell.deleteButton
+        let hideButton = cell.hideButton
         cell.delegate = self
         deleteButton.alpha = 0
         hideButton.enabled = false

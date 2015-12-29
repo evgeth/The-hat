@@ -73,15 +73,11 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
         let url = NSURL.fileURLWithPath(path!)
         
-        //2
-        var error: NSError?
         
-        //3
         var audioPlayer:AVAudioPlayer?
         do {
             audioPlayer = try AVAudioPlayer(contentsOfURL: url)
-        } catch let error1 as NSError {
-            error = error1
+        } catch _ as NSError {
             audioPlayer = nil
         }
         

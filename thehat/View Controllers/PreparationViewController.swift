@@ -40,7 +40,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.5, delegate: self)
+        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2, delegate: self)
         
         
     }
@@ -83,7 +83,16 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func closeButtonPressed() {
-        navigationController?.popToRootViewControllerAnimated(true)
+        let alert = UIAlertController(title: nil, /* NSLocalizedString("PAUSE_TITLE", comment: "stop or pause title") */ message: nil /* NSLocalizedString("PAUSE_OR_STOP", comment: "Pause or stop the game") */,  preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("PAUSE", comment: "pause"), style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("FINISH_GAME", comment: "finish game"), style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+            self.proceedToResults()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        //navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -134,7 +143,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             return
         }
         notUndestandingHowToStartCounter += 1
-        if notUndestandingHowToStartCounter == 2 {
+        if notUndestandingHowToStartCounter == 1 {
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.holdToStartLabel.hidden = false
             })

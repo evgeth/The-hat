@@ -62,10 +62,10 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Rules Segue" {
-            if let destinationViewController = segue.destinationViewController as? UIViewController {
+//            if let destinationViewController = segue.destinationViewController as? UIViewController {
 //                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
 //                destinationViewController.popoverPresentationController!.delegate = self
-            }
+//            }
         } else if segue.identifier == "New Game Segue" {
             if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
                 destinationVC.gameInstance = self.gameInstance

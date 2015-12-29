@@ -32,3 +32,10 @@ EASY = "Easy";
 VERY_EASY = "Very easy";
 
 NOT_ENOUGH_PLAYERS_IN_PAIR = "Each pair should have exactly 2 players";
+
+PAUSE_TITLE = "Pause";
+PAUSE_OR_STOP = "Pause or finish the game?";
+PAUSE = "Pause game";
+FINISH_GAME = "Finish game";
+CANCEL = "Cancel";
+

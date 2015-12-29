@@ -16,14 +16,13 @@ class LocalWordsLoader: WordsLoaderDelegate {
         let jsonData = NSData.dataWithContentsOfMappedFile(path!) as! NSData
         let json = JSON(data: jsonData)
         let listOfWordsInJson = json["words"]
-        for (index, subJson): (String, JSON) in listOfWordsInJson {
+        for (_, subJson): (String, JSON) in listOfWordsInJson {
             localPool.append(Word(word: subJson["word"].stringValue, complexity: subJson["complexity"].intValue))
         }
     }
     
-    func getWords(_ numberOfWordsRequired: Int = 5, averageDifficulty: Int = 50) -> [String] {
+    func getWords(numberOfWordsRequired: Int = 5, averageDifficulty: Int = 50) -> [String] {
         var list: [String] = []
-        var cnt = UInt32(localPool.count)
         var localPoolWithDifficulty = localPool.filter { (word: Word) -> Bool in
             if abs(word.complexity - averageDifficulty) <= 10 {
                 return true
@@ -33,7 +32,7 @@ class LocalWordsLoader: WordsLoaderDelegate {
         }
         localPoolWithDifficulty.shuffle()
         
-        for (index, word) in localPoolWithDifficulty.enumerate() {
+        for word in localPoolWithDifficulty {
             list.append(word.word)
             if list.count == numberOfWordsRequired {
                 break
