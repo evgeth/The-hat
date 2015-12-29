@@ -1,0 +1,108 @@
+
+/* Class = "UITextView"; text = "The hat is a game with words for fun persons! There are two types of game: \"pairs\" and \"each to each\". In first only you should split on pairs and fill in players name for each pair, in the second one you just should write down the name of players in order they seat. "; ObjectID = "01b-30-FPY"; */
+"01b-30-FPY.text" = "The hat is a game with words for fun persons! There are two types of game: \"pairs\" and \"each to each\". In first only you should split on pairs and fill in players name for each pair, in the second one you just should write down the name of players in order they seat. ";
+
+/* Class = "UILabel"; text = " New Game "; ObjectID = "2zt-I8-SZ0"; */
+"2zt-I8-SZ0.text" = " New Game ";
+
+/* Class = "UILabel"; text = "Got it!"; ObjectID = "3eF-Fx-WKY"; */
+"3eF-Fx-WKY.text" = "Got it!";
+
+/* Class = "UILabel"; text = "150"; ObjectID = "5fG-jO-qkq"; */
+"5fG-jO-qkq.text" = "150";
+
+/* Class = "UINavigationItem"; title = "Game Settings"; ObjectID = "65Q-aV-E5j"; */
+"65Q-aV-E5j.title" = "Game Settings";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "7ND-cm-xzJ"; */
+"7ND-cm-xzJ.normalTitle" = "Delete";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "7tg-kN-06j"; */
+"7tg-kN-06j.text" = "10";
+
+/* Class = "UILabel"; text = "About"; ObjectID = "8Dz-Qq-S6c"; */
+"8Dz-Qq-S6c.text" = "About";
+
+/* Class = "UILabel"; text = "Слово"; ObjectID = "BCx-Ef-QqN"; */
+"BCx-Ef-QqN.text" = "Слово";
+
+/* Class = "UILabel"; text = "Speaker"; ObjectID = "CSh-IQ-TNm"; */
+"CSh-IQ-TNm.text" = "Speaker";
+
+/* Class = "UILabel"; text = "Hold to start"; ObjectID = "Ctk-gz-toF"; */
+"Ctk-gz-toF.text" = "Hold to start";
+
+/* Class = "UILabel"; text = "Hold to start new game"; ObjectID = "Dah-f2-xeo"; */
+"Dah-f2-xeo.text" = "Hold to start new game";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "F4f-93-Lzp"; */
+"F4f-93-Lzp.text" = "20";
+
+/* Class = "UILabel"; text = "Rules"; ObjectID = "FDv-UO-ppZ"; */
+"FDv-UO-ppZ.text" = "Rules";
+
+/* Class = "UINavigationItem"; title = "Speak up"; ObjectID = "KI9-Yo-NdV"; */
+"KI9-Yo-NdV.title" = "Speak up";
+
+/* Class = "UILabel"; text = "200"; ObjectID = "Mii-4w-d09"; */
+"Mii-4w-d09.text" = "200";
+
+/* Class = "UILabel"; text = "150"; ObjectID = "QsY-1S-vss"; */
+"QsY-1S-vss.text" = "150";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "Shs-mB-PPh"; */
+"Shs-mB-PPh.title" = " ";
+
+/* Class = "UILabel"; text = "Round Length"; ObjectID = "VjE-2T-Kyx"; */
+"VjE-2T-Kyx.text" = "Round Length";
+
+/* Class = "UIBarButtonItem"; title = "65 words left"; ObjectID = "b0V-Qg-AkA"; */
+"b0V-Qg-AkA.title" = "65 words left";
+
+/* Class = "UINavigationItem"; title = "Results"; ObjectID = "bwk-th-A6z"; */
+"bwk-th-A6z.title" = "Results";
+
+/* Class = "UILabel"; text = "Listner"; ObjectID = "f7P-d3-4SX"; */
+"f7P-d3-4SX.text" = "Listner";
+
+/* Class = "UITextField"; placeholder = "Player "; ObjectID = "h8R-1U-bRg"; */
+"h8R-1U-bRg.placeholder" = "Player ";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "hKB-74-K8C"; */
+"hKB-74-K8C.text" = "20";
+
+/* Class = "UILabel"; text = "Game Type"; ObjectID = "hir-fP-4pP"; */
+"hir-fP-4pP.text" = "Game Type";
+
+/* Class = "UILabel"; text = "Word "; ObjectID = "jVy-lo-mMf"; */
+"jVy-lo-mMf.text" = "Word ";
+
+/* Class = "UINavigationItem"; title = "Round 1"; ObjectID = "k7g-4S-kVz"; */
+"k7g-4S-kVz.title" = "Round 1";
+
+/* Class = "UINavigationItem"; title = "Rules"; ObjectID = "kuF-C2-g5Q"; */
+"kuF-C2-g5Q.title" = "Rules";
+
+/* Class = "UILabel"; text = "Start"; ObjectID = "lGK-uW-8pb"; */
+"lGK-uW-8pb.text" = "Start";
+
+/* Class = "UILabel"; text = "Save"; ObjectID = "mFi-YB-Sja"; */
+"mFi-YB-Sja.text" = "Save";
+
+/* Class = "UILabel"; text = "Words per player"; ObjectID = "qIY-wF-OR4"; */
+"qIY-wF-OR4.text" = "Words per player";
+
+/* Class = "UISegmentedControl"; uDI-Wp-7rS.segmentTitles[0] = "Each to each"; ObjectID = "uDI-Wp-7rS"; */
+"uDI-Wp-7rS.segmentTitles[0]" = "Each to each";
+
+/* Class = "UISegmentedControl"; uDI-Wp-7rS.segmentTitles[1] = "Pairs"; ObjectID = "uDI-Wp-7rS"; */
+"uDI-Wp-7rS.segmentTitles[1]" = "Pairs";
+
+/* Class = "UINavigationItem"; title = "The Hat"; ObjectID = "up1-2g-wy8"; */
+"up1-2g-wy8.title" = "The Hat";
+
+/* Class = "UILabel"; text = "Mistake"; ObjectID = "vxi-vD-5Xo"; */
+"vxi-vD-5Xo.text" = "Mistake";
+
+/* Class = "UILabel"; text = "Player Name"; ObjectID = "xm5-yO-39g"; */
+"xm5-yO-39g.text" = "Player Name";

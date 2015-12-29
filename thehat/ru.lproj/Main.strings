@@ -20,11 +20,11 @@
 /* Class = "UILabel"; text = "10"; ObjectID = "7tg-kN-06j"; */
 "7tg-kN-06j.text" = "10";
 
-/* Class = "UILabel"; text = " Rules "; ObjectID = "8Dz-Qq-S6c"; */
-"8Dz-Qq-S6c.text" = "Правила";
+/* Class = "UILabel"; text = "About"; ObjectID = "8Dz-Qq-S6c"; */
+"8Dz-Qq-S6c.text" = "О приложении";
 
-/* Class = "UILabel"; text = "Слово"; ObjectID = "BCx-Ef-QqN"; */
-"BCx-Ef-QqN.text" = "Слово";
+/* Class = "UILabel"; text = "Word"; ObjectID = "BCx-Ef-QqN"; */
+"BCx-Ef-QqN.text" = "Word";
 
 /* Class = "UILabel"; text = "Speaker"; ObjectID = "CSh-IQ-TNm"; */
 "CSh-IQ-TNm.text" = "Speaker";
@@ -38,8 +38,8 @@
 /* Class = "UILabel"; text = "20"; ObjectID = "F4f-93-Lzp"; */
 "F4f-93-Lzp.text" = "20";
 
-/* Class = "UILabel"; text = "Statistics"; ObjectID = "FDv-UO-ppZ"; */
-"FDv-UO-ppZ.text" = "Статистика";
+/* Class = "UILabel"; text = "Rules"; ObjectID = "FDv-UO-ppZ"; */
+"FDv-UO-ppZ.text" = "Правила";
 
 /* Class = "UINavigationItem"; title = "Speak up"; ObjectID = "KI9-Yo-NdV"; */
 "KI9-Yo-NdV.title" = "Speak up";
@@ -49,9 +49,6 @@
 
 /* Class = "UILabel"; text = "150"; ObjectID = "QsY-1S-vss"; */
 "QsY-1S-vss.text" = "150";
-
-/* Class = "UIBarButtonItem"; title = "hjkn"; ObjectID = "S0K-D9-uym"; */
-"S0K-D9-uym.title" = "hjkn";
 
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "Shs-mB-PPh"; */
 "Shs-mB-PPh.title" = " ";
@@ -81,7 +78,10 @@
 "jVy-lo-mMf.text" = "Слово ";
 
 /* Class = "UINavigationItem"; title = "Round 1"; ObjectID = "k7g-4S-kVz"; */
-"k7g-4S-kVz.title" = "Раунд 1";
+"k7g-4S-kVz.title" = "Round 1";
+
+/* Class = "UINavigationItem"; title = "Rules"; ObjectID = "kuF-C2-g5Q"; */
+"kuF-C2-g5Q.title" = "Правила";
 
 /* Class = "UILabel"; text = "Start"; ObjectID = "lGK-uW-8pb"; */
 "lGK-uW-8pb.text" = "Старт";
@@ -105,4 +105,4 @@
 "vxi-vD-5Xo.text" = "Ошибка";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "xm5-yO-39g"; */
-"xm5-yO-39g.text" = "Имя игрока";
+"xm5-yO-39g.text" = "Player Name";
