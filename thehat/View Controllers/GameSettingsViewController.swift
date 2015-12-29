@@ -75,9 +75,44 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         return 5
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        var difficulties = ["Very Easy", "Easy", "Normal", "Hard", "Very Hard"]
-        return difficulties[row]
+//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        var difficulties = [
+//            NSLocalizedString("VERY_EASY", comment: "difficulty"),
+//            NSLocalizedString("EASY", comment: "difficulty"),
+//            NSLocalizedString("NORMAL", comment: "difficulty"),
+//            NSLocalizedString("HARD", comment: "difficulty"),
+//            NSLocalizedString("VERY_HARD", comment: "difficulty")
+//        ]
+//        return difficulties[row]
+//    }
+    
+//    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//        var difficulties = [
+//            NSLocalizedString("VERY_EASY", comment: "difficulty"),
+//            NSLocalizedString("EASY", comment: "difficulty"),
+//            NSLocalizedString("NORMAL", comment: "difficulty"),
+//            NSLocalizedString("HARD", comment: "difficulty"),
+//            NSLocalizedString("VERY_HARD", comment: "difficulty")
+//        ]
+//        let attrs = [NSFontAttributeName : UIFont.systemFontOfSize(8.0)]
+//        let rowTitle = NSAttributedString(string: difficulties[row], attributes: attrs)
+//        return rowTitle
+//    }
+    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        var difficulties = [
+            NSLocalizedString("VERY_EASY", comment: "difficulty"),
+            NSLocalizedString("EASY", comment: "difficulty"),
+            NSLocalizedString("NORMAL", comment: "difficulty"),
+            NSLocalizedString("HARD", comment: "difficulty"),
+            NSLocalizedString("VERY_HARD", comment: "difficulty")
+        ]
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSizeForComponent(component)))
+        label.text = difficulties[row]
+        label.font = UIFont.systemFontOfSize(14)
+        label.textAlignment = NSTextAlignment.Center
+        
+        return label
     }
 
     override func didReceiveMemoryWarning() {
@@ -422,13 +457,18 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if identifier == "Start Round" {
             for (index, player) in players.enumerate() {
                 if player == "" {
-                    let cell = playersTableView.cellForRowAtIndexPath(NSIndexPath(forRow: index % 2, inSection: index / 2)) as! PlayerTableViewCell
+                    var cell: PlayerTableViewCell!
+                    if isPairsMode() {
+                        cell = playersTableView.cellForRowAtIndexPath(NSIndexPath(forRow: index % 2, inSection: index / 2)) as! PlayerTableViewCell
+                    } else {
+                        cell = playersTableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! PlayerTableViewCell
+                    }
                     cell.playerLabel.becomeFirstResponder()
                     return false
                 }
             }
             if isPairsMode() && players.count % 2 == 1 {
-                let alertView = UIAlertView(title: "Error", message: "Each pair should have exactly 2 players", delegate: nil, cancelButtonTitle: "Ok")
+                let alertView = UIAlertView(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), delegate: nil, cancelButtonTitle: "Ok")
                 alertView.show()
                 return false
             }

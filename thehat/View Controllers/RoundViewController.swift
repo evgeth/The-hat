@@ -139,7 +139,6 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
 //            wordsGuessed.append(Word(word: currentWord))
 //            wordsGuessed.last!.state = State.New
 //        }
-        let transitionOptions = UIViewAnimationOptions.TransitionCurlUp
     }
     
     func endRound() {

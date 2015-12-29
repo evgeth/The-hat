@@ -87,13 +87,14 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     override func viewDidAppear(animated: Bool) {
-        if gameInstance != nil {
+//        if gameInstance != nil {
 //            for player in gameInstance!.players {
-//                println("\(player.name) scored \(player.score)")
+//                print("\(player.name) scored \(player.score)")
 //            }
-//            println("#####################")
-        }
+//            print("#####################")
+//        }
     }
+    
     
     func editGuessedWords() {
         let editWordsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("EditGuessedWords") as! EditWordsGuessedViewController

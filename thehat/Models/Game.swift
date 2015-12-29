@@ -167,7 +167,7 @@ class Game: NSObject {
     
     func setGuessedWordsForRound(guessedWords: [Word]) {
         let roundIndex = self.rounds.count - 2
-        if roundIndex < 0 || roundIndex >= rounds.count {
+        if roundIndex < 0 {
             return
         }
         let round = rounds[roundIndex]
@@ -194,6 +194,7 @@ class Game: NSObject {
     }
     
     func reinitialize() {
+        isGameInProgress = false
         initFirstRound()
         isPoolShouldBeUpdated = true
         updatePool()
