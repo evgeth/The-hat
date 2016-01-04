@@ -1,10 +1,10 @@
-/* 
-  russian.strings
-  thehat
-
-  Created by Eugene Yurtaev on 29/05/15.
-  Copyright (c) 2015 dpfbop. All rights reserved.
-*/
+/*
+ base.strings
+ thehat
+ 
+ Created by Eugene Yurtaev on 29/05/15.
+ Copyright (c) 2015 dpfbop. All rights reserved.
+ */
 
 NEW_GAME = "New Game";
 CONTINUE = "Continue";
@@ -24,6 +24,7 @@ FINISH = "Finish";
 RESULTS = "Results";
 
 RULES = "Rules";
+ABOUT = "About";
 
 VERY_HARD = "Very hard";
 HARD = "Hard";
@@ -32,3 +33,20 @@ EASY = "Easy";
 VERY_EASY = "Very easy";
 
 NOT_ENOUGH_PLAYERS_IN_PAIR = "Each pair should have exactly 2 players";
+
+PAUSE_TITLE = "Pause";
+PAUSE_OR_STOP = "Pause or finish the game?";
+PAUSE = "Pause game";
+FINISH_GAME = "Finish game";
+CANCEL = "Cancel";
+
+PAIR = "Pair";
+
+edit_players = "Set names for players";
+edit_settings = "Choose words difficulty and other settings";
+preparation = "Alice should explain as many words as she can to Bob without cognate and conformable words";
+round = "Tap \"Got it\" when your partner tells the right word. If you accidently say cognate word, hold \"Mistake\"";
+extra_time = "After time is over, your partner has 3 extra seconds to guess, you should be silent";
+results = "After you finished, you will see the results";
+
+

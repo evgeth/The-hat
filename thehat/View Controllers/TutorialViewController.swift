@@ -23,10 +23,21 @@ class TutorialViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        setNavigationBarTitleWithCustomFont(NSLocalizedString("RULES", comment: "Rules"))
         
         
-        tutorialTitles = ["First", "Second"]
-        tutorialImages = ["firstT", "secondT"]
+        tutorialTitles = [NSLocalizedString("edit_players", comment: "edit_players"),
+                        NSLocalizedString("edit_settings", comment: "edit_settings"),
+                        NSLocalizedString("preparation", comment: "preparation"),
+                        NSLocalizedString("round", comment: "round"),
+                        NSLocalizedString("extra_time", comment: "extra_time"),
+                        NSLocalizedString("results", comment: "results")]
+        tutorialImages = ["edit_players",
+                        "edit_settings",
+                        "preparation",
+                        "round",
+                        "extra_time",
+                        "results"]
 //        pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
         pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         pageViewController.dataSource = self
@@ -37,7 +48,7 @@ class TutorialViewController: UIViewController {
         pageViewController.setViewControllers(tutorialPages, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
         
-        self.pageViewController.view.frame = CGRectMake(0, 30, self.view.frame.width, self.view.frame.size.height - 60)
+        self.pageViewController.view.frame = CGRectMake(0, 30, self.view.frame.width, self.view.frame.size.height - 40)
         
         self.addChildViewController(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
@@ -73,7 +84,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         
         // Create a new view controller and pass suitable data.
         let tutorialPage = storyboard?.instantiateViewControllerWithIdentifier("TutorialPageViewController") as! TutorialPageViewController
-//        tutorialPage.imageName = self.pageImages[index]
+        tutorialPage.imageName = self.tutorialImages[index]
         tutorialPage.descriptionText = self.tutorialTitles[index]
         tutorialPage.pageIndex = index
         

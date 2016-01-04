@@ -21,8 +21,11 @@ class TutorialPageViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        imageView.image = UIImage(named: imageName)
+        imageView.image = UIImage(named: imageName)
         descriptionLabel.text = descriptionText
+        
+//        imageView.layer.borderWidth = 1
+//        imageView.layer.borderColor = UIColor(red: CGFloat(0), green: CGFloat(192.0 / 256.0), blue: 50.0 / 256.0, alpha: 0.9).CGColor
     }
 
     override func didReceiveMemoryWarning() {
