@@ -24,6 +24,7 @@ FINISH = "Finish";
 RESULTS = "Results";
 
 RULES = "Rules";
+ABOUT = "About";
 
 VERY_HARD = "Very hard";
 HARD = "Hard";
@@ -39,3 +40,4 @@ PAUSE = "Pause game";
 FINISH_GAME = "Finish game";
 CANCEL = "Cancel";
 
+PAIR = "Pair";

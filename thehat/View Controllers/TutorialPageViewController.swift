@@ -1,21 +1,28 @@
 //
-//  RulesViewController.swift
+//  TutorialPageViewController.swift
 //  thehat
 //
-//  Created by Eugene Yurtaev on 20/06/15.
-//  Copyright (c) 2015 dpfbop. All rights reserved.
+//  Created by Eugene Yurtaev on 04/01/16.
+//  Copyright © 2016 dpfbop. All rights reserved.
 //
 
 import UIKit
 
-class RulesViewController: UIViewController {
+class TutorialPageViewController: UIViewController {
 
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    var descriptionText: String!
+    var imageName: String!
+    var pageIndex: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        setNavigationBarTitleWithCustomFont(NSLocalizedString("RULES", comment: "Rules"))
+//        imageView.image = UIImage(named: imageName)
+        descriptionLabel.text = descriptionText
     }
 
     override func didReceiveMemoryWarning() {

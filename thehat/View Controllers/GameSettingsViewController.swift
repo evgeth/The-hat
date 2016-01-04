@@ -22,8 +22,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     var gameInstance: Game?
     
     @IBOutlet weak var difficultyPicker: UIPickerView!
-    @IBOutlet weak var wordsPerPlayerStepper: UIStepper!
-    @IBOutlet weak var wordsPerPlayerLabel: UILabel!
+    @IBOutlet weak var wordsInTheHatStepper: UIStepper!
+    @IBOutlet weak var wordsInTheHatLabel: UILabel!
     
     @IBOutlet weak var roundLengthStepper: UIStepper!
     @IBOutlet weak var roundLengthLabel: UILabel!
@@ -57,7 +57,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 players = playersList
             }
             roundLengthStepper.value = Double(gameInstance!.roundDuration)
-            wordsPerPlayerStepper.value = Double(gameInstance!.wordsPerPlayer)
+            wordsInTheHatStepper.value = Double(gameInstance!.wordsInTheHat)
             reloadLabels()
             gameTypeSegmentControl.selectedSegmentIndex =
                 (gameInstance!.type == GameType.Pairs) ? 1:0
@@ -96,7 +96,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func wordsPerPlayerValueChanged(sender: UIStepper) {
+    @IBAction func wordsInTheHatValueChanged(sender: UIStepper) {
         reloadLabels()
     }
     
@@ -123,7 +123,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func reloadLabels() {
-        wordsPerPlayerLabel.text = "\(Int(wordsPerPlayerStepper.value))"
+        wordsInTheHatLabel.text = "\(Int(wordsInTheHatStepper.value))"
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
     }
     
@@ -345,7 +345,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isPairsMode() {
-            return "Pair \(section + 1)"
+            return "\(NSLocalizedString("PAIR", comment: "pair")) \(section + 1)"
         } else {
             return ""
         }
@@ -420,7 +420,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 }
                 gameInstance?.players = playersList
                 gameInstance?.roundDuration = Float(Int(roundLengthStepper.value))
-                gameInstance?.wordsPerPlayer = Int(wordsPerPlayerStepper.value)
+                gameInstance?.wordsInTheHat = Int(wordsInTheHatStepper.value)
                 gameInstance?.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
                 gameInstance?.difficulty = 20 * difficultyPicker.selectedRowInComponent(0) + 10
                 gameInstance?.reinitialize()

@@ -24,7 +24,7 @@ class Game: NSObject {
     var difficulty: Int = 50
     var extraRoundDuration: Float = 3
     var type = GameType.EachToEach
-    var wordsPerPlayer = 10
+    var wordsInTheHat = 60
     
     var players: [Player] = []
     var previousPair: (Int, Int) = (0, 0)
@@ -86,7 +86,7 @@ class Game: NSObject {
         if !isPoolShouldBeUpdated {
             return
         }
-        let wordsStrings: [String] = wordsLoader.getWords(players.count * wordsPerPlayer, averageDifficulty: difficulty)
+        let wordsStrings: [String] = wordsLoader.getWords(wordsInTheHat, averageDifficulty: difficulty)
         newWords.removeAll(keepCapacity: true)
         for word in wordsStrings {
             newWords.insert(word)

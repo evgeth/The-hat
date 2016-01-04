@@ -90,7 +90,7 @@
 "mFi-YB-Sja.text" = "Сохранить";
 
 /* Class = "UILabel"; text = "Words per player"; ObjectID = "qIY-wF-OR4"; */
-"qIY-wF-OR4.text" = "Слов на человека";
+"qIY-wF-OR4.text" = "Слов в шляпе";
 
 /* Class = "UISegmentedControl"; uDI-Wp-7rS.segmentTitles[0] = "Each to each"; ObjectID = "uDI-Wp-7rS"; */
 "uDI-Wp-7rS.segmentTitles[0]" = "Каждый каждому";

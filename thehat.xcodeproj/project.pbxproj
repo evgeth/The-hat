@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7731C3A95020009EA1C /* TutorialViewController.swift */; };
+		887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7751C3A95CF0009EA1C /* TutorialPageViewController.swift */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
 		889325061AE41C3D009B68B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889325051AE41C3D009B68B2 /* Images.xcassets */; };
@@ -27,7 +29,7 @@
 		88DBAC341C333AB300C4EB1F /* PreparationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2D1C333AB300C4EB1F /* PreparationViewController.swift */; };
 		88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2E1C333AB300C4EB1F /* ResultsViewController.swift */; };
 		88DBAC361C333AB300C4EB1F /* RoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2F1C333AB300C4EB1F /* RoundViewController.swift */; };
-		88DBAC371C333AB300C4EB1F /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC301C333AB300C4EB1F /* RulesViewController.swift */; };
+		88DBAC371C333AB300C4EB1F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC301C333AB300C4EB1F /* AboutViewController.swift */; };
 		88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */; };
 		88DBAC3F1C333AC500C4EB1F /* GuessedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */; };
 		88DBAC401C333AC500C4EB1F /* PlayerResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC3B1C333AC500C4EB1F /* PlayerResultCell.swift */; };
@@ -53,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
+		887FA7731C3A95020009EA1C /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		887FA7751C3A95CF0009EA1C /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		889324F91AE41C3D009B68B2 /* thehat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thehat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889324FD1AE41C3D009B68B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889324FE1AE41C3D009B68B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +81,7 @@
 		88DBAC2D1C333AB300C4EB1F /* PreparationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreparationViewController.swift; sourceTree = "<group>"; };
 		88DBAC2E1C333AB300C4EB1F /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		88DBAC2F1C333AB300C4EB1F /* RoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewController.swift; sourceTree = "<group>"; };
-		88DBAC301C333AB300C4EB1F /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
+		88DBAC301C333AB300C4EB1F /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorChangingView.swift; sourceTree = "<group>"; };
 		88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessedWordCell.swift; sourceTree = "<group>"; };
 		88DBAC3B1C333AC500C4EB1F /* PlayerResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerResultCell.swift; sourceTree = "<group>"; };
@@ -206,7 +210,9 @@
 				88DBAC2D1C333AB300C4EB1F /* PreparationViewController.swift */,
 				88DBAC2E1C333AB300C4EB1F /* ResultsViewController.swift */,
 				88DBAC2F1C333AB300C4EB1F /* RoundViewController.swift */,
-				88DBAC301C333AB300C4EB1F /* RulesViewController.swift */,
+				88DBAC301C333AB300C4EB1F /* AboutViewController.swift */,
+				887FA7731C3A95020009EA1C /* TutorialViewController.swift */,
+				887FA7751C3A95CF0009EA1C /* TutorialPageViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -354,9 +360,11 @@
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,
 				88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */,
+				887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */,
+				887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */,
 				88DBAC1E1C333A7E00C4EB1F /* Word.swift in Sources */,
 				88DBAC1F1C333A7E00C4EB1F /* WordsLoader.swift in Sources */,
-				88DBAC371C333AB300C4EB1F /* RulesViewController.swift in Sources */,
+				88DBAC371C333AB300C4EB1F /* AboutViewController.swift in Sources */,
 				88DBAC4B1C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift in Sources */,
 				88DBAC411C333AC500C4EB1F /* PlayerTableViewCell.swift in Sources */,
 				88DBAC341C333AB300C4EB1F /* PreparationViewController.swift in Sources */,
