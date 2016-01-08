@@ -1,6 +1,3 @@
 
-/* Class = "UILabel"; text = "  Copyright (c) 2015 dpfbop. All rights reserved."; ObjectID = "8ie-xW-0ye"; */
-"8ie-xW-0ye.text" = "  Copyright (c) 2015 dpfbop. All rights reserved.";
-
-/* Class = "UILabel"; text = "thehat"; ObjectID = "kId-c2-rCX"; */
-"kId-c2-rCX.text" = "thehat";
+/* Class = "UILabel"; text = "The Hat"; ObjectID = "0US-Gr-tDS"; */
+"0US-Gr-tDS.text" = "Шляпа";

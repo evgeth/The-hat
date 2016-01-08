@@ -792,34 +792,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IPhone6" translatesAutoresizingMaskIntoConstraints="NO" id="QhE-IY-2bQ">
-                                <rect key="frame" x="175" y="-20" width="250" height="513"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IPhone6.png" translatesAutoresizingMaskIntoConstraints="NO" id="QhE-IY-2bQ">
+                                <rect key="frame" x="174.5" y="-19.5" width="251" height="515"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-35-0dj">
-                                <rect key="frame" x="16" y="499" width="568" height="95"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-35-0dj">
+                                <rect key="frame" x="16" y="501.5" width="568" height="92.5"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="28"/>
+                                </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="edit_players" translatesAutoresizingMaskIntoConstraints="NO" id="4jx-9L-Zfs">
-                                <rect key="frame" x="190" y="40" width="220" height="393"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="edit_players.png" translatesAutoresizingMaskIntoConstraints="NO" id="4jx-9L-Zfs">
+                                <rect key="frame" x="189.5" y="40" width="221" height="396"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="4jx-9L-Zfs" secondAttribute="height" multiplier="140:250" id="2kL-2F-jL6"/>
-                                    <constraint firstAttribute="width" constant="220" id="E95-fT-EiK"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uhX-35-0dj" firstAttribute="top" secondItem="QhE-IY-2bQ" secondAttribute="bottom" constant="6" id="3ra-9g-wW3"/>
                             <constraint firstItem="4jx-9L-Zfs" firstAttribute="centerX" secondItem="XAu-8L-9VO" secondAttribute="centerX" id="41s-SX-Soq"/>
                             <constraint firstItem="dPL-hg-7XD" firstAttribute="top" secondItem="uhX-35-0dj" secondAttribute="bottom" constant="6" id="8Dc-Au-fP9"/>
-                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="trailing" secondItem="4jx-9L-Zfs" secondAttribute="trailing" constant="15" id="I85-Cb-Bdx"/>
-                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="bottom" secondItem="4jx-9L-Zfs" secondAttribute="bottom" constant="60" id="JSg-cj-oKk"/>
+                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="width" secondItem="4jx-9L-Zfs" secondAttribute="width" multiplier="227:200" id="CBe-eK-10T"/>
+                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="height" secondItem="4jx-9L-Zfs" secondAttribute="height" multiplier="260:200" id="QpK-qm-uMC"/>
+                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="centerX" secondItem="4jx-9L-Zfs" secondAttribute="centerX" id="RII-46-TBr"/>
                             <constraint firstAttribute="trailing" secondItem="uhX-35-0dj" secondAttribute="trailing" constant="16" id="Veh-ri-Uul"/>
+                            <constraint firstItem="uhX-35-0dj" firstAttribute="top" secondItem="QhE-IY-2bQ" secondAttribute="bottom" constant="6" id="Zf3-Kn-6zH"/>
+                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="centerY" secondItem="4jx-9L-Zfs" secondAttribute="centerY" id="eAf-V5-qbZ"/>
+                            <constraint firstItem="4jx-9L-Zfs" firstAttribute="height" secondItem="XAu-8L-9VO" secondAttribute="height" multiplier="33:50" id="mNW-NH-Dyb"/>
                             <constraint firstItem="uhX-35-0dj" firstAttribute="leading" secondItem="XAu-8L-9VO" secondAttribute="leading" constant="16" id="mdY-ns-W6P"/>
-                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="leading" secondItem="4jx-9L-Zfs" secondAttribute="leading" constant="-15" id="mhz-19-IGf"/>
-                            <constraint firstItem="QhE-IY-2bQ" firstAttribute="top" secondItem="4jx-9L-Zfs" secondAttribute="top" constant="-60" id="tXH-1F-dvu"/>
                             <constraint firstItem="4jx-9L-Zfs" firstAttribute="top" secondItem="LBO-cB-otR" secondAttribute="bottom" constant="20" id="vkg-FO-zjm"/>
                         </constraints>
                     </view>
@@ -1155,12 +1158,12 @@
     </scenes>
     <resources>
         <image name="AddPlayer" width="50" height="50"/>
-        <image name="IPhone6" width="410" height="835"/>
+        <image name="IPhone6.png" width="410" height="835"/>
         <image name="Listen" width="100" height="100"/>
         <image name="Speak" width="100" height="100"/>
         <image name="Sum" width="100" height="100"/>
         <image name="Words" width="1568" height="1264"/>
-        <image name="edit_players" width="750" height="1334"/>
+        <image name="edit_players.png" width="750" height="1334"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6qm-Ai-wS6"/>

@@ -29,6 +29,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     
+    var countdownSound = AVAudioPlayer()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +42,31 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2, delegate: self)
+        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.2, delegate: self)
         
-        
+        self.countdownSound = self.setupAudioPlayerWithFile("countdown", type:"wav")
     }
     
+
+    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+        //1
+        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
+        let url = NSURL.fileURLWithPath(path!)
+        
+        
+        var audioPlayer:AVAudioPlayer?
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOfURL: url)
+        } catch _ as NSError {
+            audioPlayer = nil
+        }
+        
+        //4
+        return audioPlayer!
+    }
+
+
+
     override func viewWillAppear(animated: Bool) {
         
         if let currentPlayers = gameInstance?.currentPlayers() {
@@ -91,8 +113,12 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             self.proceedToResults()
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: 100, y: 100, width: 20, height: 20)
+        
         self.presentViewController(alert, animated: true, completion: nil)
-        //navigationController?.popToRootViewControllerAnimated(true)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -130,14 +156,17 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if gameInstance!.isNoMoreWords {
             return
         }
-        myUtterance = AVSpeechUtterance(string: NSLocalizedString("TIMER_STRING", comment: "3. 2. 1.   Go!"))
-        myUtterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
-        myUtterance.rate = 0.07
-        synth.speakUtterance(myUtterance)
+//        myUtterance = AVSpeechUtterance(string: NSLocalizedString("TIMER_STRING", comment: "3. 2. 1.   Go!"))
+//        myUtterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
+//        myUtterance.rate = 0.07
+//        synth.speakUtterance(myUtterance)
+        countdownSound.play()
     }
     
     func touchEnded() {
-        synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+//        synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        countdownSound.pause()
+        countdownSound.currentTime = 0.0
         if (gameInstance!.isNoMoreWords) {
             proceedToResults()
             return
