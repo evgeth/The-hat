@@ -16,6 +16,7 @@
 		8847B0141C3EC321008497E2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8847B0121C3EC321008497E2 /* Crashlytics.framework */; };
 		8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0171C3FF0D7008497E2 /* edit_players.png */; };
 		8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B01B1C3FF10B008497E2 /* edit_settings.png */; };
+		8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0351C42F497008497E2 /* InfoPlist.strings */; };
 		88545D581C3AFE8900887E24 /* edit_words.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D561C3AFE8900887E24 /* edit_words.png */; };
 		88545D5A1C3AFFD300887E24 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D5C1C3AFFD300887E24 /* round.png */; };
 		887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7731C3A95020009EA1C /* TutorialViewController.swift */; };
@@ -82,6 +83,8 @@
 		8847B0181C3FF0DA008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/edit_players.png; sourceTree = "<group>"; };
 		8847B01A1C3FF10B008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/edit_settings.png; sourceTree = "<group>"; };
 		8847B01C1C3FF10D008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/edit_settings.png; sourceTree = "<group>"; };
+		8847B0341C42F497008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8847B0361C42F498008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		88545D521C3AF94600887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88545D561C3AFE8900887E24 /* edit_words.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_words.png; sourceTree = "<group>"; };
 		88545D5B1C3AFFD300887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/round.png; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				889324FD1AE41C3D009B68B2 /* Info.plist */,
+				8847B0351C42F497008497E2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -331,7 +335,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0710;
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = dpfbop;
 				TargetAttributes = {
@@ -380,6 +384,7 @@
 				889325091AE41C3D009B68B2 /* LaunchScreen.xib in Resources */,
 				8847B00A1C3BC38C008497E2 /* extra_time.png in Resources */,
 				88DBAC261C333A9900C4EB1F /* mistake.wav in Resources */,
+				8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */,
 				88545D5A1C3AFFD300887E24 /* round.png in Resources */,
 				8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */,
 				887FA78B1C3AF7E90009EA1C /* IPhone6.png in Resources */,
@@ -520,6 +525,15 @@
 				8847B01C1C3FF10D008497E2 /* ru */,
 			);
 			name = edit_settings.png;
+			sourceTree = "<group>";
+		};
+		8847B0351C42F497008497E2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8847B0341C42F497008497E2 /* Base */,
+				8847B0361C42F498008497E2 /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		88545D5C1C3AFFD300887E24 /* round.png */ = {
@@ -692,10 +706,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -712,10 +723,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = thehatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dpfbop.$(PRODUCT_NAME:rfc1034identifier)";

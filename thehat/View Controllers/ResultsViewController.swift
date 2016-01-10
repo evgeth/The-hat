@@ -10,7 +10,7 @@ import UIKit
 
 class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var gameInstance: Game?
+    var gameInstance = GameSingleton.gameInstance
     var sortedPlayers = [Player]()
     var sortedPairs = [PlayersPair]()
     @IBOutlet weak var resultsTableView: UITableView!
@@ -29,9 +29,9 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         if isPairsMode() {
-            for (index, _) in (gameInstance?.players ?? []).enumerate() {
+            for (index, _) in (gameInstance.players ?? []).enumerate() {
                 if index % 2 == 0 {
-                    let element = PlayersPair(first: gameInstance!.players[index], second: gameInstance!.players[index + 1])
+                    let element = PlayersPair(first: gameInstance.players[index], second: gameInstance.players[index + 1])
                     sortedPairs.append(element)
                 }
             }
@@ -39,7 +39,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
                 return a.first.score + a.second.score > b.first.score + b.second.score
             })
         } else {
-            sortedPlayers = gameInstance?.players ?? []
+            sortedPlayers = gameInstance.players ?? []
             sortedPlayers = sortedPlayers.sort({ (a: Player, b: Player) -> Bool in
                 return a.score > b.score
             })
@@ -90,7 +90,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if isPairsMode() {
-            return (gameInstance?.players.count ?? 0) / 2 + 1
+            return (gameInstance.players.count ?? 0) / 2 + 1
         } else {
             return 1
         }
@@ -100,7 +100,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         if isPairsMode() {
             return section == 0 ? 1 : 2
         } else {
-            return (gameInstance?.players.count ?? 0) + 1
+            return (gameInstance.players.count ?? 0) + 1
         }
     }
     
@@ -121,12 +121,12 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func doneButtonPressed() {
-        gameInstance?.isGameInProgress = false
+        gameInstance.isGameInProgress = false
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func isPairsMode() -> Bool {
-        return gameInstance?.type == GameType.Pairs
+        return gameInstance.type == GameType.Pairs
     }
     /*
     // MARK: - Navigation

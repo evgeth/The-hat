@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  thehat
+
+  Created by Eugene Yurtaev on 10/01/16.
+  Copyright © 2016 dpfbop. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "The hat";

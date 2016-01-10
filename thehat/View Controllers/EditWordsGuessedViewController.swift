@@ -12,7 +12,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
 
     @IBOutlet weak var guessedWordsTableView: UITableView!
     var wordList = [Word]()
-    var gameInstance: Game?
+    var gameInstance = GameSingleton.gameInstance
     
     @IBOutlet weak var saveView: UIView!
     var pullToMarkMistakeLabel: UILabel!
@@ -24,12 +24,10 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         guessedWordsTableView.delegate = self
         guessedWordsTableView.dataSource = self
         // Do any additional setup after loading the view.
-        if (gameInstance != nil) {
-            var rounds = gameInstance!.rounds
-            for wordString in rounds[rounds.count - 2].guessedWords {
-                wordList.append(Word(word: wordString.word))
-                wordList.last!.state = wordString.state
-            }
+        var rounds = gameInstance.rounds
+        for wordString in rounds[rounds.count - 2].guessedWords {
+            wordList.append(Word(word: wordString.word))
+            wordList.last!.state = wordString.state
         }
         
 //        let label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
@@ -42,7 +40,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     override func viewWillDisappear(animated: Bool) {
-        gameInstance?.setGuessedWordsForRound(wordList)
+        gameInstance.setGuessedWordsForRound(wordList)
     }
     
 //    func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -116,7 +114,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func saveCorrectionsAndClose() {
-        gameInstance?.setGuessedWordsForRound(wordList)
+        gameInstance.setGuessedWordsForRound(wordList)
         dismissViewControllerAnimated(true, completion: nil)
     }
     /*

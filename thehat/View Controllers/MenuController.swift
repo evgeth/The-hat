@@ -10,7 +10,7 @@ import UIKit
 
 class MenuController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
 
-    var gameInstance: Game!
+    var gameInstance = GameSingleton.gameInstance
     
     @IBOutlet weak var newGameLabel: UILabel!
     @IBOutlet weak var holdToStartNewGameLabel: UILabel!
@@ -20,7 +20,6 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        gameInstance = Game()
         
         self.gameInstance.loadWords()
         newGameLabel.layer.cornerRadius = 15
@@ -67,13 +66,13 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
 //                destinationViewController.popoverPresentationController!.delegate = self
 //            }
         } else if segue.identifier == "New Game Segue" {
-            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
-                destinationVC.gameInstance = self.gameInstance
-            }
+//            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
+//                destinationVC.gameInstance = self.gameInstance
+//            }
         } else if segue.identifier == "Continue Segue" {
-            if let destinationVC = segue.destinationViewController as? PreparationViewController {
-                destinationVC.gameInstance = self.gameInstance
-            }
+//            if let destinationVC = segue.destinationViewController as? PreparationViewController {
+//                destinationVC.gameInstance = self.gameInstance
+//            }
         }
     }
     

@@ -41,11 +41,11 @@ class TutorialPageViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "New Game Segue" {
-            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
-                let game = Game()
-                game.loadWords()
-                destinationVC.gameInstance = game
-            }
+//            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
+//                let game = Game()
+//                game.loadWords()
+//                destinationVC.gameInstance = game
+//            }
         }
     }
 

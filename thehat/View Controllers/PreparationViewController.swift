@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
-    var gameInstance: Game?
+    var gameInstance = GameSingleton.gameInstance
 
     @IBOutlet weak var listener: UILabel!
     @IBOutlet weak var speaker: UILabel!
@@ -26,8 +26,6 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     var isProceedingToResults: Bool = false
     
     
-    let synth = AVSpeechSynthesizer()
-    var myUtterance = AVSpeechUtterance(string: "")
     
     var countdownSound = AVAudioPlayer()
     
@@ -35,16 +33,26 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let currentPlayers = gameInstance?.currentPlayers() {
-            speaker.text = currentPlayers.0.name
-            listener.text = currentPlayers.1.name
+        let currentPlayers = gameInstance.currentPlayers()
+        speaker.text = currentPlayers.0.name
+        listener.text = currentPlayers.1.name
+
+        var wordList = speaker.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        if wordList.count == 1 {
+            speaker.numberOfLines = 1
         }
+        wordList = listener.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        if wordList.count == 1 {
+            listener.numberOfLines = 1
+        }
+        
         
         inactiveColor = startButtonView.backgroundColor
         
         startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.2, delegate: self)
         
         self.countdownSound = self.setupAudioPlayerWithFile("countdown", type:"wav")
+
     }
     
 
@@ -69,36 +77,31 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
 
     override func viewWillAppear(animated: Bool) {
         
-        if let currentPlayers = gameInstance?.currentPlayers() {
-            speaker.text = currentPlayers.0.name
-            listener.text = currentPlayers.1.name
-        }
+        let currentPlayers = gameInstance.currentPlayers()
+        speaker.text = currentPlayers.0.name
+        listener.text = currentPlayers.1.name
         
         
-        if gameInstance != nil {
-            if (gameInstance!.isNoMoreWords) {
-                startLabel.text = NSLocalizedString("FINISH", comment: "Finish")
-            }
-            let roundNumber = gameInstance!.getCurrentRound().number
-            self.navigationItem.title = ""
-            if roundNumber != 0 {
-                self.navigationItem.setHidesBackButton(true, animated: false)
-                let editWordsImage = UIImage(named: "Edit words")
-                self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .Plain, target: self, action: Selector("editGuessedWords"))
-            } else {
-                navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!, NSForegroundColorAttributeName : UIColor.redColor()], forState: UIControlState.Normal)
-            }
-//            setNavigationBarTitleWithCustomFont("№\(roundNumber + 1)")
-            var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
-            size.width += 10
-            let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-            label.text = "\(gameInstance!.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
-            label.textColor = view.tintColor
-            label.font = UIFont(name: "Avenir Next", size: 18)
-            label.textAlignment = NSTextAlignment.Right
-            self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: Selector("closeButtonPressed")), UIBarButtonItem(customView: label)]
-
+        if (gameInstance.isNoMoreWords) {
+            startLabel.text = NSLocalizedString("FINISH", comment: "Finish")
         }
+        let roundNumber = gameInstance.getCurrentRound().number
+        self.navigationItem.title = ""
+        if roundNumber != 0 {
+            self.navigationItem.setHidesBackButton(true, animated: false)
+            let editWordsImage = UIImage(named: "Edit words")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .Plain, target: self, action: Selector("editGuessedWords"))
+        } else {
+            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!, NSForegroundColorAttributeName : UIColor.redColor()], forState: UIControlState.Normal)
+        }
+        var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
+        size.width += 10
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+        label.text = "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
+        label.textColor = view.tintColor
+        label.font = UIFont(name: "Avenir Next", size: 18)
+        label.textAlignment = NSTextAlignment.Right
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: Selector("closeButtonPressed")), UIBarButtonItem(customView: label)]
         
         notUndestandingHowToStartCounter = 0
         holdToStartLabel.hidden = true
@@ -115,19 +118,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertActionStyle.Cancel, handler: nil))
         
         alert.popoverPresentationController?.sourceView = self.view
-        alert.popoverPresentationController?.sourceRect = CGRect(x: 100, y: 100, width: 20, height: 20)
-        
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width - 26, y: 50, width: 1, height: 1)
         self.presentViewController(alert, animated: true, completion: nil)
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-//        if gameInstance != nil {
-//            for player in gameInstance!.players {
-//                print("\(player.name) scored \(player.score)")
-//            }
-//            print("#####################")
-//        }
     }
     
     
@@ -153,21 +146,16 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func touchBegan() {
-        if gameInstance!.isNoMoreWords {
+        if gameInstance.isNoMoreWords {
             return
         }
-//        myUtterance = AVSpeechUtterance(string: NSLocalizedString("TIMER_STRING", comment: "3. 2. 1.   Go!"))
-//        myUtterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
-//        myUtterance.rate = 0.07
-//        synth.speakUtterance(myUtterance)
         countdownSound.play()
     }
     
     func touchEnded() {
-//        synth.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         countdownSound.pause()
         countdownSound.currentTime = 0.0
-        if (gameInstance!.isNoMoreWords) {
+        if (gameInstance.isNoMoreWords) {
             proceedToResults()
             return
         }
@@ -180,7 +168,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func requiredTouchDurationReached() {
-        if (gameInstance!.isNoMoreWords) {
+        if (gameInstance.isNoMoreWords) {
             proceedToResults()
             return
         }
@@ -191,16 +179,16 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Results Segue" {
-            if let destinationVC = segue.destinationViewController as? ResultsViewController {
-                destinationVC.gameInstance = self.gameInstance
-            }
+//            if let destinationVC = segue.destinationViewController as? ResultsViewController {
+//                destinationVC.gameInstance = self.gameInstance
+//            }
         }
     }
 
     func proceedToResults() {
         if !isProceedingToResults {
             isProceedingToResults = true
-            gameInstance?.reinitialize()
+            gameInstance.reinitialize()
             performSegueWithIdentifier("Results Segue", sender: nil)
         }
     }

@@ -15,11 +15,11 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var playersTableView: UITableView!
     var isReadyToDeleteRow: Bool = false
     var readyToDeleteIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-    var players: [String] = ["", "", "", ""]
+    var players: [String] = ["a", "b", "c", "d"]
     var sectionsCount = 2
     var isAddingSection = false
     var numberOfRowsInLastSection = 3
-    var gameInstance: Game?
+    var gameInstance = GameSingleton.gameInstance
     
     @IBOutlet weak var difficultyPicker: UIPickerView!
     @IBOutlet weak var wordsInTheHatStepper: UIStepper!
@@ -50,23 +50,21 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         difficultyPicker.selectRow(2, inComponent: 0, animated: false)
         
         
-        if gameInstance != nil {
-            if gameInstance!.players.count != 0 {
-                var playersList = [String]()
-                for player in gameInstance!.players {
-                    playersList.append(player.name)
-                }
-                players = playersList
+        if gameInstance.players.count != 0 {
+            var playersList = [String]()
+            for player in gameInstance.players {
+                playersList.append(player.name)
             }
-            roundLengthStepper.value = Double(gameInstance!.roundDuration)
-            wordsInTheHatStepper.value = Double(gameInstance!.wordsInTheHat)
-            reloadLabels()
-            gameTypeSegmentControl.selectedSegmentIndex =
-                (gameInstance!.type == GameType.Pairs) ? 1:0
-            difficultyPicker.selectRow((gameInstance!.difficulty - 10) / 20, inComponent: 0, animated: false)
-            sectionsCount = (players.count + 1) / 2
-            numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
+            players = playersList
         }
+        roundLengthStepper.value = Double(gameInstance.roundDuration)
+        wordsInTheHatStepper.value = Double(gameInstance.wordsInTheHat)
+        reloadLabels()
+        gameTypeSegmentControl.selectedSegmentIndex =
+            (gameInstance.type == GameType.Pairs) ? 1:0
+        difficultyPicker.selectRow((gameInstance.difficulty - 10) / 20, inComponent: 0, animated: false)
+        sectionsCount = (players.count + 1) / 2
+        numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -430,19 +428,16 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Start Round" {
-            if let destinationVC = segue.destinationViewController as? PreparationViewController {
-                destinationVC.gameInstance = self.gameInstance
-                var playersList: [Player] = []
-                for playerName in players {
-                    playersList.append(Player(name: playerName))
-                }
-                gameInstance?.players = playersList
-                gameInstance?.roundDuration = Float(Int(roundLengthStepper.value))
-                gameInstance?.wordsInTheHat = Int(wordsInTheHatStepper.value)
-                gameInstance?.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
-                gameInstance?.difficulty = 20 * difficultyPicker.selectedRowInComponent(0) + 10
-                gameInstance?.reinitialize()
+            var playersList: [Player] = []
+            for playerName in players {
+                playersList.append(Player(name: playerName))
             }
+            gameInstance.players = playersList
+            gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
+            gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
+            gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
+            gameInstance.difficulty = 20 * difficultyPicker.selectedRowInComponent(0) + 10
+            gameInstance.reinitialize()
         }
     }
     
@@ -465,7 +460,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 alertView.show()
                 return false
             }
-            if gameInstance!.didWordsLoad == false {
+            if gameInstance.didWordsLoad == false {
                 let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("wordsLoadedNotificationArrived:"), name: loadedWordsNotifictionKey, object: nil)
                 activityIndicator.center = view.center
@@ -513,16 +508,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     func isPairsMode() -> Bool {
         return gameTypeSegmentControl.selectedSegmentIndex == 1 ? true : false
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

@@ -16,8 +16,6 @@ enum GameType {
 
 class Game: NSObject {
     
-    static let gameInstance = Game()
-    
     var isGameInProgress = false
     
     var roundDuration: Float = 20
@@ -202,4 +200,7 @@ class Game: NSObject {
         previousPair = (0, 0)
         playingPair = (0, 1)
     }
+}
+class GameSingleton {
+    static let gameInstance = Game()
 }

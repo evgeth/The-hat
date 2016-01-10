@@ -12,7 +12,7 @@ import AVFoundation
 class RoundViewController: UIViewController, ColorChangingViewDelegate {
 
     
-    var gameInstance: Game?
+    var gameInstance = GameSingleton.gameInstance
     var roundDuration: Float!
     var extraRoundDuration: Float!
     var secondsLeft: Float!
@@ -47,8 +47,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        roundDuration = gameInstance?.roundDuration
-        extraRoundDuration = gameInstance?.extraRoundDuration
+        roundDuration = gameInstance.roundDuration
+        extraRoundDuration = gameInstance.extraRoundDuration
         secondsLeft = roundDuration + timerRate - 0.01
         timerFired()
         reloadWord()
@@ -139,16 +139,16 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     func endRound() {
         if !isRoundVCDismissed {
-            gameInstance?.nextRound()
-            gameInstance?.setGuessedWordsForRound(self.wordsGuessed)
+            gameInstance.nextRound()
+            gameInstance.setGuessedWordsForRound(self.wordsGuessed)
             dismissViewControllerAnimated(true, completion: nil)
             isRoundVCDismissed = true
         }
     }
     
     func reloadWord() {
-        currentWord = gameInstance!.getWord()
-        if currentWord == "" && gameInstance!.isNoMoreWords {
+        currentWord = gameInstance.getWord()
+        if currentWord == "" && gameInstance.isNoMoreWords {
             endRound()
             return
         }
@@ -173,7 +173,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         wordsGuessed.last!.state = .Guessed
         if scoreSound.playing {
             UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.scoreSound.stop()
+                self.scoreSound.pause()
+                self.scoreSound.currentTime = 0.0
             }, completion: { (error) -> Void in
                 self.scoreSound.play()
             })
@@ -206,14 +207,5 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
