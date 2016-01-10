@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import Crashlytics
+
 
 class RoundViewController: UIViewController, ColorChangingViewDelegate {
 
@@ -86,6 +88,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
     }
     
     func timerFired() {

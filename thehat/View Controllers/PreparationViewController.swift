@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import Crashlytics
+
 
 class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
     var gameInstance = GameSingleton.gameInstance
@@ -76,6 +78,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
 
 
     override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Preparation"])
         
         let currentPlayers = gameInstance.currentPlayers()
         speaker.text = currentPlayers.0.name
@@ -167,21 +170,39 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
     }
     
+    func sendWordsAnalytics() {
+        guard let round = gameInstance.getPreviousRound() else {
+            return
+        }
+        for word in round.guessedWords {
+            var state = "New"
+            if word.state == State.Fail {
+                state = "Fail"
+            } else if word.state == State.Guessed {
+                state = "Guessed"
+            }
+            Answers.logCustomEventWithName("Word guessed", customAttributes:
+                ["word": word.word,
+                    "status": state])
+            Answers.logCustomEventWithName(word.word, customAttributes:
+                ["status": state])
+        }
+    }
+    
     func requiredTouchDurationReached() {
         if (gameInstance.isNoMoreWords) {
             proceedToResults()
             return
         }
         let roundVC = storyboard?.instantiateViewControllerWithIdentifier("RoundViewController") as! RoundViewController
-        roundVC.gameInstance = self.gameInstance
+        sendWordsAnalytics()
+        
         self.presentViewController(roundVC, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Results Segue" {
-//            if let destinationVC = segue.destinationViewController as? ResultsViewController {
-//                destinationVC.gameInstance = self.gameInstance
-//            }
+            sendWordsAnalytics()
         }
     }
 

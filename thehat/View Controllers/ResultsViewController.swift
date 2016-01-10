@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -53,7 +54,10 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewWillAppear(animated: Bool) {
-
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Results"])
+        for player in sortedPlayers {
+            Answers.logCustomEventWithName("Player Finished", customAttributes: ["name": player.name.lowercaseString.capitalizedString, "score": player.score])
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

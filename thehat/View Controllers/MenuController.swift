@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class MenuController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
 
@@ -30,6 +31,7 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     }
     
     override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
         initNewGameButton()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

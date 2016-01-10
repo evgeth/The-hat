@@ -163,12 +163,18 @@ class Game: NSObject {
         return self.rounds.last!
     }
     
-    func setGuessedWordsForRound(guessedWords: [Word]) {
+    func getPreviousRound() -> Round? {
         let roundIndex = self.rounds.count - 2
         if roundIndex < 0 {
+            return nil
+        }
+        return self.rounds[roundIndex]
+    }
+    
+    func setGuessedWordsForRound(guessedWords: [Word]) {
+        guard let round = getPreviousRound() else {
             return
         }
-        let round = rounds[roundIndex]
         let players = previousPlayers()
         if round.guessedWords.count == guessedWords.count {
             for word in round.guessedWords {

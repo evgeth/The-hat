@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
 
@@ -15,7 +16,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var playersTableView: UITableView!
     var isReadyToDeleteRow: Bool = false
     var readyToDeleteIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-    var players: [String] = ["a", "b", "c", "d"]
+    var players: [String] = ["", "", "", ""]
     var sectionsCount = 2
     var isAddingSection = false
     var numberOfRowsInLastSection = 3
@@ -431,6 +432,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             var playersList: [Player] = []
             for playerName in players {
                 playersList.append(Player(name: playerName))
+                Answers.logCustomEventWithName("Player", customAttributes: ["name": playerName.lowercaseString.capitalizedString])
             }
             gameInstance.players = playersList
             gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
@@ -438,6 +440,13 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
             gameInstance.difficulty = 20 * difficultyPicker.selectedRowInComponent(0) + 10
             gameInstance.reinitialize()
+            
+            Answers.logCustomEventWithName("Start game", customAttributes:
+                ["Duration": "\(gameInstance.roundDuration)",
+                "Number of words": "\(gameInstance.wordsInTheHat)",
+                "Game type": "\(gameInstance.type)",
+                "Difficulty": "\(gameInstance.difficulty)"])
+            
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class AboutViewController: UITableViewController {
 
@@ -24,6 +25,9 @@ class AboutViewController: UITableViewController {
     }
     
 
+    override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
+    }
     /*
     // MARK: - Navigation
 

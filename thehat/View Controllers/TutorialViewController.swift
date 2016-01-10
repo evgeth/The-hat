@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class TutorialViewController: UIViewController {
     
@@ -59,6 +60,10 @@ class TutorialViewController: UIViewController {
         self.pageViewController.didMoveToParentViewController(self)
         
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
 
     override func didReceiveMemoryWarning() {
