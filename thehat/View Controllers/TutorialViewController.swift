@@ -23,6 +23,8 @@ class TutorialViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         setNavigationBarTitleWithCustomFont(NSLocalizedString("RULES", comment: "Rules"))
         
         
@@ -31,13 +33,15 @@ class TutorialViewController: UIViewController {
                         NSLocalizedString("preparation", comment: "preparation"),
                         NSLocalizedString("round", comment: "round"),
                         NSLocalizedString("extra_time", comment: "extra_time"),
-                        NSLocalizedString("results", comment: "results")]
+                        NSLocalizedString("results", comment: "results"),
+                        "new game"]
         tutorialImages = ["edit_players",
                         "edit_settings",
                         "preparation",
                         "round",
                         "extra_time",
-                        "results"]
+                        "results",
+                        "new_game"]
 //        pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
         pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         pageViewController.dataSource = self

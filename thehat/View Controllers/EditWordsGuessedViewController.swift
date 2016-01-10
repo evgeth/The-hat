@@ -32,37 +32,36 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
             }
         }
         
-        let label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
-        label.font = UIFont(name: "Avenir Next", size: 24)
-        label.text = "Pull to mark mistake"
-        label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
-        label.textAlignment = NSTextAlignment.Center
-        pullToMarkMistakeLabel = label
-        guessedWordsTableView.addSubview(label)
+//        let label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
+//        label.font = UIFont(name: "Avenir Next", size: 24)
+//        label.text = "Pull to mark mistake"
+//        label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
+//        label.textAlignment = NSTextAlignment.Center
+//        pullToMarkMistakeLabel = label
+//        guessedWordsTableView.addSubview(label)
     }
     
     override func viewWillDisappear(animated: Bool) {
         gameInstance?.setGuessedWordsForRound(wordList)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        pullToMarkMistakeLabel.frame.size = CGSize(width: scrollView.frame.width, height: pullToMarkMistakeLabel.frame.height)
-        let percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
-        let color = UIColor(r: 180, g: 60, b: 10, a: 80)
-        let finishColorComponents = CGColorGetComponents(color.CGColor)
-        let startColorComponents = CGColorGetComponents(UIColor(r: 203, g: 222, b: 203, a: 80).CGColor)
-        pullToMarkMistakeLabel.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
-    }
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        pullToMarkMistakeLabel.frame.size = CGSize(width: scrollView.frame.width, height: pullToMarkMistakeLabel.frame.height)
+//        let percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
+//        let color = UIColor(r: 180, g: 60, b: 10, a: 80)
+//        let finishColorComponents = CGColorGetComponents(color.CGColor)
+//        let startColorComponents = CGColorGetComponents(UIColor(r: 203, g: 222, b: 203, a: 80).CGColor)
+//        pullToMarkMistakeLabel.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
+//    }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        scrollView.contentOffset.y = -pullToMarkMistakeLabel.frame.height
-        if -scrollView.contentOffset.y >= pullToMarkMistakeLabel.frame.height {
-            isPulledEnough = true
-            wordList.last?.state = State.Fail
-            guessedWordsTableView.reloadData()
-            gameInstance?.setGuessedWordsForRound(wordList)
-        }
-    }
+//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if -scrollView.contentOffset.y >= pullToMarkMistakeLabel.frame.height {
+//            isPulledEnough = true
+//            wordList.last?.state = State.Fail
+//            guessedWordsTableView.reloadData()
+//            gameInstance?.setGuessedWordsForRound(wordList)
+//        }
+//    }
 
     
     override func didReceiveMemoryWarning() {
@@ -76,14 +75,22 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         if wordList[indexPath.row].state == State.Fail {
             
         }
-        cell.wordLabel.textColor = UIColor.blackColor()
-        if wordList[indexPath.row].state == State.Guessed{
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        cell.wordStatus.transform = CGAffineTransformMakeRotation(CGFloat(0))
+        cell.wordStatus.font = UIFont(name: "Avenir Next", size: 42)
+        if wordList[indexPath.row].state == State.Guessed {
+            cell.wordStatus.text = "✓";
+            cell.wordStatus.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
+            cell.wordLabel.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
         } else if wordList[indexPath.row].state == State.New {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.wordStatus.text = "🎩";
+            cell.wordStatus.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+            cell.wordStatus.font = UIFont(name: "Avenir Next", size: 34)
+            cell.wordStatus.textColor = UIColor(r: 0, g: 0, b: 0, a: 100)
+            cell.wordLabel.textColor = UIColor.blackColor()
         } else {
+            cell.wordStatus.text = "✗";
+            cell.wordStatus.textColor = UIColor(r: 128, g: 0, b: 0, a: 100)
             cell.wordLabel.textColor = UIColor.redColor()
-            cell.accessoryType = UITableViewCellAccessoryType.None
         }
         return cell
     }
@@ -94,18 +101,14 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! GuessedWordCell
-        cell.wordLabel.textColor = UIColor.blackColor()
         if wordList[indexPath.row].state == State.Guessed{
-            cell.accessoryType = UITableViewCellAccessoryType.None
             wordList[indexPath.row].state = State.New
         } else if wordList[indexPath.row].state == State.New {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            wordList[indexPath.row].state = State.Guessed
+            wordList[indexPath.row].state = State.Fail
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             wordList[indexPath.row].state = State.Guessed
         }
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     @IBAction func saveButtonTouch(sender: UIButton) {

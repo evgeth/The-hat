@@ -11,6 +11,7 @@ import UIKit
 class GuessedWordCell: UITableViewCell {
 
     @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var wordStatus: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

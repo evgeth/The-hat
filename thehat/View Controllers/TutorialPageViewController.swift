@@ -12,6 +12,7 @@ class TutorialPageViewController: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var newGameButton: UIView!
     
     var descriptionText: String!
     var imageName: String!
@@ -21,11 +22,14 @@ class TutorialPageViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        imageView.image = UIImage(named: imageName)
-        descriptionLabel.text = descriptionText
+        if descriptionText == "new game" {
+            newGameButton.hidden = false
+            descriptionLabel.hidden = true
+        } else {
+            imageView.image = UIImage(named: imageName)
+            descriptionLabel.text = descriptionText
+        }
         
-//        imageView.layer.borderWidth = 1
-//        imageView.layer.borderColor = UIColor(red: CGFloat(0), green: CGFloat(192.0 / 256.0), blue: 50.0 / 256.0, alpha: 0.9).CGColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,14 +38,15 @@ class TutorialPageViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "New Game Segue" {
+            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
+                let game = Game()
+                game.loadWords()
+                destinationVC.gameInstance = game
+            }
+        }
     }
-    */
 
 }

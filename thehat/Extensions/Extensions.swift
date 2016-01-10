@@ -52,3 +52,29 @@ extension UIFont {
             context: nil).size
     }
 }
+
+class RandomNames {
+    static let russianNames: [String] = ["Одуванчик", "Мечтатель", "Няшка", "Лошадка", "Цветочек", "Рыбка", "Огонь", "Вода", "Хорек", "Принцесса", "Мумий Тролль", "Шерлок", "Котик", "Робин Гуд", "Мориарти", "Халк", "Рапунцель", "Ангел", "Люцифер", "Джеймс Бонд", "Хипстер", "Гарри Поттер", "Гермиона", "Рон Уизли", "Волан-де-Морт", "Дамблдор", "Хоббит", "Эльф", "Голум", "Гендальф", "Жираф", "Аватар", "Доктор Хаус", "Джон Сноу", "Дейенерис", "Винни-Пух", "Сфинкс", "Кузнечик", "Лорд", "Господин", "Шакал", "Симба", "Тимон", "Пумба", "Цезарь", "Клеопатра", "Колобок"]
+    
+    static let englishNames: [String] = ["Flower", "Beauty", "Fire", "Batman", "Spiderman", "Sherlock", "Princess", "Angel", "Dreamer", "Moriarty", "Hulk", "Rapunzel", "Angel", "Lucifer", "James Bond", "Hipster", "Harry Potter", "Hermione", "Ron Weasley", "Volan-de-mort", "Dumbledore", "Hobbit", "Elf", "Gollum", "Gandalf", "Giraffe", "Avatar", "Brad Pitt", "Dr. House", "John Snow", "Daenerys", "Winnie the Pooh", "Sphinx", "Lord", "Jackal", "Simba", "Timon", "Pumbaa"]
+    
+    static var last: [Int] = []
+    
+    static func getRandomName() -> String {
+        var names: [String] = []
+        if NSLocale.preferredLanguages()[0] == "ru" {
+            names = russianNames
+        } else {
+            names = englishNames
+        }
+        var new = Int(arc4random()) % names.count
+        while last.contains(new) {
+            new = Int(arc4random()) % names.count
+        }
+        last.append(new)
+        if last.count > 10 {
+            last = Array(last.dropFirst())
+        }
+        return names[new]
+    }
+}

@@ -41,6 +41,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         difficultyPicker.delegate = self
         difficultyPicker.dataSource = self
         
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         setNavigationBarTitleWithCustomFont(NSLocalizedString("GAME_SETTINGS", comment: "Game Settings"))
         
         playersTableView.setEditing(true, animated: true)
@@ -143,6 +145,22 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             isReadyToDeleteRow = true
             readyToDeleteIndexPath = swipedIndexPath!
             playersTableView.reloadRowsAtIndexPaths([swipedIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    @IBAction func cellRightSwipe(sender: AnyObject) {
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            let swipeLocation = sender.locationInView(playersTableView)
+            let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
+            
+            if swipedIndexPath == nil || countRowNumberForIndexPath(swipedIndexPath!) == players.count || isReadyToDeleteRow {
+                return
+            }
+            guard let indexPath = swipedIndexPath else {
+                return
+            }
+            players[indexPath.row] = RandomNames.getRandomName()
+            playersTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }
     
