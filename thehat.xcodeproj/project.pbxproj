@@ -17,6 +17,7 @@
 		8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0171C3FF0D7008497E2 /* edit_players.png */; };
 		8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B01B1C3FF10B008497E2 /* edit_settings.png */; };
 		8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0351C42F497008497E2 /* InfoPlist.strings */; };
+		8847B0381C44349C008497E2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8847B0371C44349C008497E2 /* StoreKit.framework */; };
 		88545D581C3AFE8900887E24 /* edit_words.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D561C3AFE8900887E24 /* edit_words.png */; };
 		88545D5A1C3AFFD300887E24 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D5C1C3AFFD300887E24 /* round.png */; };
 		887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7731C3A95020009EA1C /* TutorialViewController.swift */; };
@@ -85,6 +86,7 @@
 		8847B01C1C3FF10D008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/edit_settings.png; sourceTree = "<group>"; };
 		8847B0341C42F497008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8847B0361C42F498008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8847B0371C44349C008497E2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		88545D521C3AF94600887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88545D561C3AFE8900887E24 /* edit_words.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_words.png; sourceTree = "<group>"; };
 		88545D5B1C3AFFD300887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/round.png; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8847B0381C44349C008497E2 /* StoreKit.framework in Frameworks */,
 				8847B0141C3EC321008497E2 /* Crashlytics.framework in Frameworks */,
 				8847B0131C3EC321008497E2 /* Fabric.framework in Frameworks */,
 			);
@@ -184,6 +187,7 @@
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
 				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
+				8847B0371C44349C008497E2 /* StoreKit.framework */,
 				8847B0111C3EC321008497E2 /* Fabric.framework */,
 				8847B0121C3EC321008497E2 /* Crashlytics.framework */,
 			);
@@ -342,6 +346,11 @@
 					889324F81AE41C3D009B68B2 = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = DSQACR84TV;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					8893250D1AE41C3D009B68B2 = {
 						CreatedOnToolsVersion = 6.3;

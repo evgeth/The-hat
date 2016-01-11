@@ -41,20 +41,11 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         let currentPlayers = gameInstance.currentPlayers()
         speaker.text = currentPlayers.0.name
         listener.text = currentPlayers.1.name
-
-        var wordList = speaker.text!.componentsSeparatedByString(" ").filter{$0 != ""}
-        if wordList.count == 1 {
-            speaker.numberOfLines = 1
-        }
-        wordList = listener.text!.componentsSeparatedByString(" ").filter{$0 != ""}
-        if wordList.count == 1 {
-            listener.numberOfLines = 1
-        }
         
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2.2, delegate: self)
+        startButtonView.initializer(inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2, delegate: self)
         
         self.countdownSound = self.setupAudioPlayerWithFile("countdown", type:"wav")
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
@@ -88,6 +79,14 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         let currentPlayers = gameInstance.currentPlayers()
         speaker.text = currentPlayers.0.name
         listener.text = currentPlayers.1.name
+        var wordList = speaker.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        if wordList.count == 1 {
+            speaker.numberOfLines = 1
+        }
+        wordList = listener.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        if wordList.count == 1 {
+            listener.numberOfLines = 1
+        }
         
         
         if (gameInstance.isNoMoreWords) {
@@ -162,7 +161,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
         countdownSound.play()
         loadingViewWidth.constant = self.startButtonView.frame.width
-        UIView.animateWithDuration(2.2) { () -> Void in
+        UIView.animateWithDuration(2) { () -> Void in
             self.startButtonView.layoutIfNeeded()
         }
     }
@@ -212,12 +211,6 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         sendWordsAnalytics()
         
         self.presentViewController(roundVC, animated: true, completion: nil)
-    }
-    
-    func firedFunc(number: Int) {
-//        self.loadingView.frame = CGRect(x: 0, y: 0, width: 20.0 * CGFloat(number), height: self.startButtonView.frame.height)
-//        self.loadingView.setNeedsDisplay()
-        
     }
     
     func showCountdownLabel(viewToScale: UIView, scaleFrom: Double, scaleTo: Double) {
