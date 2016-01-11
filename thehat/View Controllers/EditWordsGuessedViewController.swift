@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -43,23 +44,9 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         gameInstance.setGuessedWordsForRound(wordList)
     }
     
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        pullToMarkMistakeLabel.frame.size = CGSize(width: scrollView.frame.width, height: pullToMarkMistakeLabel.frame.height)
-//        let percentage = CGFloat(-scrollView.contentOffset.y / pullToMarkMistakeLabel.frame.height)
-//        let color = UIColor(r: 180, g: 60, b: 10, a: 80)
-//        let finishColorComponents = CGColorGetComponents(color.CGColor)
-//        let startColorComponents = CGColorGetComponents(UIColor(r: 203, g: 222, b: 203, a: 80).CGColor)
-//        pullToMarkMistakeLabel.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[2]) * percentage)
-//    }
-    
-//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        if -scrollView.contentOffset.y >= pullToMarkMistakeLabel.frame.height {
-//            isPulledEnough = true
-//            wordList.last?.state = State.Fail
-//            guessedWordsTableView.reloadData()
-//            gameInstance?.setGuessedWordsForRound(wordList)
-//        }
-//    }
+    override func viewWillAppear(animated: Bool) {
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Edit words"])
+    }
 
     
     override func didReceiveMemoryWarning() {

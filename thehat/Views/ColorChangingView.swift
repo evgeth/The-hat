@@ -24,6 +24,8 @@ class ColorChangingView: UIView {
     var timerRate: Double = 0.03
     var startTouchTimer: NSTimer!
     var touchDuration: Double = 0
+    var lastFired: Double = 0
+    var numberOfCounts = 0
     var delegate: ColorChangingViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,10 +58,18 @@ class ColorChangingView: UIView {
         startTouchTimer = nil
         self.backgroundColor = startColor
         touchDuration = 0
+        lastFired = 0
+        numberOfCounts = 0
     }
     
     func touchTimerFired() {
         touchDuration += timerRate
+        
+        if lastFired + 0.1 < touchDuration || lastFired == 0 {
+            delegate?.firedFunc?(numberOfCounts)
+            numberOfCounts += 1
+            lastFired = touchDuration
+        }
         
         if touchDuration >= requiredTouchDuration {
             clearTouchTimer()

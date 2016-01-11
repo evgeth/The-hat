@@ -21,13 +21,16 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     
     @IBOutlet weak var startButtonView: ColorChangingView!
     var inactiveColor: UIColor!
+    
     @IBOutlet weak var holdToStartLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
+    
+    var loadingView: UIView!
+    
     var notUndestandingHowToStartCounter = 0
     
+    @IBOutlet weak var loadingViewWidth: NSLayoutConstraint!
     var isProceedingToResults: Bool = false
-    
-    
     
     var countdownSound = AVAudioPlayer()
     
@@ -51,10 +54,12 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(inactiveColor, finishColor: UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 0.8), requiredTouchDuration: 2.2, delegate: self)
+        startButtonView.initializer(inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2.2, delegate: self)
         
         self.countdownSound = self.setupAudioPlayerWithFile("countdown", type:"wav")
-
+        self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
+        self.startButtonView.insertSubview(self.loadingView, atIndex: 0)
+        self.loadingView.backgroundColor = UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 1)
     }
     
 
@@ -108,6 +113,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         notUndestandingHowToStartCounter = 0
         holdToStartLabel.hidden = true
+        
+        self.loadingViewWidth.constant = 0
+        self.startButtonView.layoutIfNeeded()
     }
     
     func closeButtonPressed() {
@@ -153,6 +161,10 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             return
         }
         countdownSound.play()
+        loadingViewWidth.constant = self.startButtonView.frame.width
+        UIView.animateWithDuration(2.2) { () -> Void in
+            self.startButtonView.layoutIfNeeded()
+        }
     }
     
     func touchEnded() {
@@ -162,6 +174,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             proceedToResults()
             return
         }
+        self.loadingViewWidth.constant = 0
+        self.startButtonView.layoutIfNeeded()
         notUndestandingHowToStartCounter += 1
         if notUndestandingHowToStartCounter == 1 {
             UIView.animateWithDuration(0.2, animations: { () -> Void in
@@ -184,7 +198,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             Answers.logCustomEventWithName("Word guessed", customAttributes:
                 ["word": word.word,
                     "status": state])
-            Answers.logCustomEventWithName(word.word, customAttributes:
+            Answers.logCustomEventWithName("Word_played_" + word.word, customAttributes:
                 ["status": state])
         }
     }
@@ -198,6 +212,26 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         sendWordsAnalytics()
         
         self.presentViewController(roundVC, animated: true, completion: nil)
+    }
+    
+    func firedFunc(number: Int) {
+//        self.loadingView.frame = CGRect(x: 0, y: 0, width: 20.0 * CGFloat(number), height: self.startButtonView.frame.height)
+//        self.loadingView.setNeedsDisplay()
+        
+    }
+    
+    func showCountdownLabel(viewToScale: UIView, scaleFrom: Double, scaleTo: Double) {
+        viewToScale.hidden = false
+        viewToScale.alpha = 1
+        viewToScale.transform = CGAffineTransformMakeScale(CGFloat(scaleFrom), CGFloat(scaleFrom))
+        
+        UIView.animateKeyframesWithDuration(0.5, delay: 0.0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: { () -> Void in
+            viewToScale.alpha = 1
+            viewToScale.transform = CGAffineTransformMakeScale(CGFloat(scaleTo), CGFloat(scaleTo))
+            }) { (error) -> Void in
+                viewToScale.hidden = true
+                viewToScale.transform = CGAffineTransformIdentity
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

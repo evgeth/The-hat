@@ -13,4 +13,6 @@ import Foundation
     optional func touchBegan()
     
     func requiredTouchDurationReached()
+    
+    optional func firedFunc(number: Int)
 }
