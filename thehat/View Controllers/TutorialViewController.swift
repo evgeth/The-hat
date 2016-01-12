@@ -24,9 +24,8 @@ class TutorialViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
         setNavigationBarTitleWithCustomFont(NSLocalizedString("RULES", comment: "Rules"))
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         
         tutorialTitles = [NSLocalizedString("edit_players", comment: "edit_players"),
@@ -63,6 +62,7 @@ class TutorialViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
 

@@ -13,6 +13,8 @@ class TutorialPageViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var newGameButton: UIView!
+    @IBOutlet weak var iphoneImageView: UIImageView!
+    @IBOutlet weak var backgroundImage: UIImageView!
     
     var descriptionText: String!
     var imageName: String!
@@ -25,6 +27,9 @@ class TutorialPageViewController: UIViewController {
         if descriptionText == "new game" {
             newGameButton.hidden = false
             descriptionLabel.hidden = true
+            backgroundImage.hidden = false
+            iphoneImageView.hidden = true
+            imageView.hidden = true
         } else {
             imageView.image = UIImage(named: imageName)
             descriptionLabel.text = descriptionText

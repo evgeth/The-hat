@@ -68,6 +68,11 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Game Settings"])
+    }
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }

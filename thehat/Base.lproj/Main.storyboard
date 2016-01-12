@@ -834,11 +834,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="gel-W8-yXu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IPhone6.png" translatesAutoresizingMaskIntoConstraints="NO" id="QhE-IY-2bQ">
                                 <rect key="frame" x="174" y="22" width="251" height="515"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-35-0dj">
-                                <rect key="frame" x="16" y="543" width="568" height="50.5"/>
+                                <rect key="frame" x="16" y="543" width="568" height="51"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -861,8 +864,8 @@
                                             <segue destination="xWu-dW-2gJ" kind="show" identifier="New Game Segue" id="bU8-gi-rUB"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" New Game " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-vm-dGI">
-                                        <rect key="frame" x="171" y="8" width="258" height="63"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start game" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-vm-dGI" userLabel="New Game">
+                                        <rect key="frame" x="186.5" y="8" width="227.5" height="63"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="46"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -889,18 +892,24 @@
                             <constraint firstItem="4jx-9L-Zfs" firstAttribute="centerY" secondItem="XAu-8L-9VO" secondAttribute="centerY" constant="-20" id="QyB-al-ard"/>
                             <constraint firstItem="QhE-IY-2bQ" firstAttribute="centerX" secondItem="4jx-9L-Zfs" secondAttribute="centerX" id="RII-46-TBr"/>
                             <constraint firstItem="SXF-jd-ToJ" firstAttribute="centerY" secondItem="XAu-8L-9VO" secondAttribute="centerY" id="ReS-eo-0tg"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gel-W8-yXu" secondAttribute="bottom" id="SzA-ft-dkp"/>
                             <constraint firstAttribute="trailing" secondItem="uhX-35-0dj" secondAttribute="trailing" constant="16" id="Veh-ri-Uul"/>
+                            <constraint firstAttribute="trailing" secondItem="gel-W8-yXu" secondAttribute="trailing" id="ZNA-R6-1OQ"/>
                             <constraint firstItem="uhX-35-0dj" firstAttribute="top" secondItem="QhE-IY-2bQ" secondAttribute="bottom" constant="6" id="Zf3-Kn-6zH"/>
                             <constraint firstItem="QhE-IY-2bQ" firstAttribute="centerY" secondItem="4jx-9L-Zfs" secondAttribute="centerY" id="eAf-V5-qbZ"/>
+                            <constraint firstItem="gel-W8-yXu" firstAttribute="top" secondItem="XAu-8L-9VO" secondAttribute="top" id="fXx-UC-Mh1"/>
                             <constraint firstItem="4jx-9L-Zfs" firstAttribute="height" secondItem="XAu-8L-9VO" secondAttribute="height" multiplier="33:50" id="mNW-NH-Dyb"/>
                             <constraint firstItem="uhX-35-0dj" firstAttribute="leading" secondItem="XAu-8L-9VO" secondAttribute="leading" constant="16" id="mdY-ns-W6P"/>
+                            <constraint firstItem="gel-W8-yXu" firstAttribute="leading" secondItem="XAu-8L-9VO" secondAttribute="leading" id="msc-bE-T9Z"/>
                             <constraint firstAttribute="trailing" secondItem="SXF-jd-ToJ" secondAttribute="trailing" id="mun-88-LGG"/>
                             <constraint firstItem="SXF-jd-ToJ" firstAttribute="leading" secondItem="XAu-8L-9VO" secondAttribute="leading" id="yjj-eL-TsI"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="gel-W8-yXu" id="b2i-aJ-w2D"/>
                         <outlet property="descriptionLabel" destination="uhX-35-0dj" id="KUx-CB-c8y"/>
                         <outlet property="imageView" destination="4jx-9L-Zfs" id="ebg-QC-GYZ"/>
+                        <outlet property="iphoneImageView" destination="QhE-IY-2bQ" id="SI3-ke-5eR"/>
                         <outlet property="newGameButton" destination="SXF-jd-ToJ" id="bZN-Id-9Mq"/>
                     </connections>
                 </viewController>
