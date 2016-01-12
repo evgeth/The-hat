@@ -118,6 +118,7 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
                 UIApplication.sharedApplication().openURL(url)
             }
         }
+        Answers.logCustomEventWithName("About action", customAttributes: ["Action": obj.1])
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
@@ -169,13 +170,14 @@ extension AboutViewController: SKPaymentTransactionObserver {
                 print("Transaction completed successfully.")
                 SKPaymentQueue.defaultQueue().finishTransaction(transaction)
 //                delegate.didBuyColorsCollection(selectedProductIndex)
+                Answers.logCustomEventWithName("Coffee", customAttributes: ["Status": "Complete"])
                 
                 
             case SKPaymentTransactionState.Failed:
                 print("Transaction Failed");
                 print(transaction.error)
                 SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                
+                Answers.logCustomEventWithName("Coffee", customAttributes: ["Status": "Failed"])
             default:
                 print(transaction.transactionState.rawValue)
             }
