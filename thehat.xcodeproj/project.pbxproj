@@ -18,6 +18,11 @@
 		8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B01B1C3FF10B008497E2 /* edit_settings.png */; };
 		8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0351C42F497008497E2 /* InfoPlist.strings */; };
 		8847B0381C44349C008497E2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8847B0371C44349C008497E2 /* StoreKit.framework */; };
+		8847B03C1C450B87008497E2 /* AboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847B03B1C450B87008497E2 /* AboutTableViewCell.swift */; };
+		8847B03E1C450DAD008497E2 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B03D1C450DAD008497E2 /* facebook.png */; };
+		8847B0421C450E22008497E2 /* vk.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0411C450E22008497E2 /* vk.png */; };
+		8847B0461C451230008497E2 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0451C451230008497E2 /* share.png */; };
+		8847B0481C452075008497E2 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0471C452075008497E2 /* coffee.png */; };
 		88545D581C3AFE8900887E24 /* edit_words.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D561C3AFE8900887E24 /* edit_words.png */; };
 		88545D5A1C3AFFD300887E24 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D5C1C3AFFD300887E24 /* round.png */; };
 		887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7731C3A95020009EA1C /* TutorialViewController.swift */; };
@@ -87,6 +92,11 @@
 		8847B0341C42F497008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8847B0361C42F498008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8847B0371C44349C008497E2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8847B03B1C450B87008497E2 /* AboutTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewCell.swift; sourceTree = "<group>"; };
+		8847B03D1C450DAD008497E2 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
+		8847B0411C450E22008497E2 /* vk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk.png; sourceTree = "<group>"; };
+		8847B0451C451230008497E2 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		8847B0471C452075008497E2 /* coffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coffee.png; sourceTree = "<group>"; };
 		88545D521C3AF94600887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88545D561C3AFE8900887E24 /* edit_words.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_words.png; sourceTree = "<group>"; };
 		88545D5B1C3AFFD300887E24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/round.png; sourceTree = "<group>"; };
@@ -235,6 +245,10 @@
 		88DBAC201C333A9900C4EB1F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8847B0471C452075008497E2 /* coffee.png */,
+				8847B0451C451230008497E2 /* share.png */,
+				8847B03D1C450DAD008497E2 /* facebook.png */,
+				8847B0411C450E22008497E2 /* vk.png */,
 				88545D561C3AFE8900887E24 /* edit_words.png */,
 				8847B00C1C3BC38C008497E2 /* extra_time.png */,
 				8847B0171C3FF0D7008497E2 /* edit_players.png */,
@@ -272,6 +286,7 @@
 		88DBAC381C333AC500C4EB1F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8847B03B1C450B87008497E2 /* AboutTableViewCell.swift */,
 				88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */,
 				88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */,
 				88DBAC3B1C333AC500C4EB1F /* PlayerResultCell.swift */,
@@ -387,7 +402,10 @@
 				889325041AE41C3D009B68B2 /* Main.storyboard in Resources */,
 				8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */,
 				88DBAC281C333A9900C4EB1F /* score.wav in Resources */,
+				8847B03E1C450DAD008497E2 /* facebook.png in Resources */,
 				8847B00F1C3EBA6C008497E2 /* countdown.wav in Resources */,
+				8847B0481C452075008497E2 /* coffee.png in Resources */,
+				8847B0421C450E22008497E2 /* vk.png in Resources */,
 				88DBAC271C333A9900C4EB1F /* russian.words in Resources */,
 				88545D581C3AFE8900887E24 /* edit_words.png in Resources */,
 				889325091AE41C3D009B68B2 /* LaunchScreen.xib in Resources */,
@@ -396,6 +414,7 @@
 				8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */,
 				88545D5A1C3AFFD300887E24 /* round.png in Resources */,
 				8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */,
+				8847B0461C451230008497E2 /* share.png in Resources */,
 				887FA78B1C3AF7E90009EA1C /* IPhone6.png in Resources */,
 				88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */,
 				88DBAC251C333A9900C4EB1F /* english.words in Resources */,
@@ -444,6 +463,7 @@
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,
+				8847B03C1C450B87008497E2 /* AboutTableViewCell.swift in Sources */,
 				88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */,
 				887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */,
 				887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */,

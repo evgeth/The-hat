@@ -127,8 +127,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertActionStyle.Cancel, handler: nil))
         
-        alert.popoverPresentationController?.sourceView = self.view
-        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width - 26, y: 50, width: 1, height: 1)
+        alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         self.presentViewController(alert, animated: true, completion: nil)
 
     }

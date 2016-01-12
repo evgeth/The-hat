@@ -50,3 +50,18 @@ extra_time = "After time is over, your partner has 3 extra seconds to guess, you
 results = "After you finished, you will see the results";
 
 
+social = "Social";
+developer = "Developed by";
+thanks = "Special thanks";
+
+facebook = "Facebook page";
+vk = "VK group";
+friends = "Tell friends";
+yurtaev = "Evgeny Yurtaev";
+koroleva = "Yulia Koroleva (design)";
+emelin = "Max Emelin (sounds)";
+lksh = "LKSH (inspiration)";
+
+coffee = "Buy me a cup of coffee";
+tip = "Tip";
+

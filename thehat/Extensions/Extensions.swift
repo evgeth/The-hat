@@ -79,3 +79,14 @@ class RandomNames {
         return names[new]
     }
 }
+
+
+extension UIViewController {
+    func isIpad() -> Bool {
+        if self.traitCollection.userInterfaceIdiom == .Phone {
+            return false
+        } else {
+            return true
+        }
+    }
+}
