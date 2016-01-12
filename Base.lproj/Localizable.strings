@@ -17,7 +17,7 @@ TIMER_STRING = "3. 2. 1. Start!";
 
 WORDS_LEFT = "words left";
 
-NO_WAY = "No way (hold for mistake)";
+NO_WAY = "Not guessed (hold for mistake)";
 
 FINISH = "Finish";
 
@@ -44,10 +44,10 @@ PAIR = "Pair";
 
 edit_players = "Set names for players";
 edit_settings = "Choose words difficulty and other settings";
-preparation = "Alice should explain as many words as she can to Bob without cognate and conformable words";
+preparation = "Alice should explain as many words as she can to Bob without using cognate and conformable words";
 round = "Tap \"Got it\" when your partner tells the right word. If you accidently say cognate word, hold \"Mistake\"";
-extra_time = "After time is over, your partner has 3 extra seconds to guess, you should be silent";
-results = "After you finished, you will see the results";
+extra_time = "When the time is up, your partner has 3 extra seconds to guess. During this time, you should remain silent";
+results = "In the end of the game, you will see the results";
 
 
 social = "Social";
