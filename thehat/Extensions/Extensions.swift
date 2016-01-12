@@ -68,9 +68,9 @@ class RandomNames {
         } else {
             names = englishNames
         }
-        var new = Int(arc4random()) % names.count
+        var new = Int(arc4random_uniform(UInt32(names.count)))
         while last.contains(new) {
-            new = Int(arc4random()) % names.count
+            new = Int(arc4random_uniform(UInt32(names.count)))
         }
         last.append(new)
         if last.count > 10 {

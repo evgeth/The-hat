@@ -11,7 +11,7 @@ import AVFoundation
 import Crashlytics
 
 
-class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
+class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
     var gameInstance = GameSingleton.gameInstance
 
     @IBOutlet weak var listener: UILabel!
@@ -92,6 +92,17 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if (gameInstance.isNoMoreWords) {
             startLabel.text = NSLocalizedString("FINISH", comment: "Finish")
         }
+        updateWordsLeft()
+        
+        
+        notUndestandingHowToStartCounter = 0
+        holdToStartLabel.hidden = true
+        
+        self.loadingViewWidth.constant = 0
+        self.startButtonView.layoutIfNeeded()
+    }
+    
+    func updateWordsLeft() {
         let roundNumber = gameInstance.getCurrentRound().number
         self.navigationItem.title = ""
         if roundNumber != 0 {
@@ -105,16 +116,10 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         size.width += 10
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
         label.text = "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
-        label.textColor = view.tintColor
+        label.textColor = UIColor(red: 0.272523, green: 0.594741, blue: 0.400047, alpha: 1)
         label.font = UIFont(name: "Avenir Next", size: 18)
         label.textAlignment = NSTextAlignment.Right
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: Selector("closeButtonPressed")), UIBarButtonItem(customView: label)]
-        
-        notUndestandingHowToStartCounter = 0
-        holdToStartLabel.hidden = true
-        
-        self.loadingViewWidth.constant = 0
-        self.startButtonView.layoutIfNeeded()
     }
     
     func closeButtonPressed() {
@@ -137,12 +142,19 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         let editWordsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("EditGuessedWords") as! EditWordsGuessedViewController
         editWordsViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         editWordsViewController.gameInstance = self.gameInstance
+        editWordsViewController.saveDelegate = self
         
         let popoverPC = editWordsViewController.popoverPresentationController
         popoverPC!.delegate = self
         popoverPC!.barButtonItem = self.navigationItem.leftBarButtonItem
         popoverPC!.backgroundColor = UIColor.whiteColor()
-        self.presentViewController(editWordsViewController, animated: true, completion: {})
+        popoverPC?.delegate = self
+
+        self.presentViewController(editWordsViewController, animated: true, completion: nil)
+    }
+    
+    func updated() {
+        self.updateWordsLeft()
     }
     
     override func didReceiveMemoryWarning() {
@@ -239,5 +251,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             performSegueWithIdentifier("Results Segue", sender: nil)
         }
     }
+}
+
+protocol PopoverSaveDelegate {
+    func updated()
 }
 

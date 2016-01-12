@@ -15,6 +15,8 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     var wordList = [Word]()
     var gameInstance = GameSingleton.gameInstance
     
+    var saveDelegate: PopoverSaveDelegate?
+    
     @IBOutlet weak var saveView: UIView!
     var pullToMarkMistakeLabel: UILabel!
     var isPulledEnough = false
@@ -94,6 +96,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
             wordList[indexPath.row].state = State.Guessed
         }
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        self.saveDelegate?.updated()
     }
     
     @IBAction func saveButtonTouch(sender: UIButton) {
@@ -102,6 +105,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     
     func saveCorrectionsAndClose() {
         gameInstance.setGuessedWordsForRound(wordList)
+        self.saveDelegate?.updated()
         dismissViewControllerAnimated(true, completion: nil)
     }
     /*
