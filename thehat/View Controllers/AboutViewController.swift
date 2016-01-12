@@ -22,7 +22,8 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     var rows: [[(String, String)]] = [
         [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
             (NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652"),
-            (NSLocalizedString("friends", comment: "tell friends"), "share")],
+            (NSLocalizedString("friends", comment: "tell friends"), "share"),
+            (NSLocalizedString("rate", comment: "rate"), "rate")],
         [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://vk.com/id17890829")],
         [(NSLocalizedString("koroleva", comment: "koroleva"), "https://vk.com/id81679642"),
             (NSLocalizedString("emelin", comment: "emelin"), "https://vk.com/id24027100"),
@@ -100,6 +101,9 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
             } else {
                 self.presentViewController(activityVC, animated: true, completion: nil)
         }
+        case "rate":
+            let link = "itms-apps://itunes.apple.com/app/id1073529279"
+            UIApplication.sharedApplication().openURL(NSURL(string: link)!)
         case "":
             break
         case "tip":
@@ -130,6 +134,8 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
                 imgtitle = "vk.png"
             case 2:
                 imgtitle = "share.png"
+            case 3:
+                imgtitle = "star.png"
             default:
                 break
             }
