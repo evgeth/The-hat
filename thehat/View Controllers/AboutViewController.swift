@@ -15,6 +15,7 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     
     var productIDs = Set<String>()
     var productsArray: Array<SKProduct!> = []
+    var productRequest: SKProductsRequest!
     
     var titles = [NSLocalizedString("Social", comment: "Social"),
                 NSLocalizedString("developer", comment: "developer"),
@@ -56,10 +57,15 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
         Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        productRequest.delegate = nil
+        productRequest.cancel()
+    }
+    
     
     func requestProductInfo() {
         if SKPaymentQueue.canMakePayments() {
-            let productRequest = SKProductsRequest(productIdentifiers: productIDs)
+            productRequest = SKProductsRequest(productIdentifiers: productIDs)
             
             productRequest.delegate = self
             productRequest.start()
