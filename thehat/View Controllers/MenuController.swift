@@ -61,23 +61,6 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
         return .none
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "Rules Segue" {
-////            if let destinationViewController = segue.destinationViewController as? UIViewController {
-////                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
-////                destinationViewController.popoverPresentationController!.delegate = self
-////            }
-//        } else if segue.identifier == "New Game Segue" {
-////            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
-////                destinationVC.gameInstance = self.gameInstance
-////            }
-//        } else if segue.identifier == "Continue Segue" {
-////            if let destinationVC = segue.destinationViewController as? PreparationViewController {
-////                destinationVC.gameInstance = self.gameInstance
-////            }
-//        }
-//    }
-    
     func touchEnded() {
         if gameInstance.isGameInProgress {
             performSegue(withIdentifier: "Continue Segue", sender: nil)

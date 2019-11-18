@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="Vb7-d3-IHw">
-                                <rect key="frame" x="0.0" y="15" width="414" height="847"/>
+                                <rect key="frame" x="0.0" y="15" width="414" height="881"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czO-e0-sDd" userLabel="Menu">
                                 <rect key="frame" x="0.0" y="138" width="414" height="658"/>
@@ -166,14 +166,14 @@
                             <constraint firstItem="Vb7-d3-IHw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="15" id="FsY-Ia-JgE"/>
                             <constraint firstAttribute="bottom" secondItem="ha5-YS-Jgv" secondAttribute="bottom" id="GVd-8J-kWc"/>
                             <constraint firstAttribute="trailing" secondItem="9XG-AD-Wdj" secondAttribute="trailing" id="M7Q-hx-7Wy"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Vb7-d3-IHw" secondAttribute="bottom" id="QZb-JU-iIB"/>
+                            <constraint firstItem="ha5-YS-Jgv" firstAttribute="bottom" secondItem="Vb7-d3-IHw" secondAttribute="bottom" id="QZb-JU-iIB"/>
                             <constraint firstItem="ha5-YS-Jgv" firstAttribute="top" secondItem="czO-e0-sDd" secondAttribute="bottom" id="Rsm-8t-SrN"/>
                             <constraint firstAttribute="trailing" secondItem="ha5-YS-Jgv" secondAttribute="trailing" id="XKP-tP-1y6"/>
                             <constraint firstItem="czO-e0-sDd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yag-R3-T2a"/>
                             <constraint firstAttribute="trailing" secondItem="Vb7-d3-IHw" secondAttribute="trailing" id="zWB-XO-qGa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="The Hat" id="up1-2g-wy8">
+                    <navigationItem key="navigationItem" title="The Hat" largeTitleDisplayMode="always" id="up1-2g-wy8">
                         <barButtonItem key="backBarButtonItem" title=" " id="Shs-mB-PPh"/>
                     </navigationItem>
                     <connections>
@@ -198,11 +198,11 @@
                         <viewControllerLayoutGuide type="bottom" id="9Y6-aP-8C7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SEc-1w-EMZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJs-HC-qyf" userLabel="Mistake Container">
-                                <rect key="frame" x="0.0" y="648" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="702" width="414" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3l-sA-S3t" userLabel="Red View" customClass="ColorChangingView" customModule="thehat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -232,7 +232,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qkN-FK-f3g" userLabel="Guessed ">
-                                <rect key="frame" x="0.0" y="708" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Got it!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eF-Fx-WKY">
                                         <rect key="frame" x="161.5" y="28" width="91.5" height="44"/>
@@ -263,7 +263,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a66-W3-mLI" userLabel="Contents View">
-                                <rect key="frame" x="0.0" y="-20" width="414" height="668"/>
+                                <rect key="frame" x="0.0" y="24" width="414" height="678"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAK-Gp-IPX" userLabel="Timer Stripe">
                                         <rect key="frame" x="0.0" y="50" width="414" height="100"/>
@@ -360,11 +360,11 @@
                         <viewControllerLayoutGuide type="bottom" id="duH-OL-x7g"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="p0H-bK-odM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="CGy-id-gef">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Header Cell" id="pRF-sk-Iad">
@@ -596,14 +596,14 @@
                         <viewControllerLayoutGuide type="bottom" id="8ge-ED-jg7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cNw-nJ-ROc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="hiv-YJ-ymZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="902"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gc7-eR-9ja" userLabel="Round Info View">
-                                <rect key="frame" x="0.0" y="156" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="188" width="414" height="100"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYs-hR-Zze" userLabel="Speaker View">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="100"/>
@@ -676,7 +676,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JlK-Vy-VeZ" userLabel="Start Button View" customClass="ColorChangingView" customModule="thehat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="708" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W22-V5-ubG" userLabel="Loading View">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="100"/>
@@ -715,7 +715,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="8ge-ED-jg7" firstAttribute="top" secondItem="hiv-YJ-ymZ" secondAttribute="bottom" id="4xB-d5-R6M"/>
+                            <constraint firstItem="8ge-ED-jg7" firstAttribute="top" secondItem="hiv-YJ-ymZ" secondAttribute="bottom" constant="-40" id="1dl-tP-E0E"/>
                             <constraint firstItem="hiv-YJ-ymZ" firstAttribute="top" secondItem="cNw-nJ-ROc" secondAttribute="top" id="GLY-de-GL7"/>
                             <constraint firstAttribute="trailing" secondItem="JlK-Vy-VeZ" secondAttribute="trailing" id="KlY-7X-Xai"/>
                             <constraint firstItem="Gc7-eR-9ja" firstAttribute="top" secondItem="L8a-et-jno" secondAttribute="bottom" constant="100" id="WFG-sJ-dGW">
@@ -741,7 +741,6 @@
                         <outlet property="speaker" destination="CSh-IQ-TNm" id="gYO-fm-510"/>
                         <outlet property="startButtonView" destination="JlK-Vy-VeZ" id="mIv-Uw-Jqj"/>
                         <outlet property="startLabel" destination="lGK-uW-8pb" id="sVB-tg-opW"/>
-                        <segue destination="c4I-dJ-KaJ" kind="presentation" identifier="Start Round" id="k8b-QB-7Fh"/>
                         <segue destination="Wyl-bX-D3j" kind="show" identifier="Results Segue" id="KC2-jD-H2k"/>
                     </connections>
                 </viewController>
@@ -934,11 +933,11 @@
                         <viewControllerLayoutGuide type="bottom" id="BUN-b2-bdt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NKp-53-HgV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zeV-fw-Fnm" userLabel="Footer">
-                                <rect key="frame" x="0.0" y="662" width="414" height="180"/>
+                                <rect key="frame" x="0.0" y="716" width="414" height="180"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9no-RZ-m4A">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
@@ -1074,7 +1073,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zg9-Ia-vPu" userLabel="Players Table">
-                                <rect key="frame" x="0.0" y="56" width="414" height="606"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="628"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <prototypes>
@@ -1264,7 +1263,7 @@
         <image name="edit_players.png" width="750" height="1334"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bU8-gi-rUB"/>
+        <segue reference="QHo-Wr-ik8"/>
         <segue reference="ajR-wx-syI"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27252301880090257" green="0.59474130087641119" blue="0.40004714563634935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
