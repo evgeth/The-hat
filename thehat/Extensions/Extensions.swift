@@ -11,7 +11,7 @@ import UIKit
 
 extension UIViewController {
     func setNavigationBarTitleWithCustomFont(title: String) {
-        let size = UIFont(name: "Avenir Next", size: 18)?.sizeOfString(title, constrainedToWidth: 200)
+        let size = UIFont(name: "Avenir Next", size: 18)?.sizeOfString(string: title, constrainedToWidth: 200)
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size!))
         label.text = title
         label.font = UIFont(name: "Avenir Next", size: 18)
@@ -38,7 +38,7 @@ extension Array {
         for i in 0..<(count - 1) {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
             if (i != j) {
-                swap(&self[i], &self[j])
+                self.swapAt(i, j)
             }
         }
     }
@@ -46,9 +46,9 @@ extension Array {
 
 extension UIFont {
     func sizeOfString (string: String, constrainedToWidth width: Double) -> CGSize {
-        return (string as NSString).boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
-            options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-            attributes: [NSFontAttributeName: self],
+        return (string as String).boundingRect(with: CGSize(width: width, height: Double.greatestFiniteMagnitude),
+                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                               attributes: [NSAttributedString.Key.font: self],
             context: nil).size
     }
 }
@@ -63,7 +63,7 @@ class RandomNames {
     static func getRandomName() -> String {
         var names: [String] = []
         
-        if NSLocale.preferredLanguages()[0].containsString("ru") {
+        if Locale.preferredLanguages[0].contains("ru") {
             names = russianNames
         } else {
             names = englishNames
@@ -83,7 +83,7 @@ class RandomNames {
 
 extension UIViewController {
     func isIpad() -> Bool {
-        if self.traitCollection.userInterfaceIdiom == .Phone {
+        if self.traitCollection.userInterfaceIdiom == .phone {
             return false
         } else {
             return true

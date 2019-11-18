@@ -7,25 +7,26 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class LocalWordsLoader: WordsLoaderDelegate {
     var localPool = [Word]()
     
     init() {
-        let path = NSBundle.mainBundle().pathForResource(NSLocalizedString("WORDS_FILE", comment: "Words file"), ofType: "words")
+        let path = Bundle.main.path(forResource: NSLocalizedString("WORDS_FILE", comment: "Words file"), ofType: "words")
         do {
-            let jsonData = try NSData(contentsOfFile: path!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            let json = JSON(data: jsonData)
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe)
+            let json = try JSON(data: jsonData)
             let listOfWordsInJson = json["words"]
             for (_, subJson): (String, JSON) in listOfWordsInJson {
                 localPool.append(Word(word: subJson["word"].stringValue, complexity: subJson["complexity"].intValue))
             }
-        } catch let error as NSError {
+        } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func getWords(numberOfWordsRequired: Int = 5, averageDifficulty: Int = 50) -> [String] {
+    func getWords(count numberOfWordsRequired: Int = 5, averageDifficulty: Int = 50) -> [String] {
         var list: [String] = []
         var localPoolWithDifficulty = localPool.filter { (word: Word) -> Bool in
             if abs(word.complexity - averageDifficulty) <= 10 {

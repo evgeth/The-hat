@@ -30,13 +30,13 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
         initNewGameButton()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
         initNewGameButton()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -47,48 +47,48 @@ class MenuController: UIViewController, UIPopoverPresentationControllerDelegate,
     
     func initNewGameButton() {
         if gameInstance.isGameInProgress {
-            holdToStartNewGameLabel.hidden = false
+            holdToStartNewGameLabel.isHidden = false
             newGameLabel.text = NSLocalizedString("CONTINUE", comment: "Continue")
-            newGameView.initializer(UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 250, b: 130, a: 90), requiredTouchDuration: 0.6, delegate: self)
+            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 250, b: 130, a: 90), requiredTouchDuration: 0.6, delegate: self)
         } else {
-            holdToStartNewGameLabel.hidden = true
+            holdToStartNewGameLabel.isHidden = true
             newGameLabel.text = NSLocalizedString("NEW_GAME",comment:"New Game")
-            newGameView.initializer(UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 236, b: 158, a: 80), requiredTouchDuration: 100, delegate: self)
+            newGameView.initializer(startColor: UIColor(r: 109, g: 236, b: 158, a: 80), finishColor: UIColor(r: 109, g: 236, b: 158, a: 80), requiredTouchDuration: 100, delegate: self)
         }
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+        return .none
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "Rules Segue" {
-//            if let destinationViewController = segue.destinationViewController as? UIViewController {
-//                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
-//                destinationViewController.popoverPresentationController!.delegate = self
-//            }
-        } else if segue.identifier == "New Game Segue" {
-//            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
-//                destinationVC.gameInstance = self.gameInstance
-//            }
-        } else if segue.identifier == "Continue Segue" {
-//            if let destinationVC = segue.destinationViewController as? PreparationViewController {
-//                destinationVC.gameInstance = self.gameInstance
-//            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "Rules Segue" {
+////            if let destinationViewController = segue.destinationViewController as? UIViewController {
+////                destinationViewController.popoverPresentationController!.backgroundColor = UIColor.whiteColor()
+////                destinationViewController.popoverPresentationController!.delegate = self
+////            }
+//        } else if segue.identifier == "New Game Segue" {
+////            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
+////                destinationVC.gameInstance = self.gameInstance
+////            }
+//        } else if segue.identifier == "Continue Segue" {
+////            if let destinationVC = segue.destinationViewController as? PreparationViewController {
+////                destinationVC.gameInstance = self.gameInstance
+////            }
+//        }
+//    }
     
     func touchEnded() {
         if gameInstance.isGameInProgress {
-            performSegueWithIdentifier("Continue Segue", sender: nil)
+            performSegue(withIdentifier: "Continue Segue", sender: nil)
         } else {
-            performSegueWithIdentifier("New Game Segue", sender: nil)
+            performSegue(withIdentifier: "New Game Segue", sender: nil)
         }
     }
     
     func requiredTouchDurationReached() {
         if gameInstance.isGameInProgress {
-            performSegueWithIdentifier("New Game Segue", sender: nil)
+            performSegue(withIdentifier: "New Game Segue", sender: nil)
         }
     }
     

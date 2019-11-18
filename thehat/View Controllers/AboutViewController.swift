@@ -14,7 +14,7 @@ import SafariServices
 class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     
     var productIDs = Set<String>()
-    var productsArray: Array<SKProduct!> = []
+    var productsArray: Array<SKProduct?> = []
     var productRequest: SKProductsRequest!
     
     var titles = [NSLocalizedString("Social", comment: "Social"),
@@ -35,16 +35,16 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
 
         // Do any additional setup after loading the view.
         
-        setNavigationBarTitleWithCustomFont(NSLocalizedString("ABOUT", comment: "About"))
+        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("ABOUT", comment: "About"))
         
-        SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+        SKPaymentQueue.default().add(self)
 
         productIDs.insert("com.dpfbop.thehat.coffee")
         requestProductInfo()
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        SKPaymentQueue.defaultQueue().removeTransactionObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        SKPaymentQueue.default().remove(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,11 +53,11 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     }
     
 
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         productRequest.delegate = nil
         productRequest.cancel()
     }
@@ -75,15 +75,15 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
         }
     }
     
-    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count != 0 {
             for product in response.products {
                 productsArray.append(product)
                 print(product)
             }
-            titles.insert(NSLocalizedString("tip", comment: "tip"), atIndex: 2)
-            rows.insert([(NSLocalizedString("coffee", comment: "coffee"), "tip")], atIndex: 2)
-            tableView.insertSections(NSIndexSet(index: 2), withRowAnimation: UITableViewRowAnimation.Automatic)
+            titles.insert(NSLocalizedString("tip", comment: "tip"), at: 2)
+            rows.insert([(NSLocalizedString("coffee", comment: "coffee"), "tip")], at: 2)
+            tableView.insertSections(IndexSet(integer: 2) as IndexSet, with: UITableView.RowAnimation.automatic)
         }
         else {
             print("There are no products.")
@@ -93,7 +93,7 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let obj = rows[indexPath.section][indexPath.row]
         switch obj.1 {
         case "share":
@@ -102,34 +102,34 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
             // todo process the completion (thanks/ ads maybe)
             if (self.isIpad()) {
                 let popup = UIPopoverController(contentViewController: activityVC)
-                let currentCell = tableView.cellForRowAtIndexPath(indexPath)
-                popup.presentPopoverFromRect(currentCell!.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+                let currentCell = tableView.cellForRow(at: indexPath as IndexPath)
+                popup.present(from: currentCell!.frame, in: self.view, permittedArrowDirections: UIPopoverArrowDirection.any, animated: true)
             } else {
-                self.presentViewController(activityVC, animated: true, completion: nil)
+                self.present(activityVC, animated: true, completion: nil)
         }
         case "rate":
             let link = "itms-apps://itunes.apple.com/app/id1073529279"
-            UIApplication.sharedApplication().openURL(NSURL(string: link)!)
+            UIApplication.shared.openURL(URL(string: link)! as URL)
         case "":
             break
         case "tip":
-            let payment = SKPayment(product: self.productsArray[0] as SKProduct)
-            SKPaymentQueue.defaultQueue().addPayment(payment)
+            let payment = SKPayment(product: self.productsArray[0]!)
+            SKPaymentQueue.default().add(payment)
         default:
-            let url = NSURL(string: obj.1)!
+            let url = URL(string: obj.1)!
             if #available(iOS 9.0, *) {
-                let svc = SFSafariViewController(URL: url)
-                self.presentViewController(svc, animated: true, completion: nil)
+                let svc = SFSafariViewController(url: url as URL)
+                self.present(svc, animated: true, completion: nil)
             } else {
-                UIApplication.sharedApplication().openURL(url)
+                UIApplication.shared.openURL(url as URL)
             }
         }
-        Answers.logCustomEventWithName("About action", customAttributes: ["Action": obj.1])
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        Answers.logCustomEvent(withName: "About action", customAttributes: ["Action": obj.1])
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("About Cell") as! AboutTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "About Cell") as! AboutTableViewCell
         let obj = rows[indexPath.section][indexPath.row]
         cell.label.text = obj.0
         if indexPath.section == 0 {
@@ -153,15 +153,15 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows[section].count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return titles[section]
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return titles.count
     }
     
@@ -169,21 +169,21 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
 
 extension AboutViewController: SKPaymentTransactionObserver {
     
-    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             switch transaction.transactionState {
-            case SKPaymentTransactionState.Purchased:
+            case SKPaymentTransactionState.purchased:
                 print("Transaction completed successfully.")
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                SKPaymentQueue.default().finishTransaction(transaction)
 //                delegate.didBuyColorsCollection(selectedProductIndex)
-                Answers.logCustomEventWithName("Coffee", customAttributes: ["Status": "Complete"])
+                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Complete"])
                 
                 
-            case SKPaymentTransactionState.Failed:
+            case SKPaymentTransactionState.failed:
                 print("Transaction Failed");
-                print(transaction.error)
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                Answers.logCustomEventWithName("Coffee", customAttributes: ["Status": "Failed"])
+//                print(transaction.error)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Failed"])
             default:
                 print(transaction.transactionState.rawValue)
             }

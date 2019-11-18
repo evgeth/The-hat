@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 protocol PlayerTableViewCellDelegate {
-    func deleteButtonPressed(indexPath: NSIndexPath)
+    func deleteButtonPressed(_ indexPath: IndexPath)
     
-    func indexPathForCell(cell: UITableViewCell) -> NSIndexPath
+    func indexPathForCell(cell: UITableViewCell) -> IndexPath
 }

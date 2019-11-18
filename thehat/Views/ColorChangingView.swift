@@ -22,7 +22,7 @@ class ColorChangingView: UIView {
     var finishColor: UIColor!
     var requiredTouchDuration: Double!
     var timerRate: Double = 0.03
-    var startTouchTimer: NSTimer!
+    var startTouchTimer: Timer!
     var touchDuration: Double = 0
     var lastFired: Double = 0
     var numberOfCounts = 0
@@ -32,24 +32,25 @@ class ColorChangingView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func initializer(startColor: UIColor = UIColor.whiteColor(), finishColor: UIColor = UIColor.blackColor(), requiredTouchDuration: Double = 1.0, delegate: ColorChangingViewDelegate) {
+    func initializer(startColor: UIColor = UIColor.white, finishColor: UIColor = UIColor.black, requiredTouchDuration: Double = 1.0, delegate: ColorChangingViewDelegate) {
         self.startColor = startColor
         self.finishColor = finishColor
         self.requiredTouchDuration = requiredTouchDuration
         self.delegate = delegate
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.touchBegan?()
-        startTouchTimer = NSTimer.scheduledTimerWithTimeInterval(timerRate, target: self, selector: "touchTimerFired", userInfo: nil, repeats: true)
+        // TODO(FIX!!!) and enable next line
+        startTouchTimer = Timer.scheduledTimer(timeInterval: timerRate, target: self, selector: Selector(("touchTimerFired")), userInfo: nil, repeats: true)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.touchEnded?()
         clearTouchTimer()
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         clearTouchTimer()
     }
     
@@ -62,11 +63,11 @@ class ColorChangingView: UIView {
         numberOfCounts = 0
     }
     
-    func touchTimerFired() {
+    @objc func touchTimerFired() {
         touchDuration += timerRate
         
         if lastFired + 0.1 < touchDuration || lastFired == 0 {
-            delegate?.firedFunc?(numberOfCounts)
+            delegate?.firedFunc?(number: numberOfCounts)
             numberOfCounts += 1
             lastFired = touchDuration
         }
@@ -75,8 +76,8 @@ class ColorChangingView: UIView {
             clearTouchTimer()
             delegate?.requiredTouchDurationReached()
         }
-        let finishColorComponents = CGColorGetComponents(finishColor.CGColor)
-        let startColorComponents = CGColorGetComponents(startColor.CGColor)
+        let finishColorComponents = finishColor.cgColor.components!
+        let startColorComponents = startColor.cgColor.components!
 
         let percentage = min(CGFloat(touchDuration / requiredTouchDuration), 1.0)
         self.backgroundColor = UIColor(red: startColorComponents[0] + (finishColorComponents[0] - startColorComponents[0]) * percentage, green: startColorComponents[1] + (finishColorComponents[1] - startColorComponents[1]) * percentage, blue: startColorComponents[2] + (finishColorComponents[2] - startColorComponents[2]) * percentage, alpha: startColorComponents[3] + (finishColorComponents[3] - startColorComponents[3]) * percentage)

@@ -14,7 +14,7 @@ enum GameType {
     case EachToEach, Pairs
 }
 
-class Game: NSObject {
+class Game {
     
     var isGameInProgress = false
     
@@ -40,7 +40,7 @@ class Game: NSObject {
     var didWordsLoad = false {
         didSet {
             if didWordsLoad == true && didWordsLoad != oldValue {
-                NSNotificationCenter.defaultCenter().postNotificationName(loadedWordsNotifictionKey, object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
             }
         }
     }
@@ -62,11 +62,11 @@ class Game: NSObject {
         }
         areWordsLoading = true
         if wordsLoader == nil {
-            let queue = NSOperationQueue()
-            queue.addOperationWithBlock() {
+            let queue = OperationQueue()
+            queue.addOperation() {
                 // do something in the background
                 self.wordsLoader = LocalWordsLoader()
-                NSOperationQueue.mainQueue().addOperationWithBlock() {
+                OperationQueue.main.addOperation() {
                     self.didWordsLoad = true
                     self.areWordsLoading = false
                 }
@@ -84,8 +84,8 @@ class Game: NSObject {
         if !isPoolShouldBeUpdated {
             return
         }
-        let wordsStrings: [String] = wordsLoader.getWords(wordsInTheHat, averageDifficulty: difficulty)
-        newWords.removeAll(keepCapacity: true)
+        let wordsStrings: [String] = wordsLoader.getWords(count: wordsInTheHat, averageDifficulty: difficulty)
+        newWords.removeAll(keepingCapacity: true)
         for word in wordsStrings {
             newWords.insert(word)
             words.append(Word(word: word))

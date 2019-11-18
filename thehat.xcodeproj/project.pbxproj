@@ -58,9 +58,10 @@
 		88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */; };
 		88DBAC4A1C333ACC00C4EB1F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC451C333ACC00C4EB1F /* Extensions.swift */; };
 		88DBAC4B1C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */; };
-		88DBAC4C1C333ACC00C4EB1F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC471C333ACC00C4EB1F /* SwiftyJSON.swift */; };
 		88DBAC4D1C333ACC00C4EB1F /* WordsLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */; };
 		88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC581C333DDA00C4EB1F /* Localizable.strings */; };
+		9147375A351DD96BD7D4D26B /* Pods_thehatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */; };
+		986F5419A8192B7DA74015D4 /* Pods_thehat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DF9907B75648E0BE2D411E /* Pods_thehat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30DF9907B75648E0BE2D411E /* Pods_thehat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.debug.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.debug.xcconfig"; sourceTree = "<group>"; };
+		75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.debug.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8847AFFF1C3BC266008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/results.png; sourceTree = "<group>"; };
 		8847B0011C3BC26A008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/results.png; sourceTree = "<group>"; };
@@ -138,11 +143,12 @@
 		88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorChangingViewDelegate.swift; sourceTree = "<group>"; };
 		88DBAC451C333ACC00C4EB1F /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCellDelegate.swift; sourceTree = "<group>"; };
-		88DBAC471C333ACC00C4EB1F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderDelegate.swift; sourceTree = "<group>"; };
 		88DBAC5B1C333E1000C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88DBAC601C33525900C4EB1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88DBAC641C3352F700C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.release.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.release.xcconfig"; sourceTree = "<group>"; };
+		F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.release.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,7 @@
 				8847B0381C44349C008497E2 /* StoreKit.framework in Frameworks */,
 				8847B0141C3EC321008497E2 /* Crashlytics.framework in Frameworks */,
 				8847B0131C3EC321008497E2 /* Fabric.framework in Frameworks */,
+				986F5419A8192B7DA74015D4 /* Pods_thehat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,18 +167,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9147375A351DD96BD7D4D26B /* Pods_thehatTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		264E9323CE36446A1A3C31A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30DF9907B75648E0BE2D411E /* Pods_thehat.framework */,
+				2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		56D117D1B4EB528D2A31DA46 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */,
+				8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */,
+				75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */,
+				F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		889324F01AE41C3D009B68B2 = {
 			isa = PBXGroup;
 			children = (
 				889324FB1AE41C3D009B68B2 /* thehat */,
 				889325111AE41C3D009B68B2 /* thehatTests */,
 				889324FA1AE41C3D009B68B2 /* Products */,
+				56D117D1B4EB528D2A31DA46 /* Pods */,
+				264E9323CE36446A1A3C31A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -305,7 +335,6 @@
 				88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */,
 				88DBAC451C333ACC00C4EB1F /* Extensions.swift */,
 				88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */,
-				88DBAC471C333ACC00C4EB1F /* SwiftyJSON.swift */,
 				88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */,
 			);
 			path = Extensions;
@@ -318,10 +347,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 889325181AE41C3D009B68B2 /* Build configuration list for PBXNativeTarget "thehat" */;
 			buildPhases = (
+				A75A0E2AF8DD625F99CB6EF6 /* [CP] Check Pods Manifest.lock */,
 				889324F51AE41C3D009B68B2 /* Sources */,
 				889324F61AE41C3D009B68B2 /* Frameworks */,
 				889324F71AE41C3D009B68B2 /* Resources */,
 				8847B0101C3EC2F7008497E2 /* ShellScript */,
+				93F81FD99082FA3429EDF998 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -336,6 +367,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8893251B1AE41C3D009B68B2 /* Build configuration list for PBXNativeTarget "thehatTests" */;
 			buildPhases = (
+				352C8012249C39C08C5633CB /* [CP] Check Pods Manifest.lock */,
 				8893250A1AE41C3D009B68B2 /* Sources */,
 				8893250B1AE41C3D009B68B2 /* Frameworks */,
 				8893250C1AE41C3D009B68B2 /* Resources */,
@@ -358,7 +390,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = dpfbop;
 				TargetAttributes = {
 					889324F81AE41C3D009B68B2 = {
@@ -378,7 +410,7 @@
 			};
 			buildConfigurationList = 889324F41AE41C3D009B68B2 /* Build configuration list for PBXProject "thehat" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -438,6 +470,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		352C8012249C39C08C5633CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-thehatTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8847B0101C3EC2F7008497E2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,6 +505,46 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 23fa9dca1204310fed19909a71c747002843d2b8 c3fad47930f05d82c83576949552aeade38e5bf07f58c2bfc5753b16f7fb89e5";
 		};
+		93F81FD99082FA3429EDF998 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-thehat/Pods-thehat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-thehat/Pods-thehat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A75A0E2AF8DD625F99CB6EF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-thehat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -462,7 +556,6 @@
 				88DBAC421C333AC500C4EB1F /* TimerView.swift in Sources */,
 				88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */,
 				88DBAC1D1C333A7E00C4EB1F /* Round.swift in Sources */,
-				88DBAC4C1C333ACC00C4EB1F /* SwiftyJSON.swift in Sources */,
 				88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */,
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
@@ -612,17 +705,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -645,11 +749,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -658,17 +763,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -684,9 +800,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -694,6 +812,7 @@
 		};
 		889325191AE41C3D009B68B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -716,6 +835,7 @@
 		};
 		8893251A1AE41C3D009B68B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -737,6 +857,7 @@
 		};
 		8893251C1AE41C3D009B68B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -754,6 +875,7 @@
 		};
 		8893251D1AE41C3D009B68B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

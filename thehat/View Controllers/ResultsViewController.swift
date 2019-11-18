@@ -25,25 +25,25 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Do any additional setup after loading the view.
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("doneButtonPressed"))
-        setNavigationBarTitleWithCustomFont(NSLocalizedString("RESULTS", comment: "Results"))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: Selector(("doneButtonPressed")))
+        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("RESULTS", comment: "Results"))
         
         
         if isPairsMode() {
-            for (index, _) in (gameInstance.players ?? []).enumerate() {
+            for (index, _) in gameInstance.players.enumerated() {
                 if index % 2 == 0 {
                     let element = PlayersPair(first: gameInstance.players[index], second: gameInstance.players[index + 1])
                     sortedPairs.append(element)
                 }
             }
-            sortedPairs = sortedPairs.sort({ (a: PlayersPair , b: PlayersPair) -> Bool in
+            sortedPairs.sort(by: { (a, b) -> Bool in
                 return a.first.score + a.second.score > b.first.score + b.second.score
             })
         } else {
-            sortedPlayers = gameInstance.players ?? []
-            sortedPlayers = sortedPlayers.sort({ (a: Player, b: Player) -> Bool in
+            sortedPlayers = gameInstance.players
+            sortedPlayers.sort { (a: Player, b: Player) -> Bool in
                 return a.score > b.score
-            })
+            }
         }
         
     }
@@ -53,38 +53,38 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Results"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Results"])
         for player in sortedPlayers {
-            Answers.logCustomEventWithName("Player Finished", customAttributes: ["name": player.name.lowercaseString.capitalizedString, "score": player.score])
+            Answers.logCustomEvent(withName: "Player Finished", customAttributes: ["name": player.name.lowercased().capitalized, "score": player.score])
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
 
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isPairsMode() {
             if indexPath.section == 0 {
-                return tableView.dequeueReusableCellWithIdentifier("Header Cell")! as UITableViewCell
+                return tableView.dequeueReusableCell(withIdentifier: "Header Cell")! as UITableViewCell
             } else {
                 let playersPair = sortedPairs[indexPath.section - 1]
                 let player = indexPath.row == 0 ? playersPair.first : playersPair.second
-                return playerCellForPlayer(tableView, player: player)
+                return playerCellForPlayer(tableView: tableView, player: player)
             }
         } else {
             if indexPath.row == 0 {
-                return tableView.dequeueReusableCellWithIdentifier("Header Cell")! as UITableViewCell
+                return tableView.dequeueReusableCell(withIdentifier: "Header Cell")! as UITableViewCell
             } else {
                 let player = sortedPlayers[indexPath.row - 1]
-                return playerCellForPlayer(tableView, player: player)
+                return playerCellForPlayer(tableView: tableView, player: player)
             }
         }
     }
     
     func playerCellForPlayer(tableView: UITableView, player: Player) -> PlayerResultCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Player Result Cell") as? PlayerResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Player Result Cell") as? PlayerResultCell
         cell?.playerNameLabel.text = player.name
         cell?.playerExplainedLabel.text = "\(player.explained)"
         cell?.playerGuessedLabel.text = "\(player.guessed)"
@@ -94,21 +94,21 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if isPairsMode() {
-            return (gameInstance.players.count ?? 0) / 2 + 1
+            return gameInstance.players.count / 2 + 1
         } else {
             return 1
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isPairsMode() {
             return section == 0 ? 1 : 2
         } else {
-            return (gameInstance.players.count ?? 0) + 1
+            return gameInstance.players.count + 1
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isPairsMode() {
             return section == 0 ? 0 : 22
         } else {
@@ -116,7 +116,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isPairsMode() {
             return "Pair \(section)"
         } else {
@@ -124,9 +124,9 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func doneButtonPressed() {
+    @objc func doneButtonPressed() {
         gameInstance.isGameInProgress = false
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func isPairsMode() -> Bool {
@@ -144,11 +144,11 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
 
 }
 
-class PlayersPair: NSObject {
+class PlayersPair {
     var first: Player
     var second: Player
     
-    override init() {
+    init() {
         self.first = Player(name: "")
         self.second = Player(name: "")
     }

@@ -13,7 +13,7 @@ enum State {
 }
 
 
-class Word: NSObject {
+class Word {
     var word: String = ""
     var state: State = .New
     var complexity = 0

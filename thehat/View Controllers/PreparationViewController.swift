@@ -45,25 +45,26 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2, delegate: self)
+        startButtonView.initializer(startColor: inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2, delegate: self)
         
-        self.countdownSound = self.setupAudioPlayerWithFile("countdown", type:"wav")
+        self.countdownSound = self.setupAudioPlayerWithFile(file: "countdown", type:"wav")
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
-        self.startButtonView.insertSubview(self.loadingView, atIndex: 0)
+        self.startButtonView.insertSubview(self.loadingView, at: 0)
         self.loadingView.backgroundColor = UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 1)
     }
     
 
-    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+    func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
         //1
-        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
-        let url = NSURL.fileURLWithPath(path!)
+        let path = Bundle.main.path(forResource: file as String, ofType: type as String)
+        let url = URL.init(fileURLWithPath: path!)
+        
         
         
         var audioPlayer:AVAudioPlayer?
         do {
-            audioPlayer = try AVAudioPlayer(contentsOfURL: url)
-        } catch _ as NSError {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        } catch _ {
             audioPlayer = nil
         }
         
@@ -73,17 +74,17 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
 
 
 
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Preparation"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Preparation"])
         
         let currentPlayers = gameInstance.currentPlayers()
         speaker.text = currentPlayers.0.name
         listener.text = currentPlayers.1.name
-        var wordList = speaker.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        var wordList = speaker.text!.components(separatedBy: " ").filter{$0 != ""}
         if wordList.count == 1 {
             speaker.numberOfLines = 1
         }
-        wordList = listener.text!.componentsSeparatedByString(" ").filter{$0 != ""}
+        wordList = listener.text!.components(separatedBy: " ").filter{$0 != ""}
         if wordList.count == 1 {
             listener.numberOfLines = 1
         }
@@ -96,7 +97,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         
         notUndestandingHowToStartCounter = 0
-        holdToStartLabel.hidden = true
+        holdToStartLabel.isHidden = true
         
         self.loadingViewWidth.constant = 0
         self.startButtonView.layoutIfNeeded()
@@ -108,49 +109,49 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if roundNumber != 0 {
             self.navigationItem.setHidesBackButton(true, animated: false)
             let editWordsImage = UIImage(named: "Edit words")
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .Plain, target: self, action: Selector("editGuessedWords"))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .plain, target: self, action: Selector(("editGuessedWords")))
         } else {
-            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir Next", size: 18)!, NSForegroundColorAttributeName : UIColor.redColor()], forState: UIControlState.Normal)
+            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 18)!, NSAttributedString.Key.foregroundColor : UIColor.red], for: UIControl.State.normal)
         }
-        var size = UIFont.systemFontOfSize(18).sizeOfString("\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
+        var size = UIFont.systemFont(ofSize: 18).sizeOfString(string: "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
         size.width += 10
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
         label.text = "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
         label.textColor = UIColor(red: 0.272523, green: 0.594741, blue: 0.400047, alpha: 1)
         label.font = UIFont(name: "Avenir Next", size: 18)
-        label.textAlignment = NSTextAlignment.Right
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: Selector("closeButtonPressed")), UIBarButtonItem(customView: label)]
+        label.textAlignment = NSTextAlignment.right
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: Selector(("closeButtonPressed"))), UIBarButtonItem(customView: label)]
     }
     
-    func closeButtonPressed() {
-        let alert = UIAlertController(title: nil, /* NSLocalizedString("PAUSE_TITLE", comment: "stop or pause title") */ message: nil /* NSLocalizedString("PAUSE_OR_STOP", comment: "Pause or stop the game") */,  preferredStyle: UIAlertControllerStyle.ActionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("PAUSE", comment: "pause"), style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            self.navigationController?.popToRootViewControllerAnimated(true)
+    @objc func closeButtonPressed() {
+        let alert = UIAlertController(title: nil, /* NSLocalizedString("PAUSE_TITLE", comment: "stop or pause title") */ message: nil /* NSLocalizedString("PAUSE_OR_STOP", comment: "Pause or stop the game") */,  preferredStyle: UIAlertController.Style.actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("PAUSE", comment: "pause"), style: UIAlertAction.Style.default, handler: { (action) -> Void in
+            self.navigationController?.popToRootViewController(animated: true)
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("FINISH_GAME", comment: "finish game"), style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("FINISH_GAME", comment: "finish game"), style: UIAlertAction.Style.destructive, handler: { (action) -> Void in
             self.proceedToResults()
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertAction.Style.cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
 
     }
     
     
-    func editGuessedWords() {
-        let editWordsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("EditGuessedWords") as! EditWordsGuessedViewController
-        editWordsViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+    @objc func editGuessedWords() {
+        let editWordsViewController = self.storyboard!.instantiateViewController(withIdentifier: "EditGuessedWords") as! EditWordsGuessedViewController
+        editWordsViewController.modalPresentationStyle = UIModalPresentationStyle.popover
         editWordsViewController.gameInstance = self.gameInstance
         editWordsViewController.saveDelegate = self
         
         let popoverPC = editWordsViewController.popoverPresentationController
         popoverPC!.delegate = self
         popoverPC!.barButtonItem = self.navigationItem.leftBarButtonItem
-        popoverPC!.backgroundColor = UIColor.whiteColor()
+        popoverPC!.backgroundColor = UIColor.white
         popoverPC?.delegate = self
 
-        self.presentViewController(editWordsViewController, animated: true, completion: nil)
+        self.present(editWordsViewController, animated: true, completion: nil)
     }
     
     func updated() {
@@ -163,7 +164,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+        return .none
     }
     
     func touchBegan() {
@@ -172,7 +173,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
         countdownSound.play()
         loadingViewWidth.constant = self.startButtonView.frame.width
-        UIView.animateWithDuration(2) { () -> Void in
+        UIView.animate(withDuration: 2) { () -> Void in
             self.startButtonView.layoutIfNeeded()
         }
     }
@@ -188,8 +189,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         self.startButtonView.layoutIfNeeded()
         notUndestandingHowToStartCounter += 1
         if notUndestandingHowToStartCounter == 1 {
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.holdToStartLabel.hidden = false
+            UIView.animate(withDuration: 0.2, animations: { () -> Void in
+                self.holdToStartLabel.isHidden = false
             })
         }
     }
@@ -205,10 +206,10 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             } else if word.state == State.Guessed {
                 state = "Guessed"
             }
-            Answers.logCustomEventWithName("Word guessed", customAttributes:
+            Answers.logCustomEvent(withName: "Word guessed", customAttributes:
                 ["word": word.word,
                     "status": state])
-            Answers.logCustomEventWithName("Word_played_" + word.word, customAttributes:
+            Answers.logCustomEvent(withName: "Word_played_" + word.word, customAttributes:
                 ["status": state])
         }
     }
@@ -218,27 +219,28 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
             proceedToResults()
             return
         }
-        let roundVC = storyboard?.instantiateViewControllerWithIdentifier("RoundViewController") as! RoundViewController
+        let roundVC = storyboard?.instantiateViewController(withIdentifier: "RoundViewController") as! RoundViewController
         sendWordsAnalytics()
         
-        self.presentViewController(roundVC, animated: true, completion: nil)
+        self.present(roundVC, animated: true, completion: nil)
     }
     
     func showCountdownLabel(viewToScale: UIView, scaleFrom: Double, scaleTo: Double) {
-        viewToScale.hidden = false
+        viewToScale.isHidden = false
         viewToScale.alpha = 1
-        viewToScale.transform = CGAffineTransformMakeScale(CGFloat(scaleFrom), CGFloat(scaleFrom))
+        viewToScale.transform = CGAffineTransform(scaleX: CGFloat(scaleFrom), y: CGFloat(scaleFrom))
         
-        UIView.animateKeyframesWithDuration(0.5, delay: 0.0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: { () -> Void in
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: UIView.KeyframeAnimationOptions.beginFromCurrentState, animations: { () -> Void in
             viewToScale.alpha = 1
-            viewToScale.transform = CGAffineTransformMakeScale(CGFloat(scaleTo), CGFloat(scaleTo))
+            viewToScale.transform = CGAffineTransform(scaleX: CGFloat(scaleTo), y: CGFloat(scaleTo))
             }) { (error) -> Void in
-                viewToScale.hidden = true
-                viewToScale.transform = CGAffineTransformIdentity
+                viewToScale.isHidden = true
+                viewToScale.transform = CGAffineTransform.identity
+                
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Results Segue" {
             sendWordsAnalytics()
         }
@@ -248,7 +250,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if !isProceedingToResults {
             isProceedingToResults = true
             gameInstance.reinitialize()
-            performSegueWithIdentifier("Results Segue", sender: nil)
+            performSegue(withIdentifier: "Results Segue", sender: nil)
         }
     }
 }

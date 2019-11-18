@@ -15,7 +15,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var playersTableView: UITableView!
     var isReadyToDeleteRow: Bool = false
-    var readyToDeleteIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    var readyToDeleteIndexPath = IndexPath(row: 0, section: 0)
     var players: [String] = ["", "", "", ""]
     var sectionsCount = 2
     var isAddingSection = false
@@ -44,7 +44,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        setNavigationBarTitleWithCustomFont(NSLocalizedString("GAME_SETTINGS", comment: "Game Settings"))
+        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("GAME_SETTINGS", comment: "Game Settings"))
         
         playersTableView.setEditing(true, animated: true)
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
@@ -68,31 +68,31 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Game Settings"])
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Game Settings"])
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 5
     }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-        var difficulties = [
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let difficulties = [
             NSLocalizedString("VERY_EASY", comment: "difficulty"),
             NSLocalizedString("EASY", comment: "difficulty"),
             NSLocalizedString("NORMAL", comment: "difficulty"),
             NSLocalizedString("HARD", comment: "difficulty"),
             NSLocalizedString("VERY_HARD", comment: "difficulty")
         ]
-        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSizeForComponent(component)))
+        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSize(forComponent: component)))
         label.text = difficulties[row]
-        label.font = UIFont.systemFontOfSize(16)
-        label.textAlignment = NSTextAlignment.Center
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = NSTextAlignment.center
         
         return label
     }
@@ -133,12 +133,12 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
     }
     
-    @IBAction func cellLeftSwipe(sender: UISwipeGestureRecognizer) {
-        if (sender.state == UIGestureRecognizerState.Ended) {
-            let swipeLocation = sender.locationInView(playersTableView)
-            let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
+    @IBAction func cellLeftSwipe(_ sender: UISwipeGestureRecognizer) {
+        if (sender.state == UIGestureRecognizer.State.ended) {
+            let swipeLocation = sender.location(in: playersTableView)
+            let swipedIndexPath = playersTableView.indexPathForRow(at: swipeLocation)
             
-            if swipedIndexPath == nil || countRowNumberForIndexPath(swipedIndexPath!) == players.count || isReadyToDeleteRow {
+            if swipedIndexPath == nil || countRowNumberForIndexPath(indexPath: swipedIndexPath!) == players.count || isReadyToDeleteRow {
                 return
             }
             if isPairsMode() && swipedIndexPath!.section != playersTableView.numberOfSections - 1 {
@@ -148,23 +148,23 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             
             isReadyToDeleteRow = true
             readyToDeleteIndexPath = swipedIndexPath!
-            playersTableView.reloadRowsAtIndexPaths([swipedIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+            playersTableView.reloadRows(at: [swipedIndexPath!], with: UITableView.RowAnimation.automatic)
         }
     }
     
-    @IBAction func cellRightSwipe(sender: AnyObject) {
-        if (sender.state == UIGestureRecognizerState.Ended) {
-            let swipeLocation = sender.locationInView(playersTableView)
-            let swipedIndexPath = playersTableView.indexPathForRowAtPoint(swipeLocation)
+    @IBAction func cellRightSwipe(_ sender: AnyObject) {
+        if (sender.state == UIGestureRecognizer.State.ended) {
+            let swipeLocation = sender.location(in: playersTableView)
+            let swipedIndexPath = playersTableView.indexPathForRow(at: swipeLocation)
             
-            if swipedIndexPath == nil || countRowNumberForIndexPath(swipedIndexPath!) == players.count || isReadyToDeleteRow {
+            if swipedIndexPath == nil || countRowNumberForIndexPath(indexPath: swipedIndexPath!) == players.count || isReadyToDeleteRow {
                 return
             }
             guard let indexPath = swipedIndexPath else {
                 return
             }
             players[indexPath.row] = RandomNames.getRandomName()
-            playersTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            playersTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
     
@@ -172,33 +172,33 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if isReadyToDeleteRow {
             isReadyToDeleteRow = false
             
-            playersTableView.reloadRowsAtIndexPaths([readyToDeleteIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            playersTableView.reloadRows(at: [readyToDeleteIndexPath], with: UITableView.RowAnimation.fade)
         }
     }
     
-    @IBAction func textFieldEditBegin(sender: UITextField) {
+    @IBAction func textFieldEditBegin(_ sender: UITextField) {
         if let cell = sender.superview?.superview as? PlayerTableViewCell {
-            let indexPath = playersTableView.indexPathForCell(cell)
+            let indexPath = playersTableView.indexPath(for: cell)
             if indexPath != nil {
-                if countRowNumberForIndexPath(indexPath!) < players.count - 1 {
-                    cell.playerLabel.returnKeyType = UIReturnKeyType.Next
+                if countRowNumberForIndexPath(indexPath: indexPath!) < players.count - 1 {
+                    cell.playerLabel.returnKeyType = UIReturnKeyType.next
                 } else {
-                    cell.playerLabel.returnKeyType = UIReturnKeyType.Done
+                    cell.playerLabel.returnKeyType = UIReturnKeyType.done
                 }
             }
         }
         hideDeleteButton()
     }
     
-    @IBAction func playerNameModified(sender: UITextField, forEvent event: UIEvent) {
+    @IBAction func playerNameModified(_ sender: UITextField, forEvent event: UIEvent) {
         if let cell = sender.superview?.superview as? PlayerTableViewCell {
-            let indexPath = playersTableView.indexPathForCell(cell)
+            let indexPath = playersTableView.indexPath(for: cell)
             if indexPath != nil {
-                players[countRowNumberForIndexPath(indexPath!)] = sender.text!
-                if countRowNumberForIndexPath(indexPath!) < players.count - 1 {
-                    cell.playerLabel.returnKeyType = UIReturnKeyType.Next
+                players[countRowNumberForIndexPath(indexPath: indexPath!)] = sender.text!
+                if countRowNumberForIndexPath(indexPath: indexPath!) < players.count - 1 {
+                    cell.playerLabel.returnKeyType = UIReturnKeyType.next
                 } else {
-                    cell.playerLabel.returnKeyType = UIReturnKeyType.Done
+                    cell.playerLabel.returnKeyType = UIReturnKeyType.done
                 }
             }
         }
@@ -208,57 +208,57 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if isPairsMode() {
             if players.count % 2 == 0 {
                 numberOfRowsInLastSection = 2
-                playersTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: playersTableView.numberOfSections - 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                playersTableView.deleteRows(at: [IndexPath(row: 2, section: playersTableView.numberOfSections - 1)], with: UITableView.RowAnimation.automatic)
                 sectionsCount += 1
                 players.append("")
-                playersTableView.insertSections(NSIndexSet(index: playersTableView.numberOfSections), withRowAnimation: UITableViewRowAnimation.Automatic)
+                playersTableView.insertSections(NSIndexSet(index: playersTableView.numberOfSections) as IndexSet, with: UITableView.RowAnimation.automatic)
             } else {
                 players.append("")
                 numberOfRowsInLastSection = 3
-                playersTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: playersTableView.numberOfSections - 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                playersTableView.insertRows(at: [IndexPath(row: 1, section: playersTableView.numberOfSections - 1)], with: UITableView.RowAnimation.automatic)
             }
         } else {
             players.append("")
-            playersTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: players.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.None)
-            playersTableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: players.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+            playersTableView.insertRows(at: [IndexPath(row: players.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+            playersTableView.reloadRows(at: [IndexPath(row: players.count - 1, section: 0)], with: UITableView.RowAnimation.fade)
         }
     }
     
-    @IBAction func tapOnPlayersTable(sender: UITapGestureRecognizer) {
+    @IBAction func tapOnPlayersTable(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
         hideDeleteButton()
     }
     
     @IBAction func hideButtonPressed(sender: UIButton) {
-        sender.enabled = false
+        sender.isEnabled = false
         hideDeleteButton()
     }
     
-    @IBAction func deleteButtonPressed(indexPath: NSIndexPath) {
-        if let cell = playersTableView.cellForRowAtIndexPath(indexPath) {
-            let indexPath = playersTableView.indexPathForCell(cell)
+    func deleteButtonPressed(_ indexPath: IndexPath) {
+        if let cell = playersTableView.cellForRow(at: indexPath) {
+            let indexPath = playersTableView.indexPath(for: cell)
             hideDeleteButton()
             if players.count > 2 {
                 if isPairsMode() {
                     if indexPath?.section == playersTableView.numberOfSections - 1 {
-                        players.removeAtIndex(countRowNumberForIndexPath(indexPath!))
+                        players.remove(at: countRowNumberForIndexPath(indexPath: indexPath!))
                         if players.count % 2 == 1 {
                             numberOfRowsInLastSection = 2
-                            playersTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+                            playersTableView.deleteRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
                         } else {
                             numberOfRowsInLastSection = 1
-                            playersTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+                            playersTableView.deleteRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
                             sectionsCount -= 1
                             numberOfRowsInLastSection = 2
-                            playersTableView.deleteSections(NSIndexSet(index: playersTableView.numberOfSections - 1), withRowAnimation: UITableViewRowAnimation.Fade)
+                            playersTableView.deleteSections(IndexSet(integer: playersTableView.numberOfSections - 1) as IndexSet, with: UITableView.RowAnimation.fade)
                             numberOfRowsInLastSection = 3
-                            playersTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 2, inSection: playersTableView.numberOfSections - 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                            playersTableView.insertRows(at: [IndexPath(row: 2, section: playersTableView.numberOfSections - 1)], with: UITableView.RowAnimation.automatic)
                             
                         }
                     }
                 } else {
-                    players.removeAtIndex(indexPath!.row)
-                    playersTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+                    players.remove(at: indexPath!.row)
+                    playersTableView.deleteRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
                 }
             } else {
                 let alertView = UIAlertView(title: "Error", message: "You need at least 2 players for game", delegate: nil, cancelButtonTitle: "Ok")
@@ -268,16 +268,16 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let centerOfView = textField.superview?.superview?.center
         if (centerOfView == nil) {
             return false
         }
-        let indexPathForTextField = playersTableView.indexPathForRowAtPoint(centerOfView!)!
-        let cell = playersTableView.cellForRowAtIndexPath(indexPathForTextField) as! PlayerTableViewCell
-        let indexPathToMoveFocus = nextIndexPath(playersTableView, indexPath: indexPathForTextField)
-        if indexPathToMoveFocus != nil && countRowNumberForIndexPath(indexPathToMoveFocus!) != players.count {
-            let nextCell = playersTableView.cellForRowAtIndexPath(indexPathToMoveFocus!) as! PlayerTableViewCell
+        let indexPathForTextField = playersTableView.indexPathForRow(at: centerOfView!)!
+        let cell = playersTableView.cellForRow(at: indexPathForTextField) as! PlayerTableViewCell
+        let indexPathToMoveFocus = nextIndexPath(tableView: playersTableView, indexPath: indexPathForTextField)
+        if indexPathToMoveFocus != nil && countRowNumberForIndexPath(indexPath: indexPathToMoveFocus!) != players.count {
+            let nextCell = playersTableView.cellForRow(at: indexPathToMoveFocus!) as! PlayerTableViewCell
             if let textField = nextCell.playerLabel {
                 let responder: UIResponder = textField
                 responder.becomeFirstResponder()
@@ -291,51 +291,51 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         return false
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if countRowNumberForIndexPath(indexPath) == players.count {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Add Player")! as UITableViewCell
+        if countRowNumberForIndexPath(indexPath: indexPath) == players.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Add Player")! as UITableViewCell
             cell.showsReorderControl = false
             return cell
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier("Player") as! PlayerTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Player") as! PlayerTableViewCell
         cell.showsReorderControl = true
         if let textField = cell.playerLabel {
-            textField.text = players[countRowNumberForIndexPath(indexPath)]
+            textField.text = players[countRowNumberForIndexPath(indexPath: indexPath)]
             textField.delegate = self
-            if countRowNumberForIndexPath(indexPath) < players.count - 1 {
-                textField.returnKeyType = UIReturnKeyType.Next
+            if countRowNumberForIndexPath(indexPath: indexPath) < players.count - 1 {
+                textField.returnKeyType = UIReturnKeyType.next
             } else {
-                textField.returnKeyType = UIReturnKeyType.Done
+                textField.returnKeyType = UIReturnKeyType.done
             }
         }
         let deleteButton = cell.deleteButton
         let hideButton = cell.hideButton
         cell.delegate = self
-        deleteButton.alpha = 0
-        hideButton.enabled = false
+        deleteButton?.alpha = 0
+        hideButton?.isEnabled = false
         if isReadyToDeleteRow && readyToDeleteIndexPath == indexPath {
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                deleteButton.alpha = 1
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                deleteButton?.alpha = 1
             })
-            hideButton.enabled = true
+            hideButton?.isEnabled = true
         }
         
         
         return cell
     }
     
-    func indexPathForCell(cell: UITableViewCell) -> NSIndexPath {
-        return playersTableView.indexPathForCell(cell)!
+    func indexPathForCell(cell: UITableViewCell) -> IndexPath {
+        return playersTableView.indexPath(for: cell)!
     }
     
-    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.None
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return UITableViewCell.EditingStyle.none
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -346,9 +346,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isPairsMode() {
-            if section == numberOfSectionsInTableView(tableView) - 1 {
+            if section == numberOfSectionsInTableView(tableView: tableView) - 1 {
                 return numberOfRowsInLastSection
             }
             return 2
@@ -357,7 +357,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isPairsMode() {
             return 22
         } else {
@@ -365,7 +365,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isPairsMode() {
             return "\(NSLocalizedString("PAIR", comment: "pair")) \(section + 1)"
         } else {
@@ -374,9 +374,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if !isPairsMode() {
-            if isReadyToDeleteRow && readyToDeleteIndexPath == indexPath.row {
+            if isReadyToDeleteRow && readyToDeleteIndexPath.count == indexPath.row {
                 return false
             }
             if indexPath.row != players.count {
@@ -389,13 +389,13 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         hideDeleteButton()
         if isPairsMode() {
             return proposedDestinationIndexPath
         } else {
             if proposedDestinationIndexPath.row == players.count {
-                return NSIndexPath(forRow: players.count - 1, inSection: sourceIndexPath.section)
+                return IndexPath(row: players.count - 1, section: sourceIndexPath.section)
             } else {
                 return proposedDestinationIndexPath
             }
@@ -404,27 +404,27 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if isPairsMode() {
             return
         }
-        if isReadyToDeleteRow && sourceIndexPath.row == readyToDeleteIndexPath {
+        if isReadyToDeleteRow && sourceIndexPath.row == readyToDeleteIndexPath.count {
             readyToDeleteIndexPath = destinationIndexPath
         }
         let previousString = players[sourceIndexPath.row]
-        players.removeAtIndex(sourceIndexPath.row)
-        players.insert(previousString, atIndex: destinationIndexPath.row)
+        players.remove(at: sourceIndexPath.row)
+        players.insert(previousString, at: destinationIndexPath.row)
     }
     
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if isPairsMode() {
             return false
         }
         if isReadyToDeleteRow && readyToDeleteIndexPath == indexPath {
             return false
         }
-        if countRowNumberForIndexPath(indexPath) == players.count {
+        if countRowNumberForIndexPath(indexPath: indexPath) == players.count {
             return false
         } else {
             return true
@@ -432,21 +432,21 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Start Round" {
             var playersList: [Player] = []
             for playerName in players {
                 playersList.append(Player(name: playerName))
-                Answers.logCustomEventWithName("Player", customAttributes: ["name": playerName.lowercaseString.capitalizedString])
+                Answers.logCustomEvent(withName: "Player", customAttributes: ["name": playerName.lowercased().capitalized])
             }
             gameInstance.players = playersList
             gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
             gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
             gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
-            gameInstance.difficulty = 20 * difficultyPicker.selectedRowInComponent(0) + 10
+            gameInstance.difficulty = 20 * difficultyPicker.selectedRow(inComponent: 0) + 10
             gameInstance.reinitialize()
             
-            Answers.logCustomEventWithName("Start game", customAttributes:
+            Answers.logCustomEvent(withName: "Start game", customAttributes:
                 ["Duration": "\(gameInstance.roundDuration)",
                 "Number of words": "\(gameInstance.wordsInTheHat)",
                 "Game type": "\(gameInstance.type)",
@@ -455,15 +455,15 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "Start Round" {
-            for (index, player) in players.enumerate() {
+            for (index, player) in players.enumerated() {
                 if player == "" {
                     var cell: PlayerTableViewCell!
                     if isPairsMode() {
-                        cell = playersTableView.cellForRowAtIndexPath(NSIndexPath(forRow: index % 2, inSection: index / 2)) as! PlayerTableViewCell
+                        cell = playersTableView.cellForRow(at: IndexPath(row: index % 2, section: index / 2) as IndexPath) as! PlayerTableViewCell
                     } else {
-                        cell = playersTableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! PlayerTableViewCell
+                        cell = playersTableView.cellForRow(at: IndexPath(row: index, section: 0) as IndexPath) as! PlayerTableViewCell
                     }
                     cell.playerLabel.becomeFirstResponder()
                     return false
@@ -475,10 +475,10 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 return false
             }
             if gameInstance.didWordsLoad == false {
-                let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("wordsLoadedNotificationArrived:"), name: loadedWordsNotifictionKey, object: nil)
+                let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+                NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
                 activityIndicator.center = view.center
-                activityIndicator.hidden = false
+                activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
 //                self.view.addSubview(activityIndicator)
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
@@ -490,29 +490,29 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         return true
     }
     
-    func wordsLoadedNotificationArrived(notification: NSNotification) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("startRound"))
+    @objc func wordsLoadedNotificationArrived(notification: NSNotification) {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: Selector(("startRound")))
         startRound()
     }
     
-    func startRound() {
-        self.performSegueWithIdentifier("Start Round", sender: nil)
+    @objc func startRound() {
+        self.performSegue(withIdentifier: "Start Round", sender: nil)
     }
     
-    func countRowNumberForIndexPath(indexPath: NSIndexPath) -> Int {
+    func countRowNumberForIndexPath(indexPath: IndexPath) -> Int {
         var rowNumber = 0
         for i in 0..<indexPath.section {
-            rowNumber += playersTableView.numberOfRowsInSection(i)
+            rowNumber += playersTableView.numberOfRows(inSection: i)
         }
         rowNumber += indexPath.row
         return rowNumber
     }
     
-    func nextIndexPath(tableView: UITableView, indexPath: NSIndexPath) -> NSIndexPath? {
-        var currentIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
-        while (currentIndexPath.row >= tableView.numberOfRowsInSection(currentIndexPath.section)) {
-            currentIndexPath = NSIndexPath(forRow: 0, inSection: currentIndexPath.section + 1)
-            if currentIndexPath.section == numberOfSectionsInTableView(tableView) {
+    func nextIndexPath(tableView: UITableView, indexPath: IndexPath) -> IndexPath? {
+        var currentIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        while (currentIndexPath.row >= tableView.numberOfRows(inSection: currentIndexPath.section)) {
+            currentIndexPath = IndexPath(row: 0, section: currentIndexPath.section + 1)
+            if currentIndexPath.section == numberOfSectionsInTableView(tableView: tableView) {
                 return nil
             }
         }

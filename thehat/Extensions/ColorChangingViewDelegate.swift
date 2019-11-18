@@ -9,10 +9,10 @@
 import Foundation
 
 @objc protocol ColorChangingViewDelegate {
-    optional func touchEnded()
-    optional func touchBegan()
+    @objc optional func touchEnded()
+    @objc optional func touchBegan()
     
     func requiredTouchDurationReached()
     
-    optional func firedFunc(number: Int)
+    @objc optional func firedFunc(number: Int)
 }

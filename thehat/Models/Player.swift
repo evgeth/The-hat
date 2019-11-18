@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player: NSObject {
+class Player {
     var name: String = ""
     var explained: Int = 0
     var guessed: Int = 0

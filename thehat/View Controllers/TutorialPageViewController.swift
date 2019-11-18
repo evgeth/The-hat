@@ -25,11 +25,11 @@ class TutorialPageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         if descriptionText == "new game" {
-            newGameButton.hidden = false
-            descriptionLabel.hidden = true
-            backgroundImage.hidden = false
-            iphoneImageView.hidden = true
-            imageView.hidden = true
+            newGameButton.isHidden = false
+            descriptionLabel.isHidden = true
+            backgroundImage.isHidden = false
+            iphoneImageView.isHidden = true
+            imageView.isHidden = true
         } else {
             imageView.image = UIImage(named: imageName)
             descriptionLabel.text = descriptionText
@@ -44,7 +44,7 @@ class TutorialPageViewController: UIViewController {
     
 
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "New Game Segue" {
 //            if let destinationVC = segue.destinationViewController as? GameSettingsViewController {
 //                let game = Game()

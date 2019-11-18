@@ -24,7 +24,7 @@ class TutorialViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        setNavigationBarTitleWithCustomFont(NSLocalizedString("RULES", comment: "Rules"))
+        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("RULES", comment: "Rules"))
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         
@@ -43,27 +43,27 @@ class TutorialViewController: UIViewController {
                         "results",
                         "new_game"]
 //        pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
-        pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
+        pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController.dataSource = self
         
-        tutorialPages = [viewControllerAtIndex(0)!]
+        tutorialPages = [viewControllerAtIndex(index: 0)!]
         
         
-        pageViewController.setViewControllers(tutorialPages, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        pageViewController.setViewControllers(tutorialPages, direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
         
         
-        self.pageViewController.view.frame = CGRectMake(0, 30, self.view.frame.width, self.view.frame.size.height - 40)
+        self.pageViewController.view.frame = CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.size.height - 40)
         
-        self.addChildViewController(self.pageViewController)
+        self.addChild(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
-        self.pageViewController.didMoveToParentViewController(self)
+        self.pageViewController.didMove(toParent: self)
         
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Tutorial"])
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,7 +92,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         }
         
         // Create a new view controller and pass suitable data.
-        let tutorialPage = storyboard?.instantiateViewControllerWithIdentifier("TutorialPageViewController") as! TutorialPageViewController
+        let tutorialPage = storyboard?.instantiateViewController(withIdentifier: "TutorialPageViewController") as! TutorialPageViewController
         tutorialPage.imageName = self.tutorialImages[index]
         tutorialPage.descriptionText = self.tutorialTitles[index]
         tutorialPage.pageIndex = index
@@ -101,24 +101,24 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let index = (viewController as! TutorialPageViewController).pageIndex
         
         if index == tutorialTitles.count {
             return nil
         }
         
-        return viewControllerAtIndex(index + 1)
+        return viewControllerAtIndex(index: index + 1)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let index = (viewController as! TutorialPageViewController).pageIndex
 
         if (index == 0) {
             return nil
         }
         
-        return viewControllerAtIndex(index - 1)
+        return viewControllerAtIndex(index: index - 1)
     }
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return tutorialTitles.count

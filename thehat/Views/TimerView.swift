@@ -20,17 +20,17 @@ class TimerView: UIView {
     var percent: CGFloat = 1.0
     
     func degreesToRadians(degrees: CGFloat) -> CGFloat {
-        return degrees * CGFloat(M_PI) / 180.0
+        return degrees * CGFloat(Double.pi) / 180.0
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let bezierPath = UIBezierPath()
         let center = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
-        bezierPath.addArcWithCenter(center, radius: CGFloat(47.0), startAngle: degreesToRadians(-90), endAngle: degreesToRadians(270) - degreesToRadians(360) * (1 - percent), clockwise: true)
+        bezierPath.addArc(withCenter: center, radius: CGFloat(47.0), startAngle: degreesToRadians(degrees: -90), endAngle: degreesToRadians(degrees: 270) - degreesToRadians(degrees: 360) * (1 - percent), clockwise: true)
         bezierPath.lineWidth = 6
-        bezierPath.lineCapStyle = CGLineCap.Round
+        bezierPath.lineCapStyle = CGLineCap.round
         if percent < 0 {
-            UIColor.redColor().setStroke()
+            UIColor.red.setStroke()
         } else {
             UIColor(red: CGFloat(0), green: CGFloat(192.0 / 256.0), blue: CGFloat(50.0 / 256.0), alpha: 0.9).setStroke()
         }

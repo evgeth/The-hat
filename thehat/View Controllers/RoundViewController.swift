@@ -18,7 +18,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var roundDuration: Float!
     var extraRoundDuration: Float!
     var secondsLeft: Float!
-    var timer: NSTimer?
+    var timer: Timer?
     var timerRate: Float = 0.01
     
     var currentWord: String!
@@ -59,27 +59,26 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         timerView.layer.masksToBounds = true
         inactiveColor = redErrorView.backgroundColor
         
-        redErrorView.initializer(inactiveColor, finishColor: UIColor(r: 184, g: 49, b: 49, a: 80), requiredTouchDuration: 0.6, delegate: self)
+        redErrorView.initializer(startColor: inactiveColor, finishColor: UIColor(r: 184, g: 49, b: 49, a: 80), requiredTouchDuration: 0.6, delegate: self)
         
-        self.scoreSound = self.setupAudioPlayerWithFile("score", type:"wav")
-        self.failSound = self.setupAudioPlayerWithFile("mistake", type:"wav")
+        self.scoreSound = self.setupAudioPlayerWithFile(file: "score", type:"wav")
+        self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        timer = NSTimer.scheduledTimerWithTimeInterval(Double(timerRate), target: self, selector: "timerFired", userInfo: nil, repeats: true)
+    override func viewDidAppear(_ animated: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: Double(timerRate), target: self, selector: Selector(("timerFired")), userInfo: nil, repeats: true)
     }
     
-    func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+    func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
         //1
-        let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
-        let url = NSURL.fileURLWithPath(path!)
-        
+        let path = Bundle.main.path(forResource: file as String, ofType: type as String)
+        let url = URL(fileURLWithPath: path!)
         
         var audioPlayer:AVAudioPlayer?
         do {
-            audioPlayer = try AVAudioPlayer(contentsOfURL: url)
-        } catch _ as NSError {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        } catch _  {
             audioPlayer = nil
         }
         
@@ -87,11 +86,11 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         return audioPlayer!
     }
     
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Main Menu"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
     }
     
-    func timerFired() {
+    @objc func timerFired() {
         if isRoundVCDismissed {
             return
         }
@@ -108,7 +107,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
             if secondsLeft < 0 {
                 if !isBasicTimeEnded {
                     failSound.play()
-                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    UIView.animate(withDuration: 0.3, animations: { () -> Void in
                         self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
                         self.errorLabel.text = NSLocalizedString("NO_WAY", comment: "No way (hold for mistake)")
                     })
@@ -118,7 +117,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
                 timerLabel.text = "\(Int(secondsLeft))"
                 
             } else {
-                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                UIView.animate(withDuration: 0.1, animations: { () -> Void in
                     self.timerLabel.text = "\(Int(self.secondsLeft + 1))"
                 })
             }
@@ -143,8 +142,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     func endRound() {
         if !isRoundVCDismissed {
             gameInstance.nextRound()
-            gameInstance.setGuessedWordsForRound(self.wordsGuessed)
-            dismissViewControllerAnimated(true, completion: nil)
+            gameInstance.setGuessedWordsForRound(guessedWords: self.wordsGuessed)
+            dismiss(animated: true, completion: nil)
             isRoundVCDismissed = true
         }
     }
@@ -155,8 +154,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
             endRound()
             return
         }
-        let transitionOptions = UIViewAnimationOptions.TransitionFlipFromBottom
-        UIView.transitionWithView(wordLabel, duration: 0.3, options: transitionOptions, animations: {
+        let transitionOptions = UIView.AnimationOptions.transitionFlipFromBottom
+        UIView.transition(with: wordLabel, duration: 0.3, options: transitionOptions, animations: {
             self.wordLabel.text = self.currentWord
             },
             completion: nil)
@@ -171,11 +170,11 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
 
-    @IBAction func guessed(sender: AnyObject) {
+    @IBAction func guessed(_ sender: AnyObject) {
         wordsGuessed.append(Word(word: currentWord))
         wordsGuessed.last!.state = .Guessed
-        if scoreSound.playing {
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+        if scoreSound.isPlaying {
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 self.scoreSound.pause()
                 self.scoreSound.currentTime = 0.0
             }, completion: { (error) -> Void in

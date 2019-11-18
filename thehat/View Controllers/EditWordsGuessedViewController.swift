@@ -10,6 +10,7 @@ import UIKit
 import Crashlytics
 
 class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+    
 
     @IBOutlet weak var guessedWordsTableView: UITableView!
     var wordList = [Word]()
@@ -27,7 +28,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         guessedWordsTableView.delegate = self
         guessedWordsTableView.dataSource = self
         // Do any additional setup after loading the view.
-        var rounds = gameInstance.rounds
+        let rounds = gameInstance.rounds
         for wordString in rounds[rounds.count - 2].guessedWords {
             wordList.append(Word(word: wordString.word))
             wordList.last!.state = wordString.state
@@ -37,17 +38,17 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
 //        label.font = UIFont(name: "Avenir Next", size: 24)
 //        label.text = "Pull to mark mistake"
 //        label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
-//        label.textAlignment = NSTextAlignment.Center
+//        label.textAlignment = TextAlignment.Center
 //        pullToMarkMistakeLabel = label
 //        guessedWordsTableView.addSubview(label)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        gameInstance.setGuessedWordsForRound(wordList)
+    override func viewWillDisappear(_ animated: Bool) {
+        gameInstance.setGuessedWordsForRound(guessedWords: wordList)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        Answers.logCustomEventWithName("Open Screen", customAttributes: ["Screen name": "Edit words"])
+    override func viewWillAppear(_ animated: Bool) {
+        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Edit words"])
     }
 
     
@@ -56,13 +57,13 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("word") as! GuessedWordCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "word") as! GuessedWordCell
         cell.wordLabel.text = wordList[indexPath.row].word
         if wordList[indexPath.row].state == State.Fail {
             
         }
-        cell.wordStatus.transform = CGAffineTransformMakeRotation(CGFloat(0))
+        cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(0))
         cell.wordStatus.font = UIFont(name: "Avenir Next", size: 42)
         if wordList[indexPath.row].state == State.Guessed {
             cell.wordStatus.text = "✓";
@@ -70,24 +71,24 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
             cell.wordLabel.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
         } else if wordList[indexPath.row].state == State.New {
             cell.wordStatus.text = "🎩";
-            cell.wordStatus.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+            cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             cell.wordStatus.font = UIFont(name: "Avenir Next", size: 34)
             cell.wordStatus.textColor = UIColor(r: 0, g: 0, b: 0, a: 100)
-            cell.wordLabel.textColor = UIColor.blackColor()
+            cell.wordLabel.textColor = UIColor.black
         } else {
             cell.wordStatus.text = "✗";
             cell.wordStatus.textColor = UIColor(r: 128, g: 0, b: 0, a: 100)
-            cell.wordLabel.textColor = UIColor.redColor()
+            cell.wordLabel.textColor = UIColor.red
         }
         return cell
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wordList.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if wordList[indexPath.row].state == State.Guessed{
             wordList[indexPath.row].state = State.New
         } else if wordList[indexPath.row].state == State.New {
@@ -95,18 +96,18 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         } else {
             wordList[indexPath.row].state = State.Guessed
         }
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.reloadRows(at: [(indexPath as IndexPath)], with: UITableView.RowAnimation.automatic)
         self.saveDelegate?.updated()
     }
     
-    @IBAction func saveButtonTouch(sender: UIButton) {
+    @IBAction func saveButtonTouch(_ sender: UIButton) {
         saveCorrectionsAndClose()
     }
     
     func saveCorrectionsAndClose() {
-        gameInstance.setGuessedWordsForRound(wordList)
+        gameInstance.setGuessedWordsForRound(guessedWords: wordList)
         self.saveDelegate?.updated()
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation

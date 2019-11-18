@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Round: NSObject {
+class Round {
     
     var number: Int = 0
     var speaker: Player
