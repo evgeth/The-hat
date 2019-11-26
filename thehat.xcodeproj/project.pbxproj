@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */; };
+		8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */; };
 		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
 		8847B0021C3BC2BC008497E2 /* preparation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0041C3BC2BC008497E2 /* preparation.png */; };
 		8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0081C3BC35D008497E2 /* pause_or_finish.png */; };
@@ -81,6 +82,7 @@
 		652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.debug.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.debug.xcconfig"; sourceTree = "<group>"; };
 		75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.debug.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8847AFFF1C3BC266008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/results.png; sourceTree = "<group>"; };
 		8847B0011C3BC26A008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/results.png; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				88DBAC451C333ACC00C4EB1F /* Extensions.swift */,
 				88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */,
 				88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */,
+				8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */,
 				88DBAC1D1C333A7E00C4EB1F /* Round.swift in Sources */,
 				88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */,
+				8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */,
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,

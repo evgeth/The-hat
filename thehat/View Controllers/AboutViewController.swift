@@ -11,7 +11,7 @@ import Crashlytics
 import StoreKit
 import SafariServices
 
-class AboutViewController: UITableViewController, SKProductsRequestDelegate {
+class AboutViewController: UITableViewController { //, SKProductsRequestDelegate {
     
     var productIDs = Set<String>()
     var productsArray: Array<SKProduct?> = []
@@ -21,8 +21,8 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
                 NSLocalizedString("developer", comment: "developer"),
                 NSLocalizedString("thanks", comment: "thanks")]
     var rows: [[(String, String)]] = [
-        [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
-            (NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652"),
+//        [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
+            [(NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652"),
             (NSLocalizedString("friends", comment: "tell friends"), "share"),
             (NSLocalizedString("rate", comment: "rate"), "rate")],
         [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://vk.com/id17890829")],
@@ -37,14 +37,13 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
         
         setNavigationBarTitleWithCustomFont(title: NSLocalizedString("ABOUT", comment: "About"))
         
-        SKPaymentQueue.default().add(self)
-
-        productIDs.insert("com.dpfbop.thehat.coffee")
-        requestProductInfo()
+//        SKPaymentQueue.default().add(self)
+//        productIDs.insert("com.dpfbop.thehat.coffee")
+//        requestProductInfo()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        SKPaymentQueue.default().remove(self)
+//        SKPaymentQueue.default().remove(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,39 +57,8 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        productRequest.delegate = nil
-        productRequest.cancel()
-    }
-    
-    
-    func requestProductInfo() {
-        if SKPaymentQueue.canMakePayments() {
-            productRequest = SKProductsRequest(productIdentifiers: productIDs)
-            
-            productRequest.delegate = self
-            productRequest.start()
-        }
-        else {
-            print("Cannot perform In App Purchases.")
-        }
-    }
-    
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if response.products.count != 0 {
-            for product in response.products {
-                productsArray.append(product)
-                print(product)
-            }
-            titles.insert(NSLocalizedString("tip", comment: "tip"), at: 2)
-            rows.insert([(NSLocalizedString("coffee", comment: "coffee"), "tip")], at: 2)
-            tableView.insertSections(IndexSet(integer: 2) as IndexSet, with: UITableView.RowAnimation.automatic)
-        }
-        else {
-            print("There are no products.")
-        }
-        if response.invalidProductIdentifiers.count != 0 {
-            print(response.invalidProductIdentifiers.description)
-        }
+//        productRequest.delegate = nil
+//        productRequest.cancel()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -108,13 +76,11 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
                 self.present(activityVC, animated: true, completion: nil)
         }
         case "rate":
-            let link = "itms-apps://itunes.apple.com/app/id1073529279"
-            UIApplication.shared.openURL(URL(string: link)! as URL)
+            if #available( iOS 10.3,*){
+                SKStoreReviewController.requestReview()
+            }
         case "":
             break
-        case "tip":
-            let payment = SKPayment(product: self.productsArray[0]!)
-            SKPaymentQueue.default().add(payment)
         default:
             let url = URL(string: obj.1)!
             if #available(iOS 9.0, *) {
@@ -136,12 +102,10 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
             var imgtitle = ""
             switch indexPath.row {
             case 0:
-                imgtitle = "facebook.png"
-            case 1:
                 imgtitle = "vk.png"
-            case 2:
+            case 1:
                 imgtitle = "share.png"
-            case 3:
+            case 2:
                 imgtitle = "star.png"
             default:
                 break
@@ -167,27 +131,27 @@ class AboutViewController: UITableViewController, SKProductsRequestDelegate {
     
 }
 
-extension AboutViewController: SKPaymentTransactionObserver {
-    
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case SKPaymentTransactionState.purchased:
-                print("Transaction completed successfully.")
-                SKPaymentQueue.default().finishTransaction(transaction)
-//                delegate.didBuyColorsCollection(selectedProductIndex)
-                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Complete"])
-                
-                
-            case SKPaymentTransactionState.failed:
-                print("Transaction Failed");
-//                print(transaction.error)
-                SKPaymentQueue.default().finishTransaction(transaction)
-                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Failed"])
-            default:
-                print(transaction.transactionState.rawValue)
-            }
-        }
-    }
-
-}
+//extension AboutViewController: SKPaymentTransactionObserver {
+//
+//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+//        for transaction in transactions {
+//            switch transaction.transactionState {
+//            case SKPaymentTransactionState.purchased:
+//                print("Transaction completed successfully.")
+//                SKPaymentQueue.default().finishTransaction(transaction)
+////                delegate.didBuyColorsCollection(selectedProductIndex)
+//                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Complete"])
+//
+//
+//            case SKPaymentTransactionState.failed:
+//                print("Transaction Failed");
+////                print(transaction.error)
+//                SKPaymentQueue.default().finishTransaction(transaction)
+//                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Failed"])
+//            default:
+//                print(transaction.transactionState.rawValue)
+//            }
+//        }
+//    }
+//
+//}

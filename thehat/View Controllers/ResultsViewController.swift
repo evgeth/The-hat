@@ -46,6 +46,8 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         
+        StoreReviewHelper.incrementGameFinishedCount()
+        StoreReviewHelper.checkAndAskForReview()
     }
 
     override func didReceiveMemoryWarning() {

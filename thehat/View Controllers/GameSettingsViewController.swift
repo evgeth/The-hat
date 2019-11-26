@@ -58,6 +58,12 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             }
             players = playersList
         }
+        
+        if let savedPlayers = UserDefaults.standard.value(forKey: UserDefaultsKeys.SAVED_PLAYER_NAMES) as? [String] {
+            players = savedPlayers
+            return
+        }
+        
         roundLengthStepper.value = Double(gameInstance.roundDuration)
         wordsInTheHatStepper.value = Double(gameInstance.wordsInTheHat)
         reloadLabels()
@@ -292,7 +298,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         if countRowNumberForIndexPath(indexPath: indexPath) == players.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Add Player")! as UITableViewCell
             cell.showsReorderControl = false
@@ -338,7 +343,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         return UITableViewCell.EditingStyle.none
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if isPairsMode() {
             return sectionsCount
         } else {
@@ -348,7 +353,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isPairsMode() {
-            if section == numberOfSectionsInTableView(tableView: tableView) - 1 {
+            if section == numberOfSections(in: tableView) - 1 {
                 return numberOfRowsInLastSection
             }
             return 2
@@ -434,6 +439,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Start Round" {
+            UserDefaults.standard.set(players, forKey: UserDefaultsKeys.SAVED_PLAYER_NAMES)
             var playersList: [Player] = []
             for playerName in players {
                 playersList.append(Player(name: playerName))
@@ -512,7 +518,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         var currentIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
         while (currentIndexPath.row >= tableView.numberOfRows(inSection: currentIndexPath.section)) {
             currentIndexPath = IndexPath(row: 0, section: currentIndexPath.section + 1)
-            if currentIndexPath.section == numberOfSectionsInTableView(tableView: tableView) {
+            if currentIndexPath.section == numberOfSections(in: tableView) {
                 return nil
             }
         }
