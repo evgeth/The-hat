@@ -7,6 +7,7 @@ target 'thehat' do
 
   # Pods for thehat
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'Firebase/Analytics'
 
   target 'thehatTests' do
     inherit! :search_paths

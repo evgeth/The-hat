@@ -45,7 +45,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(startColor: inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 2, delegate: self)
+        startButtonView.initializer(startColor: inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 1.9, delegate: self)
         
         self.countdownSound = self.setupAudioPlayerWithFile(file: "countdown", type:"wav")
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
@@ -101,6 +101,8 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         self.loadingViewWidth.constant = 0
         self.startButtonView.layoutIfNeeded()
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func updateWordsLeft() {
@@ -222,7 +224,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         let roundVC = storyboard?.instantiateViewController(withIdentifier: "RoundViewController") as! RoundViewController
         sendWordsAnalytics()
         
-        self.present(roundVC, animated: true, completion: nil)
+        
+        navigationController?.pushViewController(roundVC, animated: true)
+//        self.present(roundVC, animated: true, completion: nil)
     }
     
     func showCountdownLabel(viewToScale: UIView, scaleFrom: Double, scaleTo: Double) {

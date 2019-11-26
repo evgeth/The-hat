@@ -88,6 +88,10 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         return wordList.count
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return NSLocalizedString("GUESSED_WORDS", comment: "Guessed Words")
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if wordList[indexPath.row].state == State.Guessed{
             wordList[indexPath.row].state = State.New

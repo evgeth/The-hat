@@ -21,7 +21,7 @@ class ColorChangingView: UIView {
     var startColor: UIColor!
     var finishColor: UIColor!
     var requiredTouchDuration: Double!
-    var timerRate: Double = 0.03
+    var timerRate: Double = 0.01
     var startTouchTimer: Timer!
     var touchDuration: Double = 0
     var lastFired: Double = 0

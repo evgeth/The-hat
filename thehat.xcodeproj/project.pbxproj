@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */; };
 		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
 		8847B0021C3BC2BC008497E2 /* preparation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0041C3BC2BC008497E2 /* preparation.png */; };
 		8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0081C3BC35D008497E2 /* pause_or_finish.png */; };
@@ -79,6 +80,7 @@
 		30DF9907B75648E0BE2D411E /* Pods_thehat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.debug.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.debug.xcconfig"; sourceTree = "<group>"; };
 		75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.debug.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8847AFFF1C3BC266008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/results.png; sourceTree = "<group>"; };
 		8847B0011C3BC26A008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/results.png; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
 				88DBAC581C333DDA00C4EB1F /* Localizable.strings */,
 				889325071AE41C3D009B68B2 /* LaunchScreen.xib */,
+				8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */,
 				889325021AE41C3D009B68B2 /* Main.storyboard */,
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
 				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
@@ -435,6 +438,7 @@
 			files = (
 				8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */,
 				889325041AE41C3D009B68B2 /* Main.storyboard in Resources */,
+				8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */,
 				8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */,
 				88DBAC281C333A9900C4EB1F /* score.wav in Resources */,
 				8847B03E1C450DAD008497E2 /* facebook.png in Resources */,
@@ -512,11 +516,15 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-thehat/Pods-thehat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

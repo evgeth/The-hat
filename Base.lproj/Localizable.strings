@@ -42,6 +42,8 @@ CANCEL = "Cancel";
 
 PAIR = "Pair";
 
+GUESSED_WORDS = "Guessed Words";
+
 edit_players = "Set names for players";
 edit_settings = "Choose words difficulty and other settings";
 preparation = "Alice should explain as many words as she can to Bob without using cognate and conformable words";

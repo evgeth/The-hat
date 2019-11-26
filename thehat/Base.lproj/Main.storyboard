@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="Vb7-d3-IHw">
-                                <rect key="frame" x="0.0" y="15" width="414" height="881"/>
+                                <rect key="frame" x="0.0" y="15" width="414.00000000000023" height="881"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czO-e0-sDd" userLabel="Menu">
                                 <rect key="frame" x="0.0" y="138" width="414" height="658"/>
@@ -599,9 +599,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="hiv-YJ-ymZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="902"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gc7-eR-9ja" userLabel="Round Info View">
                                 <rect key="frame" x="0.0" y="188" width="414" height="100"/>
                                 <subviews>
@@ -715,16 +712,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="8ge-ED-jg7" firstAttribute="top" secondItem="hiv-YJ-ymZ" secondAttribute="bottom" constant="-40" id="1dl-tP-E0E"/>
-                            <constraint firstItem="hiv-YJ-ymZ" firstAttribute="top" secondItem="cNw-nJ-ROc" secondAttribute="top" id="GLY-de-GL7"/>
                             <constraint firstAttribute="trailing" secondItem="JlK-Vy-VeZ" secondAttribute="trailing" id="KlY-7X-Xai"/>
                             <constraint firstItem="Gc7-eR-9ja" firstAttribute="top" secondItem="L8a-et-jno" secondAttribute="bottom" constant="100" id="WFG-sJ-dGW">
                                 <variation key="heightClass=compact" constant="40"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="Gc7-eR-9ja" secondAttribute="trailing" id="fBJ-km-EbC"/>
-                            <constraint firstAttribute="trailing" secondItem="hiv-YJ-ymZ" secondAttribute="trailing" id="fCq-f8-4qL"/>
                             <constraint firstItem="JlK-Vy-VeZ" firstAttribute="leading" secondItem="cNw-nJ-ROc" secondAttribute="leading" id="mwP-Lr-EbN"/>
-                            <constraint firstItem="hiv-YJ-ymZ" firstAttribute="leading" secondItem="cNw-nJ-ROc" secondAttribute="leading" id="p8w-wd-Erh"/>
                             <constraint firstItem="8ge-ED-jg7" firstAttribute="top" secondItem="JlK-Vy-VeZ" secondAttribute="bottom" id="q94-to-yJJ">
                                 <variation key="heightClass=compact" constant="25"/>
                             </constraint>
@@ -842,7 +835,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="gel-W8-yXu">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000023" height="862"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IPhone6.png" translatesAutoresizingMaskIntoConstraints="NO" id="QhE-IY-2bQ">
                                 <rect key="frame" x="19" y="43.5" width="376" height="769"/>
@@ -937,13 +930,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zeV-fw-Fnm" userLabel="Footer">
-                                <rect key="frame" x="0.0" y="716" width="414" height="180"/>
+                                <rect key="frame" x="0.0" y="686" width="414" height="210"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9no-RZ-m4A">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pqd-N4-SIA" userLabel="Left Part">
-                                                <rect key="frame" x="0.0" y="0.0" width="248.5" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="248.5" height="210"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Words in the hat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIY-wF-OR4">
                                                         <rect key="frame" x="8" y="8" width="232.5" height="16.5"/>
@@ -1025,10 +1018,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zue-Zv-F6b" userLabel="Right Part">
-                                                <rect key="frame" x="248.5" y="0.0" width="165.5" height="180"/>
+                                                <rect key="frame" x="248.5" y="0.0" width="165.5" height="210"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yjz-yp-dZ6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="180"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="210"/>
                                                     </pickerView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1065,7 +1058,7 @@
                                     <constraint firstItem="QYT-4u-Cqy" firstAttribute="top" secondItem="zeV-fw-Fnm" secondAttribute="top" id="1ui-Ls-1Fm"/>
                                     <constraint firstItem="QYT-4u-Cqy" firstAttribute="leading" secondItem="zeV-fw-Fnm" secondAttribute="leading" id="6Vv-8c-yZL"/>
                                     <constraint firstAttribute="trailing" secondItem="9no-RZ-m4A" secondAttribute="trailing" id="TsB-2D-jFe"/>
-                                    <constraint firstAttribute="height" constant="180" id="VZL-cB-cFQ"/>
+                                    <constraint firstAttribute="height" constant="210" id="VZL-cB-cFQ"/>
                                     <constraint firstAttribute="bottom" secondItem="9no-RZ-m4A" secondAttribute="bottom" id="a66-iY-bXv"/>
                                     <constraint firstItem="9no-RZ-m4A" firstAttribute="leading" secondItem="zeV-fw-Fnm" secondAttribute="leading" id="mzY-zf-pvg"/>
                                     <constraint firstAttribute="trailing" secondItem="QYT-4u-Cqy" secondAttribute="trailing" id="oI2-G9-FOy"/>
@@ -1073,7 +1066,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zg9-Ia-vPu" userLabel="Players Table">
-                                <rect key="frame" x="0.0" y="88" width="414" height="628"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="598"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <prototypes>
@@ -1232,7 +1225,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1578" y="385"/>
+            <point key="canvasLocation" x="1576.8115942028987" y="384.375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nai-AY-gPB">

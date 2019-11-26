@@ -9,6 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
+import Firebase
 
 
 @UIApplicationMain
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         Fabric.with([Crashlytics.self])
+        
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
         
         Answers.logCustomEvent(withName: "App started", customAttributes: ["lang": Locale.preferredLanguages[0]])
 

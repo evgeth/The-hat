@@ -64,6 +64,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         self.scoreSound = self.setupAudioPlayerWithFile(file: "score", type:"wav")
         self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
         
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -143,7 +144,8 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         if !isRoundVCDismissed {
             gameInstance.nextRound()
             gameInstance.setGuessedWordsForRound(guessedWords: self.wordsGuessed)
-            dismiss(animated: true, completion: nil)
+//            dismiss(animated: true, completion: nil)
+            navigationController?.popViewController(animated: true)
             isRoundVCDismissed = true
         }
     }
