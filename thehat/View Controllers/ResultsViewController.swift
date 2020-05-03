@@ -94,7 +94,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell ?? PlayerResultCell()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if isPairsMode() {
             return gameInstance.players.count / 2 + 1
         } else {

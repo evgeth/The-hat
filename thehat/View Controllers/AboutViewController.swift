@@ -20,15 +20,16 @@ class AboutViewController: UITableViewController { //, SKProductsRequestDelegate
     var titles = [NSLocalizedString("Social", comment: "Social"),
                 NSLocalizedString("developer", comment: "developer"),
                 NSLocalizedString("thanks", comment: "thanks")]
-    var rows: [[(String, String)]] = [
+    var rows: [[(String, String, String)]] = [
 //        [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
-            [(NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652"),
-            (NSLocalizedString("friends", comment: "tell friends"), "share"),
-            (NSLocalizedString("rate", comment: "rate"), "rate")],
-        [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://vk.com/id17890829")],
-        [(NSLocalizedString("koroleva", comment: "koroleva"), "https://vk.com/id81679642"),
-            (NSLocalizedString("emelin", comment: "emelin"), "https://vk.com/id24027100"),
-            (NSLocalizedString("lksh", comment: "lskh"), "http://lksh.ru")]]
+            [(NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652", "vk"),
+            (NSLocalizedString("telegram", comment: "telegram"), "https://t.me/thehatapp", "telegram"),
+            (NSLocalizedString("friends", comment: "tell friends"), "share", "share"),
+            (NSLocalizedString("rate", comment: "rate"), "rate", "star")],
+        [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://t.me/yurtaev", "telegram")],
+        [(NSLocalizedString("koroleva", comment: "koroleva"), "https://vk.com/id81679642", "vk"),
+            (NSLocalizedString("emelin", comment: "emelin"), "https://vk.com/id24027100", "vk"),
+            (NSLocalizedString("lksh", comment: "lskh"), "http://lksh.ru", "")]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,17 +100,7 @@ class AboutViewController: UITableViewController { //, SKProductsRequestDelegate
         let obj = rows[indexPath.section][indexPath.row]
         cell.label.text = obj.0
         if indexPath.section == 0 {
-            var imgtitle = ""
-            switch indexPath.row {
-            case 0:
-                imgtitle = "vk.png"
-            case 1:
-                imgtitle = "share.png"
-            case 2:
-                imgtitle = "star.png"
-            default:
-                break
-            }
+            let imgtitle = obj.2 + ".png"
             cell.img.image = UIImage(named: imgtitle)
         } else if obj.1 == "tip"  {
             cell.img.image = UIImage(named: "coffee.png")

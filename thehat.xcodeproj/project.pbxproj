@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */; };
 		8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */; };
+		834859D9245F75B100DD4772 /* telegram.png in Resources */ = {isa = PBXBuildFile; fileRef = 834859D8245F75B100DD4772 /* telegram.png */; };
 		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
 		8847B0021C3BC2BC008497E2 /* preparation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0041C3BC2BC008497E2 /* preparation.png */; };
 		8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0081C3BC35D008497E2 /* pause_or_finish.png */; };
@@ -83,6 +84,7 @@
 		75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.debug.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
+		834859D8245F75B100DD4772 /* telegram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = telegram.png; sourceTree = "<group>"; };
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8847AFFF1C3BC266008497E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/results.png; sourceTree = "<group>"; };
 		8847B0011C3BC26A008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/results.png; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 		88DBAC201C333A9900C4EB1F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				834859D8245F75B100DD4772 /* telegram.png */,
 				8847B04B1C454E1C008497E2 /* star.png */,
 				8847B0471C452075008497E2 /* coffee.png */,
 				8847B0451C451230008497E2 /* share.png */,
@@ -464,6 +467,7 @@
 				8847B0021C3BC2BC008497E2 /* preparation.png in Resources */,
 				8847AFFE1C3BC266008497E2 /* results.png in Resources */,
 				889325061AE41C3D009B68B2 /* Images.xcassets in Resources */,
+				834859D9245F75B100DD4772 /* telegram.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
