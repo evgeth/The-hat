@@ -61,7 +61,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         if let savedPlayers = UserDefaults.standard.value(forKey: UserDefaultsKeys.SAVED_PLAYER_NAMES) as? [String] {
             players = savedPlayers
-            return
         }
         
         roundLengthStepper.value = Double(gameInstance.roundDuration)
