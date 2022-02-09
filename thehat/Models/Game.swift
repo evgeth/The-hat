@@ -119,6 +119,12 @@ class Game {
         }
         rounds.append(Round(number: roundNumber, speaker: players[playingPair.0], listener: players[playingPair.1]))
     }
+
+    func changeLanguage() {
+        words = []
+        didWordsLoad = false
+        wordsLoader = nil
+    }
     
     func getWord() -> String {
         updatePool()

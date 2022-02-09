@@ -68,4 +68,15 @@ lksh = "LKSH (inspiration)";
 
 coffee = "Buy me a cup of coffee";
 tip = "Tip";
-
+language = "English";
+words_in_the_hat = "Words in the hat";
+round_length = "Round length";
+game_type = "Game type";
+each_to_each = "Each to each";
+pairs = "Pairs";
+got_it = "Got it!";
+mistake = "Mistake";
+start = "Start";
+save = "Save";
+hold_to_start_new_game = "Hold to start new game";
+hold_to_start = "Hold to start";

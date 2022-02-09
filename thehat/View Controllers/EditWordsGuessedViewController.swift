@@ -16,6 +16,11 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     var wordList = [Word]()
     var gameInstance = GameSingleton.gameInstance
     
+    @IBOutlet weak var saveLabel: UILabel! {
+        didSet {
+            saveLabel.text = LanguageChanger.shared.localizedString(forKey: "save")
+        }
+    }
     var saveDelegate: PopoverSaveDelegate?
     
     @IBOutlet weak var saveView: UIView!
@@ -89,7 +94,7 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return NSLocalizedString("GUESSED_WORDS", comment: "Guessed Words")
+        LanguageChanger.shared.localizedString(forKey: "GUESSED_WORDS")  
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

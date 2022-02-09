@@ -13,7 +13,7 @@ class LocalWordsLoader: WordsLoaderDelegate {
     var localPool = [Word]()
     
     init() {
-        let path = Bundle.main.path(forResource: NSLocalizedString("WORDS_FILE", comment: "Words file"), ofType: "words")
+        let path = Bundle.main.path(forResource: LanguageChanger.shared.localizedString(forKey: "WORDS_FILE"), ofType: "words")
         do {
             let jsonData = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe)
             let json = try JSON(data: jsonData)

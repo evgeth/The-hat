@@ -17,26 +17,25 @@ class AboutViewController: UITableViewController { //, SKProductsRequestDelegate
     var productsArray: Array<SKProduct?> = []
     var productRequest: SKProductsRequest!
     
-    var titles = [NSLocalizedString("Social", comment: "Social"),
-                NSLocalizedString("developer", comment: "developer"),
-                NSLocalizedString("thanks", comment: "thanks")]
+    var titles = [
+        LanguageChanger.shared.localizedString(forKey: "social"),
+        LanguageChanger.shared.localizedString(forKey: "developer"),
+        LanguageChanger.shared.localizedString(forKey: "thanks")
+    ]
     var rows: [[(String, String, String)]] = [
-//        [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
-            [(NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652", "vk"),
-            (NSLocalizedString("telegram", comment: "telegram"), "https://t.me/thehatapp", "telegram"),
-            (NSLocalizedString("friends", comment: "tell friends"), "share", "share"),
-            (NSLocalizedString("rate", comment: "rate"), "rate", "star")],
-        [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://t.me/yurtaev", "telegram")],
-        [(NSLocalizedString("koroleva", comment: "koroleva"), "https://vk.com/id81679642", "vk"),
-            (NSLocalizedString("emelin", comment: "emelin"), "https://vk.com/id24027100", "vk"),
-            (NSLocalizedString("lksh", comment: "lskh"), "http://lksh.ru", "")]]
+            [(LanguageChanger.shared.localizedString(forKey: "vk"), "https://vk.com/club111664652", "vk"),
+            (LanguageChanger.shared.localizedString(forKey: "telegram"), "https://t.me/thehatapp", "telegram"),
+            (LanguageChanger.shared.localizedString(forKey: "friends"), "share", "share"),
+            (LanguageChanger.shared.localizedString(forKey: "rate"), "rate", "star")],
+        [(LanguageChanger.shared.localizedString(forKey: "yurtaev"), "https://t.me/yurtaev", "telegram")],
+        [(LanguageChanger.shared.localizedString(forKey: "koroleva"), "https://vk.com/id81679642", "vk"),
+            (LanguageChanger.shared.localizedString(forKey: "emelin"), "https://vk.com/id24027100", "vk"),
+            (LanguageChanger.shared.localizedString(forKey: "lksh"), "http://lksh.ru", "")]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("ABOUT", comment: "About"))
+        setNavigationBarTitleWithCustomFont(title: LanguageChanger.shared.localizedString(forKey: "ABOUT"))
         
 //        SKPaymentQueue.default().add(self)
 //        productIDs.insert("com.dpfbop.thehat.coffee")
@@ -46,12 +45,6 @@ class AboutViewController: UITableViewController { //, SKProductsRequestDelegate
     override func viewDidDisappear(_ animated: Bool) {
 //        SKPaymentQueue.default().remove(self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])

@@ -15,7 +15,12 @@ class TutorialPageViewController: UIViewController {
     @IBOutlet weak var newGameButton: UIView!
     @IBOutlet weak var iphoneImageView: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
-    
+    @IBOutlet weak var newGameLabel: UILabel! {
+        didSet {
+            newGameLabel.text = LanguageChanger.shared.localizedString(forKey: "NEW_GAME")
+        }
+    }
+
     var descriptionText: String!
     var imageName: String!
     var pageIndex: Int = 0
@@ -23,7 +28,6 @@ class TutorialPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         if descriptionText == "new game" {
             newGameButton.isHidden = false
             descriptionLabel.isHidden = true

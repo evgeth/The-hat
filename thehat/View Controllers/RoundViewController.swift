@@ -30,11 +30,21 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var isExtraTimeEnded = false
     
     @IBOutlet weak var wordLabel: UILabel!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel! {
+        didSet {
+            errorLabel.text = LanguageChanger.shared.localizedString(forKey: "mistake")
+        }
+    }
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var timerView: TimerView!
     @IBOutlet weak var timerViewHeightContraint: NSLayoutConstraint!
     
+    @IBOutlet weak var gotItLabel: UILabel! {
+        didSet {
+            gotItLabel.text = LanguageChanger.shared.localizedString(forKey: "got_it")
+        }
+    }
+
     @IBOutlet weak var redErrorView: ColorChangingView!
     var inactiveColor: UIColor!
     
@@ -110,7 +120,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
                     failSound.play()
                     UIView.animate(withDuration: 0.3, animations: { () -> Void in
                         self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
-                        self.errorLabel.text = NSLocalizedString("NO_WAY", comment: "No way (hold for mistake)")
+                        self.errorLabel.text = LanguageChanger.shared.localizedString(forKey: "NO_WAY")
                     })
                 }
                 isBasicTimeEnded = true

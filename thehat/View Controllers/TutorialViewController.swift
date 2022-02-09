@@ -22,18 +22,16 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("RULES", comment: "Rules"))
+        setNavigationBarTitleWithCustomFont(title: LanguageChanger.shared.localizedString(forKey: "RULES"))
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         
-        tutorialTitles = [NSLocalizedString("edit_players", comment: "edit_players"),
-                        NSLocalizedString("edit_settings", comment: "edit_settings"),
-                        NSLocalizedString("preparation", comment: "preparation"),
-                        NSLocalizedString("round", comment: "round"),
-                        NSLocalizedString("extra_time", comment: "extra_time"),
-                        NSLocalizedString("results", comment: "results"),
+        tutorialTitles = [LanguageChanger.shared.localizedString(forKey: "edit_players"),
+                          LanguageChanger.shared.localizedString(forKey: "edit_settings"),
+                          LanguageChanger.shared.localizedString(forKey: "preparation"),
+                          LanguageChanger.shared.localizedString(forKey: "round"),
+                          LanguageChanger.shared.localizedString(forKey: "extra_time"),
+                          LanguageChanger.shared.localizedString(forKey: "results"),
                         "new game"]
         tutorialImages = ["edit_players",
                         "edit_settings",
@@ -65,23 +63,6 @@ class TutorialViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
