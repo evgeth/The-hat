@@ -16,16 +16,10 @@ class TutorialViewController: UIViewController {
     var tutorialImages: [String] = []
     
     var tutorialPages: [TutorialPageViewController] = []
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setNavigationBarTitleWithCustomFont(title: LanguageChanger.shared.localizedString(forKey: "RULES"))
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
         tutorialTitles = [LanguageChanger.shared.localizedString(forKey: "edit_players"),
                           LanguageChanger.shared.localizedString(forKey: "edit_settings"),
                           LanguageChanger.shared.localizedString(forKey: "preparation"),
@@ -40,7 +34,8 @@ class TutorialViewController: UIViewController {
                         "extra_time",
                         "results",
                         "new_game"]
-//        pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
+
+        
         pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController.dataSource = self
         
@@ -60,7 +55,7 @@ class TutorialViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationItem.title = LanguageChanger.shared.localizedString(forKey: "RULES")
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
 }

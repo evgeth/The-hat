@@ -38,15 +38,7 @@ class TutorialPageViewController: UIViewController {
             imageView.image = UIImage(named: imageName)
             descriptionLabel.text = descriptionText
         }
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "New Game Segue" {
