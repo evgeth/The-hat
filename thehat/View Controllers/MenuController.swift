@@ -22,26 +22,26 @@ final class MenuController: UIViewController {
     }
     @IBOutlet weak var holdToStartLabel: UILabel! {
         didSet {
-            holdToStartLabel.text = languageChanger.localizedString(forKey: "hold_to_start_new_game")
+            holdToStartLabel.text = LS.localizedString(forKey: "hold_to_start_new_game")
         }
     }
 
     @IBOutlet weak var rulesLabel: UILabel! {
         didSet {
-            rulesLabel.text = languageChanger.localizedString(forKey: "RULES")
+            rulesLabel.text = LS.localizedString(forKey: "RULES")
         }
     }
 
     @IBOutlet weak var aboutLabel: UILabel! {
         didSet {
-            aboutLabel.text = languageChanger.localizedString(forKey: "ABOUT")
+            aboutLabel.text = LS.localizedString(forKey: "ABOUT")
         }
     }
 
     @IBOutlet weak var newGameView: ColorChangingView!
     @IBOutlet weak var languageButton: UIButton! {
         didSet {
-            languageButton.setTitle(languageChanger.localizedString(forKey: "language"), for: .normal)
+            languageButton.setTitle(LS.localizedString(forKey: "language"), for: .normal)
         }
     }
 
@@ -72,7 +72,7 @@ final class MenuController: UIViewController {
     private func initNewGameButton() {
         if gameInstance.isGameInProgress {
             holdToStartNewGameLabel.isHidden = false
-            newGameLabel.text = languageChanger.localizedString(forKey: "CONTINUE")
+            newGameLabel.text = LS.localizedString(forKey: "CONTINUE")
             newGameView.initializer(
                 startColor: UIColor(r: 109, g: 236, b: 158, a: 80),
                 finishColor: UIColor(r: 109, g: 250, b: 130, a: 90),
@@ -80,7 +80,7 @@ final class MenuController: UIViewController {
             )
         } else {
             holdToStartNewGameLabel.isHidden = true
-            newGameLabel.text = languageChanger.localizedString(forKey: "NEW_GAME")
+            newGameLabel.text = LS.localizedString(forKey: "NEW_GAME")
             newGameView.initializer(
                 startColor: UIColor(r: 109, g: 236, b: 158, a: 80),
                 finishColor: UIColor(r: 109, g: 236, b: 158, a: 80),

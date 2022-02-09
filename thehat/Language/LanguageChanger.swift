@@ -3,7 +3,7 @@ import UIKit
 final class LanguageChanger {
     static let shared = LanguageChanger()
     private var currentLanguage: Language
-    private var bundle: Bundle?
+    var bundle: Bundle?
 
     init() {
         bundle = Bundle.main
@@ -31,10 +31,5 @@ final class LanguageChanger {
             }
             appDelegate.initRootView()
         }
-    }
-
-    func localizedString(forKey key: String, value comment: String? = nil) -> String {
-        let localized = bundle!.localizedString(forKey: key, value: comment, table: nil)
-        return localized
     }
 }

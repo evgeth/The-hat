@@ -9,23 +9,23 @@
 import UIKit
 import Crashlytics
 
-class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
-
-    @IBOutlet weak var guessedWordsTableView: UITableView!
+    var saveDelegate: PopoverSaveDelegate?
     var wordList = [Word]()
     var gameInstance = GameSingleton.gameInstance
+    var pullToMarkMistakeLabel: UILabel!
+    var isPulledEnough = false
     
     @IBOutlet weak var saveLabel: UILabel! {
         didSet {
-            saveLabel.text = LanguageChanger.shared.localizedString(forKey: "save")
+            saveLabel.text = LS.localizedString(forKey: "save")
         }
     }
-    var saveDelegate: PopoverSaveDelegate?
-    
+    @IBOutlet weak var guessedWordsTableView: UITableView!
+
     @IBOutlet weak var saveView: UIView!
-    var pullToMarkMistakeLabel: UILabel!
-    var isPulledEnough = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,26 +55,20 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     override func viewWillAppear(_ animated: Bool) {
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Edit words"])
     }
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "word") as! GuessedWordCell
         cell.wordLabel.text = wordList[indexPath.row].word
-        if wordList[indexPath.row].state == State.Fail {
+        if wordList[indexPath.row].state == State.fail {
             
         }
         cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(0))
         cell.wordStatus.font = UIFont(name: "Avenir Next", size: 42)
-        if wordList[indexPath.row].state == State.Guessed {
+        if wordList[indexPath.row].state == State.guessed {
             cell.wordStatus.text = "✓";
             cell.wordStatus.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
             cell.wordLabel.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
-        } else if wordList[indexPath.row].state == State.New {
+        } else if wordList[indexPath.row].state == State.new {
             cell.wordStatus.text = "🎩";
             cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             cell.wordStatus.font = UIFont(name: "Avenir Next", size: 34)
@@ -94,16 +88,16 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        LanguageChanger.shared.localizedString(forKey: "GUESSED_WORDS")  
+        LS.localizedString(forKey: "GUESSED_WORDS")
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if wordList[indexPath.row].state == State.Guessed{
-            wordList[indexPath.row].state = State.New
-        } else if wordList[indexPath.row].state == State.New {
-            wordList[indexPath.row].state = State.Fail
+        if wordList[indexPath.row].state == State.guessed{
+            wordList[indexPath.row].state = State.new
+        } else if wordList[indexPath.row].state == State.new {
+            wordList[indexPath.row].state = State.fail
         } else {
-            wordList[indexPath.row].state = State.Guessed
+            wordList[indexPath.row].state = State.guessed
         }
         tableView.reloadRows(at: [(indexPath as IndexPath)], with: UITableView.RowAnimation.automatic)
         self.saveDelegate?.updated()
@@ -118,14 +112,4 @@ class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationCon
         self.saveDelegate?.updated()
         dismiss(animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

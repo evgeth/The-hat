@@ -24,7 +24,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var gameTypeLabel: UILabel! {
         didSet {
-            gameTypeLabel.text = LanguageChanger.shared.localizedString(forKey: "game_type")
+            gameTypeLabel.text = LS.localizedString(forKey: "game_type")
 
         }
     }
@@ -33,13 +33,13 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var wordsInTheHatLabel: UILabel!
     @IBOutlet weak var wordsLabel: UILabel! {
         didSet {
-            wordsLabel.text = LanguageChanger.shared.localizedString(forKey: "words_in_the_hat")
+            wordsLabel.text = LS.localizedString(forKey: "words_in_the_hat")
         }
     }
 
     @IBOutlet weak var roundLabel: UILabel! {
         didSet {
-            roundLabel.text = LanguageChanger.shared.localizedString(forKey: "round_length")
+            roundLabel.text = LS.localizedString(forKey: "round_length")
         }
     }
 
@@ -59,7 +59,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        setNavigationBarTitleWithCustomFont(title: LanguageChanger.shared.localizedString(forKey: "GAME_SETTINGS"))
+        setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "GAME_SETTINGS"))
 
         playersTableView.setEditing(true, animated: true)
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
@@ -81,8 +81,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         roundLengthStepper.value = Double(gameInstance.roundDuration)
         wordsInTheHatStepper.value = Double(gameInstance.wordsInTheHat)
         reloadLabels()
-        gameTypeSegmentControl.setTitle(LanguageChanger.shared.localizedString(forKey: "each_to_each"), forSegmentAt: 0)
-        gameTypeSegmentControl.setTitle(LanguageChanger.shared.localizedString(forKey: "pairs"), forSegmentAt: 1)
+        gameTypeSegmentControl.setTitle(LS.localizedString(forKey: "each_to_each"), forSegmentAt: 0)
+        gameTypeSegmentControl.setTitle(LS.localizedString(forKey: "pairs"), forSegmentAt: 1)
 
         gameTypeSegmentControl.selectedSegmentIndex =
             (gameInstance.type == GameType.Pairs) ? 1:0
@@ -106,11 +106,11 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let difficulties = [
-            LanguageChanger.shared.localizedString(forKey: "VERY_EASY"),
-            LanguageChanger.shared.localizedString(forKey: "EASY"),
-            LanguageChanger.shared.localizedString(forKey: "NORMAL"),
-            LanguageChanger.shared.localizedString(forKey: "HARD"),
-            LanguageChanger.shared.localizedString(forKey: "VERY_HARD")
+            LS.localizedString(forKey: "VERY_EASY"),
+            LS.localizedString(forKey: "EASY"),
+            LS.localizedString(forKey: "NORMAL"),
+            LS.localizedString(forKey: "HARD"),
+            LS.localizedString(forKey: "VERY_HARD")
         ]
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSize(forComponent: component)))
         label.text = difficulties[row]

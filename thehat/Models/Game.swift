@@ -44,7 +44,7 @@ class Game {
             }
         }
     }
-    var wordsLoader: WordsLoaderDelegate!
+    var wordsLoader: WordsLoaderProtocol!
     
     var isNoMoreWords: Bool {
         get {
@@ -184,19 +184,19 @@ class Game {
         let players = previousPlayers()
         if round.guessedWords.count == guessedWords.count {
             for word in round.guessedWords {
-                if word.state == State.Guessed {
+                if word.state == State.guessed {
                     players.0.explained -= 1
                     players.1.guessed -= 1
-                } else if word.state == State.New {
+                } else if word.state == State.new {
                     newWords.remove(word.word)
                 }
             }
         }
         for word in guessedWords {
-            if word.state == State.Guessed {
+            if word.state == State.guessed {
                 players.0.explained += 1
                 players.1.guessed += 1
-            } else if word.state == State.New {
+            } else if word.state == State.new {
                 newWords.insert(word.word)
             }
         }

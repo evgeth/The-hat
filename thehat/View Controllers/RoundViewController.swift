@@ -10,10 +10,8 @@ import UIKit
 import AVFoundation
 import Crashlytics
 
+final class RoundViewController: UIViewController, ColorChangingViewDelegate {
 
-class RoundViewController: UIViewController, ColorChangingViewDelegate {
-
-    
     var gameInstance = GameSingleton.gameInstance
     var roundDuration: Float!
     var extraRoundDuration: Float!
@@ -32,7 +30,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel! {
         didSet {
-            errorLabel.text = LanguageChanger.shared.localizedString(forKey: "mistake")
+            errorLabel.text = LS.localizedString(forKey: "mistake")
         }
     }
     @IBOutlet weak var timerLabel: UILabel!
@@ -41,7 +39,7 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     @IBOutlet weak var gotItLabel: UILabel! {
         didSet {
-            gotItLabel.text = LanguageChanger.shared.localizedString(forKey: "got_it")
+            gotItLabel.text = LS.localizedString(forKey: "got_it")
         }
     }
 
@@ -52,13 +50,10 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     var scoreSound = AVAudioPlayer()
     var failSound = AVAudioPlayer()
-    
-   
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         roundDuration = gameInstance.roundDuration
         extraRoundDuration = gameInstance.extraRoundDuration
         secondsLeft = roundDuration + timerRate - 0.01
@@ -78,9 +73,15 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        timer = Timer.scheduledTimer(timeInterval: Double(timerRate), target: self, selector: Selector(("timerFired")), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: Double(timerRate),
+            target: self,
+            selector: #selector(self.timerFired),
+            userInfo: nil,
+            repeats: true
+        )
     }
-    
+
     func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
         //1
         let path = Bundle.main.path(forResource: file as String, ofType: type as String)
@@ -118,10 +119,10 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
             if secondsLeft < 0 {
                 if !isBasicTimeEnded {
                     failSound.play()
-                    UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    UIView.animate(withDuration: 0.3) {
                         self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
-                        self.errorLabel.text = LanguageChanger.shared.localizedString(forKey: "NO_WAY")
-                    })
+                        self.errorLabel.text = LS.localizedString(forKey: "NO_WAY")
+                    }
                 }
                 isBasicTimeEnded = true
                 timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
@@ -144,17 +145,12 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         timerView.percent = 0
         timerLabel.text = "0"
         isRoundEnded = true
-//        if isExtraTimeEnded {
-//            wordsGuessed.append(Word(word: currentWord))
-//            wordsGuessed.last!.state = State.New
-//        }
     }
     
     func endRound() {
         if !isRoundVCDismissed {
             gameInstance.nextRound()
             gameInstance.setGuessedWordsForRound(guessedWords: self.wordsGuessed)
-//            dismiss(animated: true, completion: nil)
             navigationController?.popViewController(animated: true)
             isRoundVCDismissed = true
         }
@@ -173,18 +169,10 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
             completion: nil)
         
     }
-    
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     @IBAction func guessed(_ sender: AnyObject) {
         wordsGuessed.append(Word(word: currentWord))
-        wordsGuessed.last!.state = .Guessed
+        wordsGuessed.last!.state = .guessed
         if scoreSound.isPlaying {
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 self.scoreSound.pause()
@@ -204,22 +192,19 @@ class RoundViewController: UIViewController, ColorChangingViewDelegate {
         } else {
             reloadWord()
         }
-        
     }
     
     func requiredTouchDurationReached() {
         wordsGuessed.append(Word(word: currentWord))
-        wordsGuessed.last!.state = State.Fail
+        wordsGuessed.last!.state = State.fail
         endRound()
     }
     
     func touchEnded() {
         if isBasicTimeEnded {
             wordsGuessed.append(Word(word: currentWord))
-            wordsGuessed.last!.state = State.New
+            wordsGuessed.last!.state = State.new
             endRound()
         }
     }
-    
-
 }

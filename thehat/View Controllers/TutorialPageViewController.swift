@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TutorialPageViewController: UIViewController {
+final class TutorialPageViewController: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -17,7 +17,7 @@ class TutorialPageViewController: UIViewController {
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var newGameLabel: UILabel! {
         didSet {
-            newGameLabel.text = LanguageChanger.shared.localizedString(forKey: "NEW_GAME")
+            newGameLabel.text = LS.localizedString(forKey: "NEW_GAME")
         }
     }
 

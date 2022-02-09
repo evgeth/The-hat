@@ -9,23 +9,23 @@
 import Foundation
 
 enum State {
-    case New, Guessed, Fail
+    case new, guessed, fail
 }
-
 
 class Word {
     var word: String = ""
-    var state: State = .New
+    var state: State = .new
     var complexity = 0
     
     init(word: String) {
         self.word = word
-        self.state = State.New
+        self.state = State.new
     }
     
     init(word: String, complexity: Int) {
         self.word = word
-        self.state = State.New
+        self.state = .new
         self.complexity = complexity
     }
+    
 }

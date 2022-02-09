@@ -9,8 +9,8 @@
 import UIKit
 import Crashlytics
 
-class TutorialViewController: UIViewController {
-    
+final class TutorialViewController: UIViewController {
+
     var pageViewController: UIPageViewController!
     var tutorialTitles: [String] = []
     var tutorialImages: [String] = []
@@ -20,46 +20,45 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tutorialTitles = [LanguageChanger.shared.localizedString(forKey: "edit_players"),
-                          LanguageChanger.shared.localizedString(forKey: "edit_settings"),
-                          LanguageChanger.shared.localizedString(forKey: "preparation"),
-                          LanguageChanger.shared.localizedString(forKey: "round"),
-                          LanguageChanger.shared.localizedString(forKey: "extra_time"),
-                          LanguageChanger.shared.localizedString(forKey: "results"),
-                        "new game"]
-        tutorialImages = ["edit_players",
-                        "edit_settings",
-                        "preparation",
-                        "round",
-                        "extra_time",
-                        "results",
-                        "new_game"]
+        tutorialTitles = [
+            LS.localizedString(forKey: "edit_players"),
+            LS.localizedString(forKey: "edit_settings"),
+            LS.localizedString(forKey: "preparation"),
+            LS.localizedString(forKey: "round"),
+            LS.localizedString(forKey: "extra_time"),
+            LS.localizedString(forKey: "results"),
+            LS.localizedString(forKey: "NEW_GAME")
+        ]
 
-        
+        tutorialImages = [
+            "edit_players",
+            "edit_settings",
+            "preparation",
+            "round",
+            "extra_time",
+            "results",
+            "new_game"
+        ]
+
         pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController.dataSource = self
         
         tutorialPages = [viewControllerAtIndex(index: 0)!]
-        
-        
+
         pageViewController.setViewControllers(tutorialPages, direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
-        
-        
+
         self.pageViewController.view.frame = CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.size.height - 40)
         
         self.addChild(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
         self.pageViewController.didMove(toParent: self)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationItem.title = LanguageChanger.shared.localizedString(forKey: "RULES")
+        self.navigationController?.navigationItem.title = LS.localizedString(forKey: "RULES")
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
 }
-
 
 extension TutorialViewController: UIPageViewControllerDataSource {
     func viewControllerAtIndex(index: Int) -> TutorialPageViewController? {
@@ -90,7 +89,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let index = (viewController as! TutorialPageViewController).pageIndex
 
-        if (index == 0) {
+        if index == 0 {
             return nil
         }
         
@@ -103,5 +102,4 @@ extension TutorialViewController: UIPageViewControllerDataSource {
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
     }
-    
 }

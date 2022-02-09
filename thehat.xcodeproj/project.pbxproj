@@ -10,6 +10,7 @@
 		8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */; };
 		8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */; };
 		834859D9245F75B100DD4772 /* telegram.png in Resources */ = {isa = PBXBuildFile; fileRef = 834859D8245F75B100DD4772 /* telegram.png */; };
+		8416271E27B476D70024D461 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416271D27B476D70024D461 /* Localization.swift */; };
 		841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20A27B3FAC800243084 /* LanguageChanger.swift */; };
 		841AA20D27B3FAC800243084 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20B27B3FAC800243084 /* Language.swift */; };
 		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
@@ -63,7 +64,7 @@
 		88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */; };
 		88DBAC4A1C333ACC00C4EB1F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC451C333ACC00C4EB1F /* Extensions.swift */; };
 		88DBAC4B1C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */; };
-		88DBAC4D1C333ACC00C4EB1F /* WordsLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */; };
+		88DBAC4D1C333ACC00C4EB1F /* WordsLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */; };
 		88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC581C333DDA00C4EB1F /* Localizable.strings */; };
 		9147375A351DD96BD7D4D26B /* Pods_thehatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */; };
 		986F5419A8192B7DA74015D4 /* Pods_thehat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DF9907B75648E0BE2D411E /* Pods_thehat.framework */; };
@@ -87,6 +88,7 @@
 		8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		834859D8245F75B100DD4772 /* telegram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = telegram.png; sourceTree = "<group>"; };
+		8416271D27B476D70024D461 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		841AA1FC27B3F9B100243084 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		841AA1FD27B3F9CC00243084 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		841AA1FE27B3F9CC00243084 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -154,7 +156,7 @@
 		88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorChangingViewDelegate.swift; sourceTree = "<group>"; };
 		88DBAC451C333ACC00C4EB1F /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCellDelegate.swift; sourceTree = "<group>"; };
-		88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderDelegate.swift; sourceTree = "<group>"; };
+		88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderProtocol.swift; sourceTree = "<group>"; };
 		88DBAC5B1C333E1000C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.release.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.release.xcconfig"; sourceTree = "<group>"; };
 		F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.release.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				841AA20B27B3FAC800243084 /* Language.swift */,
 				841AA20A27B3FAC800243084 /* LanguageChanger.swift */,
+				8416271D27B476D70024D461 /* Localization.swift */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -372,7 +375,7 @@
 				88DBAC441C333ACC00C4EB1F /* ColorChangingViewDelegate.swift */,
 				88DBAC451C333ACC00C4EB1F /* Extensions.swift */,
 				88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */,
-				88DBAC481C333ACC00C4EB1F /* WordsLoaderDelegate.swift */,
+				88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */,
 				8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */,
 			);
 			path = Extensions;
@@ -595,7 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88DBAC4D1C333ACC00C4EB1F /* WordsLoaderDelegate.swift in Sources */,
+				88DBAC4D1C333ACC00C4EB1F /* WordsLoaderProtocol.swift in Sources */,
 				88DBAC421C333AC500C4EB1F /* TimerView.swift in Sources */,
 				88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */,
 				88DBAC1D1C333A7E00C4EB1F /* Round.swift in Sources */,
@@ -606,6 +609,7 @@
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,
 				8847B03C1C450B87008497E2 /* AboutTableViewCell.swift in Sources */,
+				8416271E27B476D70024D461 /* Localization.swift in Sources */,
 				88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */,
 				887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */,
 				887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */,
