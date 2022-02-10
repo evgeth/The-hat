@@ -27,7 +27,7 @@ final class TutorialViewController: UIViewController {
             LS.localizedString(forKey: "round"),
             LS.localizedString(forKey: "extra_time"),
             LS.localizedString(forKey: "results"),
-            LS.localizedString(forKey: "NEW_GAME")
+            "new game"
         ]
 
         tutorialImages = [
