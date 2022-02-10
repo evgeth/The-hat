@@ -123,7 +123,24 @@ final class MenuController: UIViewController {
             performSegue(withIdentifier: "New Game Segue", sender: nil)
         }
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tutorial" {
+            guard let tutorialVC = segue.destination as? TutorialViewController else {
+                return
+            }
+            tutorialVC.delegate = self
+        }
+    }
 }
 
 extension MenuController: UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate {
+}
+
+extension MenuController: TutorialDelegate {
+    func openNewGame() {
+        if let settingsViewController = self.storyboard?.instantiateViewController(withIdentifier: "settings") {
+            navigationController?.pushViewController(settingsViewController, animated: true)
+        }
+    }
 }

@@ -9,13 +9,15 @@
 import UIKit
 import Crashlytics
 
+
 final class TutorialViewController: UIViewController {
 
     var pageViewController: UIPageViewController!
     var tutorialTitles: [String] = []
     var tutorialImages: [String] = []
-    
+
     var tutorialPages: [TutorialPageViewController] = []
+    weak var delegate: TutorialDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +44,6 @@ final class TutorialViewController: UIViewController {
 
         pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController.dataSource = self
-        
         tutorialPages = [viewControllerAtIndex(index: 0)!]
 
         pageViewController.setViewControllers(tutorialPages, direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
@@ -71,7 +72,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         tutorialPage.imageName = self.tutorialImages[index]
         tutorialPage.descriptionText = self.tutorialTitles[index]
         tutorialPage.pageIndex = index
-        
+        tutorialPage.delegate = self.delegate
         return tutorialPage
         
     }

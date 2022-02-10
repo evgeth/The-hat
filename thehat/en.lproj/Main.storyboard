@@ -70,7 +70,7 @@
                                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="1kA-N8-fCC" kind="show" id="cNd-oo-Iqq"/>
+                                                            <segue destination="1kA-N8-fCC" kind="presentation" identifier="tutorial" id="cNd-oo-Iqq"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -837,7 +837,7 @@
                         <viewControllerLayoutGuide type="bottom" id="aDz-b2-J2C"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OZs-aS-dGr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -886,7 +886,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOv-gE-8XM">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                         <connections>
-                                            <segue destination="xWu-dW-2gJ" kind="show" identifier="New Game Segue" id="bU8-gi-rUB"/>
+                                            <action selector="onNewGameAction:" destination="ZlO-BA-IZA" eventType="touchUpInside" id="8uG-n3-QUF"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start game" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-vm-dGI" userLabel="New Game">
@@ -946,7 +946,7 @@
         <!--Game Settings View Controller-->
         <scene sceneID="UIk-cd-Hz6">
             <objects>
-                <viewController id="xWu-dW-2gJ" customClass="GameSettingsViewController" customModule="thehat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settings" id="xWu-dW-2gJ" customClass="GameSettingsViewController" customModule="thehat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ele-3Y-iTG"/>
                         <viewControllerLayoutGuide type="bottom" id="BUN-b2-bdt"/>
@@ -1254,7 +1254,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1576.8115942028987" y="384.375"/>
+            <point key="canvasLocation" x="2193" y="355"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nai-AY-gPB">
@@ -1276,8 +1276,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QHo-Wr-ik8"/>
-        <segue reference="6qm-Ai-wS6"/>
+        <segue reference="ajR-wx-syI"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27252301880090257" green="0.59474130087641119" blue="0.40004714563634935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
