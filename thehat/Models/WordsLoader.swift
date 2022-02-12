@@ -9,11 +9,15 @@
 import Foundation
 import SwiftyJSON
 
-class LocalWordsLoader: WordsLoaderDelegate {
-    var localPool = [Word]()
+final class LocalWordsLoader: WordsLoaderProtocol {
+    private var localPool = [Word]()
     
     init() {
-        let path = Bundle.main.path(forResource: NSLocalizedString("WORDS_FILE", comment: "Words file"), ofType: "words")
+        fillPool()
+    }
+
+    private func fillPool() {
+        let path = Bundle.main.path(forResource: LS.localizedString(forKey: "WORDS_FILE"), ofType: "words")
         do {
             let jsonData = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe)
             let json = try JSON(data: jsonData)
@@ -28,13 +32,7 @@ class LocalWordsLoader: WordsLoaderDelegate {
     
     func getWords(count numberOfWordsRequired: Int = 5, averageDifficulty: Int = 50) -> [String] {
         var list: [String] = []
-        var localPoolWithDifficulty = localPool.filter { (word: Word) -> Bool in
-            if abs(word.complexity - averageDifficulty) <= 10 {
-                return true
-            } else {
-                return false
-            }
-        }
+        var localPoolWithDifficulty = localPool.filter { abs($0.complexity - averageDifficulty) <= 10 }
         localPoolWithDifficulty.shuffle()
         
         for word in localPoolWithDifficulty {
@@ -45,6 +43,5 @@ class LocalWordsLoader: WordsLoaderDelegate {
         }
         return list
     }
-    
-    
+
 }

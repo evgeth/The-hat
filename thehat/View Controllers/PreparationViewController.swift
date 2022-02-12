@@ -10,31 +10,36 @@ import UIKit
 import AVFoundation
 import Crashlytics
 
-
-class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
+final class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
     var gameInstance = GameSingleton.gameInstance
 
     @IBOutlet weak var listener: UILabel!
     @IBOutlet weak var speaker: UILabel!
-    
-//    @IBOutlet weak var startImageView: UIImageView!
+    //    @IBOutlet weak var startImageView: UIImageView!
     
     @IBOutlet weak var startButtonView: ColorChangingView!
     var inactiveColor: UIColor!
     
-    @IBOutlet weak var holdToStartLabel: UILabel!
-    @IBOutlet weak var startLabel: UILabel!
-    
+    @IBOutlet weak var holdToStartLabel: UILabel! {
+        didSet {
+            holdToStartLabel.text = LS.localizedString(forKey: "hold_to_start")
+        }
+    }
+    @IBOutlet weak var startLabel: UILabel! {
+        didSet {
+            startLabel.text = LS.localizedString(forKey: "start")
+        }
+    }
+    @IBOutlet weak var loadingViewWidth: NSLayoutConstraint!
+
     var loadingView: UIView!
     
     var notUndestandingHowToStartCounter = 0
     
-    @IBOutlet weak var loadingViewWidth: NSLayoutConstraint!
     var isProceedingToResults: Bool = false
     
     var countdownSound = AVAudioPlayer()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,14 +50,13 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         inactiveColor = startButtonView.backgroundColor
         
-        startButtonView.initializer(startColor: inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 1.9, delegate: self)
+        startButtonView.initializer(startColor: inactiveColor, finishColor: inactiveColor, requiredTouchDuration: 1.8, delegate: self)
         
         self.countdownSound = self.setupAudioPlayerWithFile(file: "countdown", type:"wav")
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
         self.startButtonView.insertSubview(self.loadingView, at: 0)
         self.loadingView.backgroundColor = UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 1)
     }
-    
 
     func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
         //1
@@ -72,8 +76,6 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         return audioPlayer!
     }
 
-
-
     override func viewWillAppear(_ animated: Bool) {
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Preparation"])
         
@@ -88,10 +90,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if wordList.count == 1 {
             listener.numberOfLines = 1
         }
-        
-        
-        if (gameInstance.isNoMoreWords) {
-            startLabel.text = NSLocalizedString("FINISH", comment: "Finish")
+
+        if gameInstance.isNoMoreWords {
+            startLabel.text = LS.localizedString(forKey: "FINISH")
         }
         updateWordsLeft()
         
@@ -111,36 +112,35 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         if roundNumber != 0 {
             self.navigationItem.setHidesBackButton(true, animated: false)
             let editWordsImage = UIImage(named: "Edit words")
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .plain, target: self, action: Selector(("editGuessedWords")))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .plain, target: self, action: #selector(self.editGuessedWords))
         } else {
             navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 18)!, NSAttributedString.Key.foregroundColor : UIColor.red], for: UIControl.State.normal)
         }
-        var size = UIFont.systemFont(ofSize: 18).sizeOfString(string: "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left")), constrainedToWidth: 200)
+        var size = UIFont.systemFont(ofSize: 18).sizeOfString(string: "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT")), constrainedToWidth: 200)
         size.width += 10
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-        label.text = "\(gameInstance.newWords.count) " + String(NSLocalizedString("WORDS_LEFT", comment: "words left"))
+        label.text = "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT"))
         label.textColor = UIColor(red: 0.272523, green: 0.594741, blue: 0.400047, alpha: 1)
         label.font = UIFont(name: "Avenir Next", size: 18)
         label.textAlignment = NSTextAlignment.right
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: Selector(("closeButtonPressed"))), UIBarButtonItem(customView: label)]
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: #selector(self.closeButtonPressed)), UIBarButtonItem(customView: label)]
     }
     
     @objc func closeButtonPressed() {
         let alert = UIAlertController(title: nil, /* NSLocalizedString("PAUSE_TITLE", comment: "stop or pause title") */ message: nil /* NSLocalizedString("PAUSE_OR_STOP", comment: "Pause or stop the game") */,  preferredStyle: UIAlertController.Style.actionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("PAUSE", comment: "pause"), style: UIAlertAction.Style.default, handler: { (action) -> Void in
+        alert.addAction(UIAlertAction(title: LS.localizedString(forKey: "PAUSE"), style: UIAlertAction.Style.default, handler: { (action) -> Void in
             self.navigationController?.popToRootViewController(animated: true)
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("FINISH_GAME", comment: "finish game"), style: UIAlertAction.Style.destructive, handler: { (action) -> Void in
+        alert.addAction(UIAlertAction(title: LS.localizedString(forKey: "FINISH_GAME"), style: UIAlertAction.Style.destructive, handler: { (action) -> Void in
             self.proceedToResults()
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "cancel"), style: UIAlertAction.Style.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: LS.localizedString(forKey: "CANCEL"), style: UIAlertAction.Style.cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         self.present(alert, animated: true, completion: nil)
 
     }
-    
-    
+
     @objc func editGuessedWords() {
         let editWordsViewController = self.storyboard!.instantiateViewController(withIdentifier: "EditGuessedWords") as! EditWordsGuessedViewController
         editWordsViewController.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -159,12 +159,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
     func updated() {
         self.updateWordsLeft()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -175,7 +170,7 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
         countdownSound.play()
         loadingViewWidth.constant = self.startButtonView.frame.width
-        UIView.animate(withDuration: 2) { () -> Void in
+        UIView.animate(withDuration: 1.8) { () -> Void in
             self.startButtonView.layoutIfNeeded()
         }
     }
@@ -203,9 +198,9 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         }
         for word in round.guessedWords {
             var state = "New"
-            if word.state == State.Fail {
+            if word.state == State.fail {
                 state = "Fail"
-            } else if word.state == State.Guessed {
+            } else if word.state == State.guessed {
                 state = "Guessed"
             }
             Answers.logCustomEvent(withName: "Word guessed", customAttributes:
@@ -226,7 +221,6 @@ class PreparationViewController: UIViewController, UIPopoverPresentationControll
         
         
         navigationController?.pushViewController(roundVC, animated: true)
-//        self.present(roundVC, animated: true, completion: nil)
     }
     
     func showCountdownLabel(viewToScale: UIView, scaleFrom: Double, scaleTo: Double) {

@@ -11,55 +11,55 @@ import Crashlytics
 import StoreKit
 import SafariServices
 
-class AboutViewController: UITableViewController { //, SKProductsRequestDelegate {
+final class AboutViewController: UITableViewController { //, SKProductsRequestDelegate {
     
     var productIDs = Set<String>()
     var productsArray: Array<SKProduct?> = []
     var productRequest: SKProductsRequest!
     
-    var titles = [NSLocalizedString("Social", comment: "Social"),
-                NSLocalizedString("developer", comment: "developer"),
-                NSLocalizedString("thanks", comment: "thanks")]
+    var titles = [
+        LS.localizedString(forKey: "social"),
+        LS.localizedString(forKey: "developer"),
+        LS.localizedString(forKey: "thanks")
+    ]
     var rows: [[(String, String, String)]] = [
-//        [(NSLocalizedString("facebook", comment: "facebook"), "https://www.facebook.com/thehatgameofwords/"),
-            [(NSLocalizedString("vk", comment: "vk"), "https://vk.com/club111664652", "vk"),
-            (NSLocalizedString("telegram", comment: "telegram"), "https://t.me/thehatapp", "telegram"),
-            (NSLocalizedString("friends", comment: "tell friends"), "share", "share"),
-            (NSLocalizedString("rate", comment: "rate"), "rate", "star")],
-        [(NSLocalizedString("yurtaev", comment: "yurtaev"), "https://t.me/yurtaev", "telegram")],
-        [(NSLocalizedString("koroleva", comment: "koroleva"), "https://vk.com/id81679642", "vk"),
-            (NSLocalizedString("emelin", comment: "emelin"), "https://vk.com/id24027100", "vk"),
-            (NSLocalizedString("lksh", comment: "lskh"), "http://lksh.ru", "")]]
+        [
+            (LS.localizedString(forKey: "vk"), "https://vk.com/club111664652", "vk"),
+            (LS.localizedString(forKey: "telegram"), "https://t.me/thehatapp", "telegram"),
+            (LS.localizedString(forKey: "friends"), "share", "share"),
+            (LS.localizedString(forKey: "rate"), "rate", "star")
+        ],
+        [
+            (LS.localizedString(forKey: "yurtaev"), "https://t.me/yurtaev", "telegram")
+        ],
+        [
+            (LS.localizedString(forKey: "koroleva"), "https://vk.com/id81679642", "vk"),
+            (LS.localizedString(forKey: "emelin"), "https://vk.com/id24027100", "vk"),
+            (LS.localizedString(forKey: "lksh"), "http://lksh.ru", "")
+        ]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "ABOUT"))
         
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("ABOUT", comment: "About"))
-        
-//        SKPaymentQueue.default().add(self)
-//        productIDs.insert("com.dpfbop.thehat.coffee")
-//        requestProductInfo()
+        //        SKPaymentQueue.default().add(self)
+        //        productIDs.insert("com.dpfbop.thehat.coffee")
+        //        requestProductInfo()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-//        SKPaymentQueue.default().remove(self)
+        //        SKPaymentQueue.default().remove(self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        productRequest.delegate = nil
-//        productRequest.cancel()
+        //        productRequest.delegate = nil
+        //        productRequest.cancel()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -75,7 +75,7 @@ class AboutViewController: UITableViewController { //, SKProductsRequestDelegate
                 popup.present(from: currentCell!.frame, in: self.view, permittedArrowDirections: UIPopoverArrowDirection.any, animated: true)
             } else {
                 self.present(activityVC, animated: true, completion: nil)
-        }
+            }
         case "rate":
             if #available( iOS 10.3,*){
                 SKStoreReviewController.requestReview()

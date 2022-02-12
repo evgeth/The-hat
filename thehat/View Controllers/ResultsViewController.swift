@@ -9,14 +9,13 @@
 import UIKit
 import Crashlytics
 
-class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var gameInstance = GameSingleton.gameInstance
     var sortedPlayers = [Player]()
     var sortedPairs = [PlayersPair]()
     @IBOutlet weak var resultsTableView: UITableView!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +25,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         // Do any additional setup after loading the view.
         navigationItem.setHidesBackButton(true, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: Selector(("doneButtonPressed")))
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("RESULTS", comment: "Results"))
+        setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "RESULTS"))
         
         
         if isPairsMode() {
@@ -49,21 +48,12 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         StoreReviewHelper.incrementGameFinishedCount()
         StoreReviewHelper.checkAndAskForReview()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Results"])
         for player in sortedPlayers {
             Answers.logCustomEvent(withName: "Player Finished", customAttributes: ["name": player.name.lowercased().capitalized, "score": player.score])
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -134,16 +124,6 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
     func isPairsMode() -> Bool {
         return gameInstance.type == GameType.Pairs
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 class PlayersPair {

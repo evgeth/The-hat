@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol WordsLoaderDelegate {
+protocol WordsLoaderProtocol {
     
 //    func nextRound()
 //    func game() -> Game

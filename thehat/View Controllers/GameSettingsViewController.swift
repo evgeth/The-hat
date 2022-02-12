@@ -22,20 +22,35 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     var numberOfRowsInLastSection = 3
     var gameInstance = GameSingleton.gameInstance
     
+    @IBOutlet weak var gameTypeLabel: UILabel! {
+        didSet {
+            gameTypeLabel.text = LS.localizedString(forKey: "game_type")
+
+        }
+    }
     @IBOutlet weak var difficultyPicker: UIPickerView!
     @IBOutlet weak var wordsInTheHatStepper: UIStepper!
     @IBOutlet weak var wordsInTheHatLabel: UILabel!
-    
+    @IBOutlet weak var wordsLabel: UILabel! {
+        didSet {
+            wordsLabel.text = LS.localizedString(forKey: "words_in_the_hat")
+        }
+    }
+
+    @IBOutlet weak var roundLabel: UILabel! {
+        didSet {
+            roundLabel.text = LS.localizedString(forKey: "round_length")
+        }
+    }
+
     @IBOutlet weak var roundLengthStepper: UIStepper!
     @IBOutlet weak var roundLengthLabel: UILabel!
-    
     @IBOutlet weak var gameTypeSegmentControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         playersTableView.dataSource = self
         playersTableView.delegate = self
         
@@ -44,8 +59,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("GAME_SETTINGS", comment: "Game Settings"))
-        
+        setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "GAME_SETTINGS"))
+
         playersTableView.setEditing(true, animated: true)
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
         difficultyPicker.selectRow(2, inComponent: 0, animated: false)
@@ -66,6 +81,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         roundLengthStepper.value = Double(gameInstance.roundDuration)
         wordsInTheHatStepper.value = Double(gameInstance.wordsInTheHat)
         reloadLabels()
+        gameTypeSegmentControl.setTitle(LS.localizedString(forKey: "each_to_each"), forSegmentAt: 0)
+        gameTypeSegmentControl.setTitle(LS.localizedString(forKey: "pairs"), forSegmentAt: 1)
+
         gameTypeSegmentControl.selectedSegmentIndex =
             (gameInstance.type == GameType.Pairs) ? 1:0
         difficultyPicker.selectRow((gameInstance.difficulty - 10) / 20, inComponent: 0, animated: false)
@@ -79,20 +97,20 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 5
+        5
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let difficulties = [
-            NSLocalizedString("VERY_EASY", comment: "difficulty"),
-            NSLocalizedString("EASY", comment: "difficulty"),
-            NSLocalizedString("NORMAL", comment: "difficulty"),
-            NSLocalizedString("HARD", comment: "difficulty"),
-            NSLocalizedString("VERY_HARD", comment: "difficulty")
+            LS.localizedString(forKey: "VERY_EASY"),
+            LS.localizedString(forKey: "EASY"),
+            LS.localizedString(forKey: "NORMAL"),
+            LS.localizedString(forKey: "HARD"),
+            LS.localizedString(forKey: "VERY_HARD")
         ]
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: pickerView.rowSize(forComponent: component)))
         label.text = difficulties[row]
@@ -100,11 +118,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         label.textAlignment = NSTextAlignment.center
         
         return label
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func wordsInTheHatValueChanged(sender: UIStepper) {
@@ -496,7 +509,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @objc func wordsLoadedNotificationArrived(notification: NSNotification) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: Selector(("startRound")))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.startRound))
         startRound()
     }
     

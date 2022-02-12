@@ -20,8 +20,7 @@ extension UIViewController {
 }
 
 
-extension UIColor
-{
+extension UIColor {
     convenience init(r: Int, g: Int, b: Int, a: Int)
     {
         let newRed   = CGFloat(Double(r) / 255.0)

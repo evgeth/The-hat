@@ -9,81 +9,57 @@
 import UIKit
 import Crashlytics
 
-class TutorialViewController: UIViewController {
-    
+
+final class TutorialViewController: UIViewController {
+
     var pageViewController: UIPageViewController!
     var tutorialTitles: [String] = []
     var tutorialImages: [String] = []
-    
+
     var tutorialPages: [TutorialPageViewController] = []
-    
-    
-    
+    weak var delegate: TutorialDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        setNavigationBarTitleWithCustomFont(title: NSLocalizedString("RULES", comment: "Rules"))
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
-        tutorialTitles = [NSLocalizedString("edit_players", comment: "edit_players"),
-                        NSLocalizedString("edit_settings", comment: "edit_settings"),
-                        NSLocalizedString("preparation", comment: "preparation"),
-                        NSLocalizedString("round", comment: "round"),
-                        NSLocalizedString("extra_time", comment: "extra_time"),
-                        NSLocalizedString("results", comment: "results"),
-                        "new game"]
-        tutorialImages = ["edit_players",
-                        "edit_settings",
-                        "preparation",
-                        "round",
-                        "extra_time",
-                        "results",
-                        "new_game"]
-//        pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
+        tutorialTitles = [
+            LS.localizedString(forKey: "edit_players"),
+            LS.localizedString(forKey: "edit_settings"),
+            LS.localizedString(forKey: "preparation"),
+            LS.localizedString(forKey: "round"),
+            LS.localizedString(forKey: "extra_time"),
+            LS.localizedString(forKey: "results"),
+            "new game"
+        ]
+
+        tutorialImages = [
+            "edit_players",
+            "edit_settings",
+            "preparation",
+            "round",
+            "extra_time",
+            "results",
+            "new_game"
+        ]
+
         pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController.dataSource = self
-        
         tutorialPages = [viewControllerAtIndex(index: 0)!]
-        
-        
+
         pageViewController.setViewControllers(tutorialPages, direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
-        
-        
+
         self.pageViewController.view.frame = CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.size.height - 40)
         
         self.addChild(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
         self.pageViewController.didMove(toParent: self)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationItem.title = LS.localizedString(forKey: "RULES")
         Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
-
 
 extension TutorialViewController: UIPageViewControllerDataSource {
     func viewControllerAtIndex(index: Int) -> TutorialPageViewController? {
@@ -96,7 +72,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
         tutorialPage.imageName = self.tutorialImages[index]
         tutorialPage.descriptionText = self.tutorialTitles[index]
         tutorialPage.pageIndex = index
-        
+        tutorialPage.delegate = self.delegate
         return tutorialPage
         
     }
@@ -114,7 +90,7 @@ extension TutorialViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let index = (viewController as! TutorialPageViewController).pageIndex
 
-        if (index == 0) {
+        if index == 0 {
             return nil
         }
         
@@ -127,5 +103,4 @@ extension TutorialViewController: UIPageViewControllerDataSource {
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
     }
-    
 }
