@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum State {
+enum State: Codable {
     case new, guessed, fail
 }
 
-class Word {
+class Word: Codable {
     var word: String = ""
     var state: State = .new
     var complexity = 0

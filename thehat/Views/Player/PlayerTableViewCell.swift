@@ -14,7 +14,7 @@ class PlayerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var hideButton: UIButton!
-    var delegate: PlayerTableViewCellDelegate?
+    weak var delegate: PlayerTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

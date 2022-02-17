@@ -20,9 +20,15 @@ final class MenuController: UIViewController {
 
         }
     }
+
     @IBOutlet weak var holdToStartLabel: UILabel! {
         didSet {
             holdToStartLabel.text = LS.localizedString(forKey: "hold_to_start_new_game")
+        }
+    }
+    @IBOutlet weak var historyButton: UIButton! {
+        didSet {
+            historyButton.setTitle(LS.localizedString(forKey: "HISTORY"), for: .normal)
         }
     }
 
@@ -108,6 +114,11 @@ final class MenuController: UIViewController {
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+
+    @IBAction func onHistoryButtonTap(_ sender: Any) {
+        let viewController = HistoryViewController()
+        navigationController?.pushViewController(viewController, animated: false)
     }
     
     func touchEnded() {

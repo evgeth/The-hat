@@ -60,7 +60,11 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "GAME_SETTINGS"))
-
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(self.startRound)
+        )
         playersTableView.setEditing(true, animated: true)
         roundLengthLabel.text = "\(Int(roundLengthStepper.value))"
         difficultyPicker.selectRow(2, inComponent: 0, animated: false)
@@ -447,74 +451,80 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             return true
         }
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Start Round" {
-            UserDefaults.standard.set(players, forKey: UserDefaultsKeys.SAVED_PLAYER_NAMES)
-            var playersList: [Player] = []
-            for playerName in players {
-                playersList.append(Player(name: playerName))
-                Answers.logCustomEvent(withName: "Player", customAttributes: ["name": playerName.lowercased().capitalized])
-            }
-            gameInstance.players = playersList
-            gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
-            gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
-            gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
-            gameInstance.difficulty = 20 * difficultyPicker.selectedRow(inComponent: 0) + 10
-            gameInstance.reinitialize()
-            
-            Answers.logCustomEvent(withName: "Start game", customAttributes:
-                ["Duration": "\(gameInstance.roundDuration)",
-                "Number of words": "\(gameInstance.wordsInTheHat)",
-                "Game type": "\(gameInstance.type)",
-                "Difficulty": "\(gameInstance.difficulty)"])
-            
-        }
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "Start Round" {
-            for (index, player) in players.enumerated() {
-                if player == "" {
-                    var cell: PlayerTableViewCell!
-                    if isPairsMode() {
-                        cell = playersTableView.cellForRow(at: IndexPath(row: index % 2, section: index / 2) as IndexPath) as! PlayerTableViewCell
-                    } else {
-                        cell = playersTableView.cellForRow(at: IndexPath(row: index, section: 0) as IndexPath) as! PlayerTableViewCell
-                    }
-                    cell.playerLabel.becomeFirstResponder()
-                    return false
+
+    private func shouldStartGame() -> Bool {
+        for (index, player) in players.enumerated() {
+            if player == "" {
+                var cell: PlayerTableViewCell!
+                if isPairsMode() {
+                    cell = playersTableView.cellForRow(at: IndexPath(row: index % 2, section: index / 2) as IndexPath) as! PlayerTableViewCell
+                } else {
+                    cell = playersTableView.cellForRow(at: IndexPath(row: index, section: 0) as IndexPath) as! PlayerTableViewCell
                 }
-            }
-            if isPairsMode() && players.count % 2 == 1 {
-                let alertView = UIAlertView(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), delegate: nil, cancelButtonTitle: "Ok")
-                alertView.show()
+                cell.playerLabel.becomeFirstResponder()
                 return false
-            }
-            if gameInstance.didWordsLoad == false {
-                let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
-                NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
-                activityIndicator.center = view.center
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-//                self.view.addSubview(activityIndicator)
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-                return false
-            } else {
-                return true
             }
         }
-        return true
+        if isPairsMode() && players.count % 2 == 1 {
+            let alertView = UIAlertView(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), delegate: nil, cancelButtonTitle: "Ok")
+            alertView.show()
+            return false
+        }
+        if gameInstance.didWordsLoad == false {
+            let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+            NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
+            activityIndicator.center = view.center
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+            return false
+        } else {
+            return true
+        }
     }
-    
-    @objc func wordsLoadedNotificationArrived(notification: NSNotification) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.startRound))
+
+    @objc
+    func wordsLoadedNotificationArrived(notification: NSNotification) {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(self.startRound)
+        )
         startRound()
     }
     
-    @objc func startRound() {
-        self.performSegue(withIdentifier: "Start Round", sender: nil)
+    @objc
+    private func startRound() {
+        guard shouldStartGame() else {
+            return
+        }
+        UserDefaults.standard.set(players, forKey: UserDefaultsKeys.SAVED_PLAYER_NAMES)
+        var playersList: [Player] = []
+        for playerName in players {
+            playersList.append(Player(name: playerName))
+            Answers.logCustomEvent(
+                withName: "Player",
+                customAttributes: ["name": playerName.lowercased().capitalized]
+            )
+        }
+        gameInstance.players = playersList
+        gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
+        gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
+        gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
+        gameInstance.difficulty = 20 * difficultyPicker.selectedRow(inComponent: 0) + 10
+        gameInstance.reinitialize()
+
+        Answers.logCustomEvent(
+            withName: "Start game",
+            customAttributes: [
+                "Duration": "\(gameInstance.roundDuration)",
+                "Number of words": "\(gameInstance.wordsInTheHat)",
+                "Game type": "\(gameInstance.type)",
+                "Difficulty": "\(gameInstance.difficulty)"
+            ]
+        )
+
+        navigationController?.pushViewController(AddWordViewController(), animated: true)
     }
     
     func countRowNumberForIndexPath(indexPath: IndexPath) -> Int {

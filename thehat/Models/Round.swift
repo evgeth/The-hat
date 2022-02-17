@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Round {
+class Round: Codable {
     
     var number: Int = 0
     var speaker: Player

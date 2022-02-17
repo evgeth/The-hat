@@ -12,7 +12,7 @@ import Crashlytics
 
 final class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
     var gameInstance = GameSingleton.gameInstance
-
+    private var defaultsService: DefaultsServiceProtocol = DefaultsService()
     @IBOutlet weak var listener: UILabel!
     @IBOutlet weak var speaker: UILabel!
     //    @IBOutlet weak var startImageView: UIImageView!
@@ -247,6 +247,10 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     func proceedToResults() {
         if !isProceedingToResults {
             isProceedingToResults = true
+            var history = defaultsService.gamesHistroy
+            history.append(GameHistroyItem(game: gameInstance))
+            defaultsService.gamesHistroy = history
+            gameInstance.wordsInTheHat = 60
             gameInstance.reinitialize()
             performSegue(withIdentifier: "Results Segue", sender: nil)
         }
