@@ -6,7 +6,7 @@ struct GamesHistoryList {
 
     var stringDate: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.YYYY"
+        formatter.dateFormat = "dd.MM.YYYY HH:mm"
         return formatter.string(from: self.date)
     }
 }

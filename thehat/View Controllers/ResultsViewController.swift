@@ -24,7 +24,7 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         // Do any additional setup after loading the view.
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: Selector(("doneButtonPressed")))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneButtonPressed))
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "RESULTS"))
         
         

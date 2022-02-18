@@ -4,7 +4,7 @@ final class HistoryEmptyView: UIView, ViewReusable {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Здесь будет отображаться история сыгранных партий"
+        label.text = LS.localizedString(forKey: "empty_history_title")
         label.numberOfLines = 0
         label.font = UIFont(name: "Avenir Next", size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false

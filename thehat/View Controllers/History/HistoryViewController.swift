@@ -3,12 +3,12 @@ import UIKit
 final class HistoryViewController: UIViewController {
     private enum HistroyState {
         case empty
-        case data([GamesHistoryList])
+        case data([GameHistroyItem])
     }
 
     private lazy var tableView = makeTableView()
     private lazy var emptyView = HistoryEmptyView()
-    private var data: [GamesHistoryList] = []
+    private var data: [GameHistroyItem] = []
     private let service: DefaultsServiceProtocol = DefaultsService()
     private var state: HistroyState = .empty {
         didSet {
@@ -80,14 +80,14 @@ final class HistoryViewController: UIViewController {
         if items.isEmpty {
             self.state = .empty
         } else {
-            self.state = .data(GameHistoryItemsMapper.mapToTGameHostoryItems(form: items))
+            self.state = .data(items.sorted(by: { $0.date > $1.date }))
         }
     }
 
 }
 
 extension HistoryViewController {
-    func set(data: [GamesHistoryList]) {
+    func set(data: [GameHistroyItem]) {
         self.data = data
         tableView.reloadData()
     }
@@ -99,11 +99,11 @@ extension HistoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data[section].items.count
+        1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = data[indexPath.section].items[indexPath.row]
+        let item = data[indexPath.section]
         let cell: HistoryTableViewCelll = tableView.dequeueReusableCell(for: indexPath)
         cell.setup(with: item)
         return cell
@@ -111,30 +111,21 @@ extension HistoryViewController: UITableViewDataSource {
 }
 
 extension HistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel()
+        header.backgroundColor = .white
+        header.font = UIFont(name: "Avenir Next SemiBold", size: 16)
 
-    func tableView(
-        _ tableView: UITableView,
-        viewForHeaderInSection section: Int
-    ) -> UIView? {
+        header.textAlignment = .center
+        header.text = data[section].stringDate
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let item = data[section]
-        let view = HistoryHeaderTableView()
-        view.set(title: item.stringDate)
-        return view
+        return item.stringDate
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        heightForHeaderInSection section: Int
-    ) -> CGFloat {
-        return 44
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        heightForFooterInSection section: Int
-    ) -> CGFloat {
-        return .leastNormalMagnitude
-    }
 }
 
 private extension HistoryViewController {

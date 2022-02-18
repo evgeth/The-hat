@@ -13,6 +13,8 @@
 		8416271E27B476D70024D461 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416271D27B476D70024D461 /* Localization.swift */; };
 		841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20A27B3FAC800243084 /* LanguageChanger.swift */; };
 		841AA20D27B3FAC800243084 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20B27B3FAC800243084 /* Language.swift */; };
+		846CFCC727BFA74D008A79E9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFCC627BFA74D008A79E9 /* PlayerView.swift */; };
+		846CFCC927BFAB4D008A79E9 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */; };
 		84BF049B27BEBD99007C1794 /* HistoryHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */; };
 		84BF049D27BEC026007C1794 /* HistoryEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */; };
 		84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049F27BEDB46007C1794 /* AddWordViewController.swift */; };
@@ -114,6 +116,8 @@
 		841AA20627B3F9CC00243084 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/pause_or_finish.png; sourceTree = "<group>"; };
 		841AA20A27B3FAC800243084 /* LanguageChanger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageChanger.swift; sourceTree = "<group>"; };
 		841AA20B27B3FAC800243084 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		846CFCC627BFA74D008A79E9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderTableView.swift; sourceTree = "<group>"; };
 		84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEmptyView.swift; sourceTree = "<group>"; };
 		84BF049F27BEDB46007C1794 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +425,8 @@
 				841AA20727B3F9E600243084 /* Player */,
 				841AA20827B3F9F600243084 /* Timer */,
 				84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */,
+				846CFCC627BFA74D008A79E9 /* PlayerView.swift */,
+				846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				84C88BC027BE513A0072E0E7 /* GameHistroyItem.swift in Sources */,
 				88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */,
 				841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */,
+				846CFCC727BFA74D008A79E9 /* PlayerView.swift in Sources */,
 				8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */,
 				84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */,
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
@@ -684,6 +691,7 @@
 				84BF049B27BEBD99007C1794 /* HistoryHeaderTableView.swift in Sources */,
 				88DBAC371C333AB300C4EB1F /* AboutViewController.swift in Sources */,
 				841AA20D27B3FAC800243084 /* Language.swift in Sources */,
+				846CFCC927BFAB4D008A79E9 /* SeparatorView.swift in Sources */,
 				84C88BC827BE62B30072E0E7 /* UITableView + Extension.swift in Sources */,
 				88DBAC4B1C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift in Sources */,
 				88DBAC411C333AC500C4EB1F /* PlayerTableViewCell.swift in Sources */,

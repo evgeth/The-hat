@@ -3,15 +3,12 @@ import UIKit
 final class HistoryHeaderTableView: UIView, ViewReusable {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.font = UIFont(name: "Avenir Next", size: 23)
+        label.textColor = .gray
+        label.font = UIFont(name: "Avenir Next", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
-
 
     init() {
         super.init(frame: .zero)
@@ -32,10 +29,10 @@ final class HistoryHeaderTableView: UIView, ViewReusable {
 
         NSLayoutConstraint.activate(
             [
-                titleLabel.topAnchor.constraint(equalTo: topAnchor),
+                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
                 titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
                 titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
             ]
         )
     }

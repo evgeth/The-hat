@@ -87,3 +87,4 @@ write_word = "Write a word";
 go_to_game = "Go to game";
 add_word = "Add word";
 own_words = "You can add your words in the hat";
+empty_history_title = "The history of played games will be displayed here";
