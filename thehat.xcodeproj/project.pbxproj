@@ -13,6 +13,20 @@
 		8416271E27B476D70024D461 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416271D27B476D70024D461 /* Localization.swift */; };
 		841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20A27B3FAC800243084 /* LanguageChanger.swift */; };
 		841AA20D27B3FAC800243084 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA20B27B3FAC800243084 /* Language.swift */; };
+		846CFCC727BFA74D008A79E9 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFCC627BFA74D008A79E9 /* PlayerView.swift */; };
+		846CFCC927BFAB4D008A79E9 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */; };
+		84BF049B27BEBD99007C1794 /* HistoryHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */; };
+		84BF049D27BEC026007C1794 /* HistoryEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */; };
+		84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049F27BEDB46007C1794 /* AddWordViewController.swift */; };
+		84BF04A227BEDB79007C1794 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF04A127BEDB79007C1794 /* AddWordTextField.swift */; };
+		84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */; };
+		84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCelll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */; };
+		84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBD27BE50130072E0E7 /* DefaultsService.swift */; };
+		84C88BC027BE513A0072E0E7 /* GameHistroyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */; };
+		84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC127BE54380072E0E7 /* ViewReusable.swift */; };
+		84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC327BE5C230072E0E7 /* Date + Extension.swift */; };
+		84C88BC627BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */; };
+		84C88BC827BE62B30072E0E7 /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC727BE62B30072E0E7 /* UITableView + Extension.swift */; };
 		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
 		8847B0021C3BC2BC008497E2 /* preparation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0041C3BC2BC008497E2 /* preparation.png */; };
 		8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0081C3BC35D008497E2 /* pause_or_finish.png */; };
@@ -102,6 +116,20 @@
 		841AA20627B3F9CC00243084 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/pause_or_finish.png; sourceTree = "<group>"; };
 		841AA20A27B3FAC800243084 /* LanguageChanger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageChanger.swift; sourceTree = "<group>"; };
 		841AA20B27B3FAC800243084 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		846CFCC627BFA74D008A79E9 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderTableView.swift; sourceTree = "<group>"; };
+		84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEmptyView.swift; sourceTree = "<group>"; };
+		84BF049F27BEDB46007C1794 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		84BF04A127BEDB79007C1794 /* AddWordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
+		84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCelll.swift; sourceTree = "<group>"; };
+		84C88BBD27BE50130072E0E7 /* DefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsService.swift; sourceTree = "<group>"; };
+		84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistroyItem.swift; sourceTree = "<group>"; };
+		84C88BC127BE54380072E0E7 /* ViewReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReusable.swift; sourceTree = "<group>"; };
+		84C88BC327BE5C230072E0E7 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
+		84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryItemsMapper.swift; sourceTree = "<group>"; };
+		84C88BC727BE62B30072E0E7 /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thehat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8847B0011C3BC26A008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/results.png; sourceTree = "<group>"; };
 		8847B0051C3BC2BE008497E2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/preparation.png; sourceTree = "<group>"; };
@@ -232,6 +260,33 @@
 			path = Language;
 			sourceTree = "<group>";
 		};
+		84BF049E27BEDB23007C1794 /* AddWordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84BF049F27BEDB46007C1794 /* AddWordViewController.swift */,
+				84BF04A127BEDB79007C1794 /* AddWordTextField.swift */,
+			);
+			path = AddWordViewController;
+			sourceTree = "<group>";
+		};
+		84C88BB727BE4F870072E0E7 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */,
+				84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */,
+				84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		84C88BBC27BE4FFD0072E0E7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				84C88BBD27BE50130072E0E7 /* DefaultsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		889324F01AE41C3D009B68B2 = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +310,7 @@
 		889324FB1AE41C3D009B68B2 /* thehat */ = {
 			isa = PBXGroup;
 			children = (
+				84C88BBC27BE4FFD0072E0E7 /* Services */,
 				841AA20927B3FAB800243084 /* Language */,
 				88DBAC381C333AC500C4EB1F /* Views */,
 				88DBAC291C333AB300C4EB1F /* View Controllers */,
@@ -310,6 +366,7 @@
 				88DBAC181C333A7E00C4EB1F /* Round.swift */,
 				88DBAC191C333A7E00C4EB1F /* Word.swift */,
 				88DBAC1A1C333A7E00C4EB1F /* WordsLoader.swift */,
+				84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -344,6 +401,8 @@
 		88DBAC291C333AB300C4EB1F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84BF049E27BEDB23007C1794 /* AddWordViewController */,
+				84C88BB727BE4F870072E0E7 /* History */,
 				88DBAC2A1C333AB300C4EB1F /* EditWordsGuessedViewController.swift */,
 				88DBAC2B1C333AB300C4EB1F /* GameSettingsViewController.swift */,
 				88DBAC2C1C333AB300C4EB1F /* MenuController.swift */,
@@ -365,6 +424,9 @@
 				88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */,
 				841AA20727B3F9E600243084 /* Player */,
 				841AA20827B3F9F600243084 /* Timer */,
+				84BF049A27BEBD99007C1794 /* HistoryHeaderTableView.swift */,
+				846CFCC627BFA74D008A79E9 /* PlayerView.swift */,
+				846CFCC827BFAB4D008A79E9 /* SeparatorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +439,10 @@
 				88DBAC461C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift */,
 				88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */,
 				8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */,
+				84C88BC127BE54380072E0E7 /* ViewReusable.swift */,
+				84C88BC327BE5C230072E0E7 /* Date + Extension.swift */,
+				84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */,
+				84C88BC727BE62B30072E0E7 /* UITableView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -598,35 +664,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCelll.swift in Sources */,
 				88DBAC4D1C333ACC00C4EB1F /* WordsLoaderProtocol.swift in Sources */,
 				88DBAC421C333AC500C4EB1F /* TimerView.swift in Sources */,
 				88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */,
+				84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */,
 				88DBAC1D1C333A7E00C4EB1F /* Round.swift in Sources */,
+				84C88BC027BE513A0072E0E7 /* GameHistroyItem.swift in Sources */,
 				88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */,
 				841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */,
+				846CFCC727BFA74D008A79E9 /* PlayerView.swift in Sources */,
 				8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */,
+				84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */,
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,
+				84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */,
 				8847B03C1C450B87008497E2 /* AboutTableViewCell.swift in Sources */,
 				8416271E27B476D70024D461 /* Localization.swift in Sources */,
 				88DBAC491C333ACC00C4EB1F /* ColorChangingViewDelegate.swift in Sources */,
 				887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */,
 				887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */,
 				88DBAC1E1C333A7E00C4EB1F /* Word.swift in Sources */,
+				84BF049D27BEC026007C1794 /* HistoryEmptyView.swift in Sources */,
 				88DBAC1F1C333A7E00C4EB1F /* WordsLoader.swift in Sources */,
+				84BF049B27BEBD99007C1794 /* HistoryHeaderTableView.swift in Sources */,
 				88DBAC371C333AB300C4EB1F /* AboutViewController.swift in Sources */,
 				841AA20D27B3FAC800243084 /* Language.swift in Sources */,
+				846CFCC927BFAB4D008A79E9 /* SeparatorView.swift in Sources */,
+				84C88BC827BE62B30072E0E7 /* UITableView + Extension.swift in Sources */,
 				88DBAC4B1C333ACC00C4EB1F /* PlayerTableViewCellDelegate.swift in Sources */,
 				88DBAC411C333AC500C4EB1F /* PlayerTableViewCell.swift in Sources */,
 				88DBAC341C333AB300C4EB1F /* PreparationViewController.swift in Sources */,
+				84C88BC627BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
+				84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */,
 				88DBAC1B1C333A7E00C4EB1F /* Game.swift in Sources */,
 				88DBAC4A1C333ACC00C4EB1F /* Extensions.swift in Sources */,
 				88DBAC311C333AB300C4EB1F /* EditWordsGuessedViewController.swift in Sources */,
 				88DBAC401C333AC500C4EB1F /* PlayerResultCell.swift in Sources */,
+				84BF04A227BEDB79007C1794 /* AddWordTextField.swift in Sources */,
 				88DBAC361C333AB300C4EB1F /* RoundViewController.swift in Sources */,
 				88DBAC3F1C333AC500C4EB1F /* GuessedWordCell.swift in Sources */,
+				84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,7 +878,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -849,7 +929,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

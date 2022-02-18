@@ -8,16 +8,7 @@
 
 import UIKit
 
-class ColorChangingView: UIView {
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+final class ColorChangingView: UIView {
     var startColor: UIColor!
     var finishColor: UIColor!
     var requiredTouchDuration: Double!
@@ -42,7 +33,7 @@ class ColorChangingView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.touchBegan?()
         // TODO(FIX!!!) and enable next line
-        startTouchTimer = Timer.scheduledTimer(timeInterval: timerRate, target: self, selector: Selector(("touchTimerFired")), userInfo: nil, repeats: true)
+        startTouchTimer = Timer.scheduledTimer(timeInterval: timerRate, target: self, selector: #selector(self.touchTimerFired), userInfo: nil, repeats: true)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

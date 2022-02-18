@@ -10,8 +10,17 @@ import Foundation
 
 //let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
 
-enum GameType {
+enum GameType: Codable {
     case EachToEach, Pairs
+
+    var title: String {
+        switch self {
+        case .EachToEach:
+            return LS.localizedString(forKey: "each_to_each")
+        case .Pairs:
+            return LS.localizedString(forKey: "pairs")
+        }
+    }
 }
 
 class Game {

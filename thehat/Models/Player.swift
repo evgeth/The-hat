@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+final class Player: Codable {
     var name: String = ""
     var explained: Int = 0
     var guessed: Int = 0
