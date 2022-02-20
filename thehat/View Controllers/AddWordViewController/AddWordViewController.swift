@@ -3,13 +3,16 @@ import UIKit
 final class AddWordViewController: UIViewController {
     private var game = GameSingleton.gameInstance
 
+    var initinalY: CGFloat = 0
+    var words: [String] = []
+    var wordsCount: Int = 0
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = LS.localizedString(forKey: "own_words")
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir Next", size: 16)
+        label.font = UIFont(name: "Avenir Next", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -19,32 +22,19 @@ final class AddWordViewController: UIViewController {
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir Next", size: 16)
+        label.font = UIFont(name: "Avenir Next", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private lazy var addWordButton: UIButton = {
         let button = UIButton()
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
         button.setTitle("\(LS.localizedString(forKey: "add_word"))", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.textColor = .black
+        button.titleLabel?.font = UIFont(name: "Avenir Next", size: 36)
+        button.backgroundColor = UIColor(red: 0.57, green: 0.95, blue: 0.715, alpha: 1)
         button.addTarget(self, action: #selector(addWord), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    private lazy var goToGameButton: UIButton = {
-        let button = UIButton()
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
-        button.setTitle("\(LS.localizedString(forKey: "go_to_game"))", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemGreen.cgColor
-        button.addTarget(self, action: #selector(goToGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -55,14 +45,20 @@ final class AddWordViewController: UIViewController {
             return
         }
         searchTextField.text = ""
-        game.newWords.insert(word)
-        game.words.append(Word(word: word))
-        game.wordsInTheHat += 1
-        wordsInTheHatLabel.text = "\(LS.localizedString(forKey: "words_in_the_hat")): \(game.wordsInTheHat)"
+        if !words.contains(where: { $0 == word }) {
+            self.words.append(word)
+            wordsCount += 1
+            wordsInTheHatLabel.text = "\(LS.localizedString(forKey: "words_in_the_hat")): \(wordsCount)"
+
+        }
     }
 
     @objc
     private func goToGame() {
+        game.reinitialize()
+        words.forEach { game.newWords.insert($0) }
+        game.words += words.map { Word(word: $0)}
+        game.wordsInTheHat = wordsCount
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "preparation") as? PreparationViewController else {
             return
@@ -86,14 +82,64 @@ final class AddWordViewController: UIViewController {
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "add_words"))
         wordsInTheHatLabel.text = "\(LS.localizedString(forKey: "words_in_the_hat")): \(game.wordsInTheHat)"
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        wordsCount = game.wordsInTheHat
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(self.goToGame)
+        )
+        setupNotifications()
+        addKeyboardHideHandler()
     }
+
+    private func addKeyboardHideHandler() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
+        addWordButton.frame.origin.y = initinalY
+    }
+
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
+        guard
+            let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        else {
+            return
+        }
+        initinalY = addWordButton.frame.origin.y
+        addWordButton.frame.origin.y -= keyboardFrame.cgRectValue.height
+    }
+
 
     private func addSubviews() {
         view.addSubview(descriptionLabel)
         view.addSubview(wordsInTheHatLabel)
         view.addSubview(searchTextField)
         view.addSubview(addWordButton)
-        view.addSubview(goToGameButton)
     }
 
     private func makeConstraints() {
@@ -101,14 +147,14 @@ final class AddWordViewController: UIViewController {
             NSLayoutConstraint.activate(
                 [
                     descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-                    goToGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+                    addWordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
                 ])
         }
         else {
             NSLayoutConstraint.activate(
                 [
                     descriptionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
-                    goToGameButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+                    addWordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
                 ]
             )
         }
@@ -121,18 +167,11 @@ final class AddWordViewController: UIViewController {
                 wordsInTheHatLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
                 wordsInTheHatLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
                 wordsInTheHatLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-
-                addWordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-                addWordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-                addWordButton.bottomAnchor.constraint(equalTo: goToGameButton.topAnchor, constant: -16),
-                addWordButton.heightAnchor.constraint(equalToConstant: 44),
-                addWordButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64),
-
-
-                goToGameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-                goToGameButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-                goToGameButton.heightAnchor.constraint(equalToConstant: 44),
-                goToGameButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64)
+                
+                addWordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                addWordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                addWordButton.heightAnchor.constraint(equalToConstant: 65),
+                addWordButton.widthAnchor.constraint(equalTo: view.widthAnchor),
 
             ]
         )

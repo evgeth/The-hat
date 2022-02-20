@@ -2,10 +2,10 @@ import UIKit
 
 fileprivate extension NSAttributedString {
     static let placeholder = NSAttributedString(
-        string: NSLocalizedString("write_word", comment: "Search"),
+        string: LS.localizedString(forKey: "write_word"),
         attributes: [
             .foregroundColor: UIColor.gray,
-            .font : UIFont.systemFont(ofSize: 14)
+            .font : UIFont(name: "Avenir Next", size: 20)!
         ]
     )
 }
@@ -22,7 +22,7 @@ final class AddWordTextField: UITextField {
     }
 
     private func setUp() {
-        font = .systemFont(ofSize: 14)
+        font = UIFont(name: "Avenir Next", size: 20)
         clearButtonMode = .whileEditing
         attributedPlaceholder = .placeholder
         textColor = .black

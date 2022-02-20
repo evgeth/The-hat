@@ -45,7 +45,7 @@ struct GameHistroyItem: Codable {
 
     var stringDate: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.YYYY HH:mm"
+        formatter.dateFormat = "dd MMMM HH:mm"
         return formatter.string(from: self.date)
     }
 

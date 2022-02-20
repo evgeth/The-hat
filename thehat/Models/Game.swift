@@ -212,10 +212,10 @@ class Game {
         round.guessedWords = guessedWords
     }
     
-    func reinitialize() {
+    func reinitialize(isPoolShouldBeUpdated: Bool = true) {
         isGameInProgress = false
         initFirstRound()
-        isPoolShouldBeUpdated = true
+        self.isPoolShouldBeUpdated = isPoolShouldBeUpdated
         updatePool()
         roundNumber = 0
         previousPair = (0, 0)
