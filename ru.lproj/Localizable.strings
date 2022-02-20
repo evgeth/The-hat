@@ -84,6 +84,7 @@ HISTORY = "История";
 players = "Игроки:";
 write_word = "Напишите слово";
 go_to_game = "Перейти к игре";
+add_words = "Add words";
 add_word = "Добавить слово";
 own_words = "Вы можете добавить свои слова в шляпу";
 empty_history_title = "Здесь будет отображаться история сыгранных партий";

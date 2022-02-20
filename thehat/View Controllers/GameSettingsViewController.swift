@@ -512,7 +512,6 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
         gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
         gameInstance.difficulty = 20 * difficultyPicker.selectedRow(inComponent: 0) + 10
-        gameInstance.reinitialize()
 
         Answers.logCustomEvent(
             withName: "Start game",
