@@ -56,15 +56,11 @@ social = "Social";
 developer = "Разработчик";
 thanks = "Отдельное спасибо";
 
-facebook = "Страница в Facebook";
-vk = "Группа VK";
-telegram = "Группа в Telegram";
 friends = "Рассказать друзьям";
 rate = "Оценить приложение";
 yurtaev = "Евгений Юртаев";
-koroleva = "Юля Королева (дизайн)";
-emelin = "Макс Емелин (звук)";
 lksh = "ЛКШ (вдохновление)";
+claude_code = "Claude Code";
 
 coffee = "Кофе для разработчика :)";
 tip = "Поддержать";
