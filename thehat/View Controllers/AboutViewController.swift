@@ -19,23 +19,15 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     
     var titles = [
         LS.localizedString(forKey: "social"),
-        LS.localizedString(forKey: "developer"),
-        LS.localizedString(forKey: "thanks")
+        LS.localizedString(forKey: "developer")
     ]
     var rows: [[(String, String, String)]] = [
         [
-            (LS.localizedString(forKey: "vk"), "https://vk.com/club111664652", "vk"),
-            (LS.localizedString(forKey: "telegram"), "https://t.me/thehatapp", "telegram"),
             (LS.localizedString(forKey: "friends"), "share", "share"),
             (LS.localizedString(forKey: "rate"), "rate", "star")
         ],
         [
             (LS.localizedString(forKey: "yurtaev"), "https://t.me/yurtaev", "telegram")
-        ],
-        [
-            (LS.localizedString(forKey: "koroleva"), "https://vk.com/id81679642", "vk"),
-            (LS.localizedString(forKey: "emelin"), "https://vk.com/id24027100", "vk"),
-            (LS.localizedString(forKey: "lksh"), "http://lksh.ru", "")
         ]
     ]
 

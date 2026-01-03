@@ -54,17 +54,10 @@ results = "In the end of the game, you will see the results";
 
 social = "Social";
 developer = "Developed by";
-thanks = "Special thanks";
 
-facebook = "Facebook page";
-vk = "VK group";
-telegram = "Telegram group";
 friends = "Share";
 rate = "Rate App";
 yurtaev = "Evgeny Yurtaev";
-koroleva = "Yulia Koroleva (design)";
-emelin = "Max Emelin (sound)";
-lksh = "LKSH (inspiration)";
 
 coffee = "Buy me a cup of coffee";
 tip = "Tip";
