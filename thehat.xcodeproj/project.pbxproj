@@ -80,6 +80,7 @@
 		88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC581C333DDA00C4EB1F /* Localizable.strings */; };
 		9147375A351DD96BD7D4D26B /* Pods_thehatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */; };
 		986F5419A8192B7DA74015D4 /* Pods_thehat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DF9907B75648E0BE2D411E /* Pods_thehat.framework */; };
+		BE1EB3232F09A5FC00437C2F /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BE1EB3222F09A5FC00437C2F /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderProtocol.swift; sourceTree = "<group>"; };
 		88DBAC5B1C333E1000C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.release.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.release.xcconfig"; sourceTree = "<group>"; };
+		BE1EB3222F09A5FC00437C2F /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.release.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -313,6 +315,7 @@
 				88DBAC431C333ACC00C4EB1F /* Extensions */,
 				889324FE1AE41C3D009B68B2 /* AppDelegate.swift */,
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
+				BE1EB3222F09A5FC00437C2F /* AppIcon.icon */,
 				88DBAC581C333DDA00C4EB1F /* Localizable.strings */,
 				889325071AE41C3D009B68B2 /* LaunchScreen.xib */,
 				8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */,
@@ -533,6 +536,7 @@
 			files = (
 				8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */,
 				889325041AE41C3D009B68B2 /* Main.storyboard in Resources */,
+				BE1EB3232F09A5FC00437C2F /* AppIcon.icon in Resources */,
 				8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */,
 				8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */,
 				88DBAC281C333A9900C4EB1F /* score.wav in Resources */,
@@ -966,10 +970,12 @@
 			baseConfigurationReference = 652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/thehat",
@@ -991,10 +997,12 @@
 			baseConfigurationReference = 8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/thehat",

@@ -80,6 +80,14 @@ JSON files in `thehat/Data/` (english.words, russian.words):
 - Protocol-based services (`WordsLoaderProtocol`, `DefaultsServiceProtocol`)
 - Audio feedback via AVFoundation (sounds in `thehat/Data/`: score.wav, mistake.wav, countdown.wav)
 
+## App Icons
+
+Icon source files are in `.icon` format (Icon Composer). These are stored in `thehat/` directory:
+- `thehat/AppIcon.icon/` - current app icon source
+- `thehat/SimpleNew.icon/` - alternative icon
+
+**Important**: `.icon` files are Icon Composer's native format with layers, effects, and dark/light mode variants. Xcode automatically generates the required `AppIcon.appiconset` from these during build. Do NOT manually create `.appiconset` folders - let Xcode/Icon Composer handle it.
+
 ## Dependencies (CocoaPods)
 - SwiftyJSON ~> 4.0
 - Firebase/Analytics
