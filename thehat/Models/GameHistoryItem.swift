@@ -5,7 +5,7 @@ enum PlayerCellData {
     case pair(String)
 }
 
-struct GameHistroyItem: Codable {
+struct GameHistoryItem: Codable {
     let date: Date
     let players: [Player]
     let rounds: [Round]

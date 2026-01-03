@@ -41,25 +41,11 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "ABOUT"))
-        
-        //        SKPaymentQueue.default().add(self)
-        //        productIDs.insert("com.dpfbop.thehat.coffee")
-        //        requestProductInfo()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        //        SKPaymentQueue.default().remove(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //        productRequest.delegate = nil
-        //        productRequest.cancel()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -121,28 +107,3 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     }
     
 }
-
-//extension AboutViewController: SKPaymentTransactionObserver {
-//
-//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-//        for transaction in transactions {
-//            switch transaction.transactionState {
-//            case SKPaymentTransactionState.purchased:
-//                print("Transaction completed successfully.")
-//                SKPaymentQueue.default().finishTransaction(transaction)
-////                delegate.didBuyColorsCollection(selectedProductIndex)
-//                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Complete"])
-//
-//
-//            case SKPaymentTransactionState.failed:
-//                print("Transaction Failed");
-////                print(transaction.error)
-//                SKPaymentQueue.default().finishTransaction(transaction)
-//                Answers.logCustomEvent(withName: "Coffee", customAttributes: ["Status": "Failed"])
-//            default:
-//                print(transaction.transactionState.rawValue)
-//            }
-//        }
-//    }
-//
-//}

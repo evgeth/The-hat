@@ -1,16 +1,16 @@
 import UIKit
 
 final class HistoryViewController: UIViewController {
-    private enum HistroyState {
+    private enum HistoryState {
         case empty
-        case data([GameHistroyItem])
+        case data([GameHistoryItem])
     }
 
     private lazy var tableView = makeTableView()
     private lazy var emptyView = HistoryEmptyView()
-    private var data: [GameHistroyItem] = []
+    private var data: [GameHistoryItem] = []
     private let service: DefaultsServiceProtocol = DefaultsService()
-    private var state: HistroyState = .empty {
+    private var state: HistoryState = .empty {
         didSet {
             switch state {
             case .empty:
@@ -76,7 +76,7 @@ final class HistoryViewController: UIViewController {
     }
 
     func setupData() {
-        let items = service.gamesHistroy
+        let items = service.gamesHistory
         if items.isEmpty {
             self.state = .empty
         } else {
@@ -87,7 +87,7 @@ final class HistoryViewController: UIViewController {
 }
 
 extension HistoryViewController {
-    func set(data: [GameHistroyItem]) {
+    func set(data: [GameHistoryItem]) {
         self.data = data
         tableView.reloadData()
     }
@@ -104,7 +104,7 @@ extension HistoryViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = data[indexPath.section]
-        let cell: HistoryTableViewCelll = tableView.dequeueReusableCell(for: indexPath)
+        let cell: HistoryTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         cell.setup(with: item)
         return cell
     }
@@ -134,7 +134,7 @@ private extension HistoryViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .white
-        tableView.register(cellClass: HistoryTableViewCelll.self)
+        tableView.register(cellClass: HistoryTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = true
         return tableView

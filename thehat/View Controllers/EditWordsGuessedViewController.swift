@@ -32,20 +32,12 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
 
         guessedWordsTableView.delegate = self
         guessedWordsTableView.dataSource = self
-        // Do any additional setup after loading the view.
         let rounds = gameInstance.rounds
         for wordString in rounds[rounds.count - 2].guessedWords {
-            wordList.append(Word(word: wordString.word))
-            wordList.last!.state = wordString.state
+            let word = Word(word: wordString.word)
+            word.state = wordString.state
+            wordList.append(word)
         }
-        
-//        let label = UILabel(frame: CGRect(x: 0, y: -60, width: guessedWordsTableView.frame.width, height: 60))
-//        label.font = UIFont(name: "Avenir Next", size: 24)
-//        label.text = "Pull to mark mistake"
-//        label.backgroundColor = UIColor(r: 203, g: 222, b: 203, a: 80)
-//        label.textAlignment = TextAlignment.Center
-//        pullToMarkMistakeLabel = label
-//        guessedWordsTableView.addSubview(label)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

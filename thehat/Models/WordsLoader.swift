@@ -17,16 +17,20 @@ final class LocalWordsLoader: WordsLoaderProtocol {
     }
 
     private func fillPool() {
-        let path = Bundle.main.path(forResource: LS.localizedString(forKey: "WORDS_FILE"), ofType: "words")
+        let fileName = LS.localizedString(forKey: "WORDS_FILE")
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "words") else {
+            print("Words file not found: \(fileName).words")
+            return
+        }
         do {
-            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe)
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
             let json = try JSON(data: jsonData)
             let listOfWordsInJson = json["words"]
             for (_, subJson): (String, JSON) in listOfWordsInJson {
                 localPool.append(Word(word: subJson["word"].stringValue, complexity: subJson["complexity"].intValue))
             }
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
+            print("Failed to load words: \(error.localizedDescription)")
         }
     }
     

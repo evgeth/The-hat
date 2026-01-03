@@ -2,7 +2,7 @@ import Foundation
 
 struct GamesHistoryList {
     let date: Date
-    var items: [GameHistroyItem]
+    var items: [GameHistoryItem]
 
     var stringDate: String {
         let formatter = DateFormatter()
@@ -12,8 +12,8 @@ struct GamesHistoryList {
 }
 
 enum GameHistoryItemsMapper {
-    static func mapToTGameHostoryItems(
-        form items: [GameHistroyItem]
+    static func mapToGameHistoryItems(
+        from items: [GameHistoryItem]
     ) -> [GamesHistoryList] {
         let sortedItems = items.sorted(by: { $0.date > $1.date })
         var lastGame: GamesHistoryList?

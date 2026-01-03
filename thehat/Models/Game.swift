@@ -8,7 +8,7 @@
 
 import Foundation
 
-//let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
+//let loadedWordsNotificationKey = "com.dpfbop.loadedWordsNotificationKey"
 
 enum GameType: Codable {
     case EachToEach, Pairs
@@ -49,7 +49,7 @@ class Game {
     var didWordsLoad = false {
         didSet {
             if didWordsLoad == true && didWordsLoad != oldValue {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: loadedWordsNotificationKey), object: nil)
             }
         }
     }
@@ -137,19 +137,11 @@ class Game {
     
     func getWord() -> String {
         updatePool()
-        if newWords.count == 0 {
+        guard let word = newWords.randomElement() else {
             return ""
         }
-        let index = Int(arc4random() % UInt32(newWords.count))
-        var currentIndex = 0
-        for element in newWords {
-            if currentIndex == index {
-                newWords.remove(element)
-                return element
-            }
-            currentIndex += 1
-        }
-        return ""
+        newWords.remove(word)
+        return word
     }
     
     func initFirstRound() {
@@ -175,7 +167,10 @@ class Game {
         if self.rounds.count == 0 {
             self.initFirstRound()
         }
-        return self.rounds.last!
+        guard let round = self.rounds.last else {
+            fatalError("No rounds available after initialization")
+        }
+        return round
     }
     
     func getPreviousRound() -> Round? {

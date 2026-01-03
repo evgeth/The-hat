@@ -35,8 +35,8 @@ extension UIColor {
 extension Array {
     mutating func shuffle() {
         for i in 0..<(count - 1) {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-            if (i != j) {
+            let j = Int.random(in: i..<count)
+            if i != j {
                 self.swapAt(i, j)
             }
         }
@@ -60,16 +60,11 @@ class RandomNames {
     static var last: [Int] = []
     
     static func getRandomName() -> String {
-        var names: [String] = []
-        
-        if Locale.preferredLanguages[0].contains("ru") {
-            names = russianNames
-        } else {
-            names = englishNames
-        }
-        var new = Int(arc4random_uniform(UInt32(names.count)))
+        let names = Locale.preferredLanguages[0].contains("ru") ? russianNames : englishNames
+
+        var new = Int.random(in: 0..<names.count)
         while last.contains(new) {
-            new = Int(arc4random_uniform(UInt32(names.count)))
+            new = Int.random(in: 0..<names.count)
         }
         last.append(new)
         if last.count > 10 {

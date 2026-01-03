@@ -38,7 +38,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     
     var isProceedingToResults: Bool = false
     
-    var countdownSound = AVAudioPlayer()
+    var countdownSound: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,22 +58,19 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         self.loadingView.backgroundColor = UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 1)
     }
 
-    func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
-        //1
-        let path = Bundle.main.path(forResource: file as String, ofType: type as String)
-        let url = URL.init(fileURLWithPath: path!)
-        
-        
-        
-        var audioPlayer:AVAudioPlayer?
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-        } catch _ {
-            audioPlayer = nil
+    func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
+        guard let path = Bundle.main.path(forResource: file, ofType: type) else {
+            print("Audio file not found: \(file).\(type)")
+            return nil
         }
-        
-        //4
-        return audioPlayer!
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            return try AVAudioPlayer(contentsOf: url)
+        } catch {
+            print("Failed to create audio player: \(error)")
+            return nil
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -168,7 +165,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         if gameInstance.isNoMoreWords {
             return
         }
-        countdownSound.play()
+        countdownSound?.play()
         loadingViewWidth.constant = self.startButtonView.frame.width
         UIView.animate(withDuration: 1.8) { () -> Void in
             self.startButtonView.layoutIfNeeded()
@@ -176,9 +173,9 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     }
     
     func touchEnded() {
-        countdownSound.pause()
-        countdownSound.currentTime = 0.0
-        if (gameInstance.isNoMoreWords) {
+        countdownSound?.pause()
+        countdownSound?.currentTime = 0.0
+        if gameInstance.isNoMoreWords {
             proceedToResults()
             return
         }
@@ -247,9 +244,9 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     func proceedToResults() {
         if !isProceedingToResults {
             isProceedingToResults = true
-            var history = defaultsService.gamesHistroy
-            history.append(GameHistroyItem(game: gameInstance))
-            defaultsService.gamesHistroy = history
+            var history = defaultsService.gamesHistory
+            history.append(GameHistoryItem(game: gameInstance))
+            defaultsService.gamesHistory = history
             gameInstance.wordsInTheHat = 60
             gameInstance.reinitialize()
             performSegue(withIdentifier: "Results Segue", sender: nil)

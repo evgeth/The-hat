@@ -1,7 +1,7 @@
 import Foundation
 
 protocol DefaultsServiceProtocol {
-    var gamesHistroy: [GameHistroyItem] { get set }
+    var gamesHistory: [GameHistoryItem] { get set }
 }
 
 final class DefaultsService: DefaultsServiceProtocol {
@@ -9,19 +9,23 @@ final class DefaultsService: DefaultsServiceProtocol {
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
 
-    var gamesHistroy: [GameHistroyItem] {
+    var gamesHistory: [GameHistoryItem] {
         get {
             guard
                 let data = self.defaults.data(forKey: DefaultsKeys.history.rawValue),
-                let games = try? self.jsonDecoder.decode([GameHistroyItem].self, from: data)
+                let games = try? self.jsonDecoder.decode([GameHistoryItem].self, from: data)
             else  {
                 return []
             }
             return games
         }
         set {
-            let data = try? self.jsonEncoder.encode(newValue)
-            self.defaults.set(data, forKey: DefaultsKeys.history.rawValue)
+            do {
+                let data = try self.jsonEncoder.encode(newValue)
+                self.defaults.set(data, forKey: DefaultsKeys.history.rawValue)
+            } catch {
+                print("Failed to encode games history: \(error.localizedDescription)")
+            }
         }
     }
 

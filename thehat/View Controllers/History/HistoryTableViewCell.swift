@@ -1,6 +1,6 @@
 import UIKit
 
-final class HistoryTableViewCelll: UITableViewCell, ViewReusable {
+final class HistoryTableViewCell: UITableViewCell, ViewReusable {
     private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -27,11 +27,11 @@ final class HistoryTableViewCelll: UITableViewCell, ViewReusable {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup(with viewModel: GameHistroyItem) {
+    func setup(with viewModel: GameHistoryItem) {
         setupStackView(with: viewModel)
     }
 
-    private func setupStackView(with model: GameHistroyItem) {
+    private func setupStackView(with model: GameHistoryItem) {
         model.playersData.forEach { item in
             switch item {
             case .player(let player):

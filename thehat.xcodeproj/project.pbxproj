@@ -20,9 +20,9 @@
 		84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF049F27BEDB46007C1794 /* AddWordViewController.swift */; };
 		84BF04A227BEDB79007C1794 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF04A127BEDB79007C1794 /* AddWordTextField.swift */; };
 		84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */; };
-		84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCelll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */; };
+		84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */; };
 		84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBD27BE50130072E0E7 /* DefaultsService.swift */; };
-		84C88BC027BE513A0072E0E7 /* GameHistroyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */; };
+		84C88BC027BE513A0072E0E7 /* GameHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */; };
 		84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC127BE54380072E0E7 /* ViewReusable.swift */; };
 		84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC327BE5C230072E0E7 /* Date + Extension.swift */; };
 		84C88BC627BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */; };
@@ -121,9 +121,9 @@
 		84BF049F27BEDB46007C1794 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		84BF04A127BEDB79007C1794 /* AddWordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
 		84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCelll.swift; sourceTree = "<group>"; };
+		84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		84C88BBD27BE50130072E0E7 /* DefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsService.swift; sourceTree = "<group>"; };
-		84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistroyItem.swift; sourceTree = "<group>"; };
+		84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryItem.swift; sourceTree = "<group>"; };
 		84C88BC127BE54380072E0E7 /* ViewReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReusable.swift; sourceTree = "<group>"; };
 		84C88BC327BE5C230072E0E7 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryItemsMapper.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */,
-				84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCelll.swift */,
+				84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */,
 				84BF049C27BEC026007C1794 /* HistoryEmptyView.swift */,
 			);
 			path = History;
@@ -358,7 +358,7 @@
 				88DBAC181C333A7E00C4EB1F /* Round.swift */,
 				88DBAC191C333A7E00C4EB1F /* Word.swift */,
 				88DBAC1A1C333A7E00C4EB1F /* WordsLoader.swift */,
-				84C88BBF27BE513A0072E0E7 /* GameHistroyItem.swift */,
+				84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -451,6 +451,7 @@
 				889324F61AE41C3D009B68B2 /* Frameworks */,
 				889324F71AE41C3D009B68B2 /* Resources */,
 				93F81FD99082FA3429EDF998 /* [CP] Embed Pods Frameworks */,
+				F1REBA5ECRA5HLYT1C5D5YM /* [Firebase] Crashlytics dSYM Upload */,
 			);
 			buildRules = (
 			);
@@ -655,6 +656,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F1REBA5ECRA5HLYT1C5D5YM /* [Firebase] Crashlytics dSYM Upload */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)",
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Resources/DWARF/$(PRODUCT_NAME)",
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[Firebase] Crashlytics dSYM Upload";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -662,13 +686,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCelll.swift in Sources */,
+				84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCell.swift in Sources */,
 				88DBAC4D1C333ACC00C4EB1F /* WordsLoaderProtocol.swift in Sources */,
 				88DBAC421C333AC500C4EB1F /* TimerView.swift in Sources */,
 				88DBAC351C333AB300C4EB1F /* ResultsViewController.swift in Sources */,
 				84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */,
 				88DBAC1D1C333A7E00C4EB1F /* Round.swift in Sources */,
-				84C88BC027BE513A0072E0E7 /* GameHistroyItem.swift in Sources */,
+				84C88BC027BE513A0072E0E7 /* GameHistoryItem.swift in Sources */,
 				88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */,
 				841AA20C27B3FAC800243084 /* LanguageChanger.swift in Sources */,
 				846CFCC727BFA74D008A79E9 /* PlayerView.swift in Sources */,

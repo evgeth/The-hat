@@ -48,8 +48,8 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     var isRoundVCDismissed: Bool = false
     
-    var scoreSound = AVAudioPlayer()
-    var failSound = AVAudioPlayer()
+    var scoreSound: AVAudioPlayer?
+    var failSound: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,20 +82,19 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         )
     }
 
-    func setupAudioPlayerWithFile(file:String, type:String) -> AVAudioPlayer  {
-        //1
-        let path = Bundle.main.path(forResource: file as String, ofType: type as String)
-        let url = URL(fileURLWithPath: path!)
-        
-        var audioPlayer:AVAudioPlayer?
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-        } catch _  {
-            audioPlayer = nil
+    func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
+        guard let path = Bundle.main.path(forResource: file, ofType: type) else {
+            print("Audio file not found: \(file).\(type)")
+            return nil
         }
-        
-        //4
-        return audioPlayer!
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            return try AVAudioPlayer(contentsOf: url)
+        } catch {
+            print("Failed to create audio player: \(error)")
+            return nil
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,12 +112,12 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         if secondsLeft <= -extraRoundDuration + 0.01 {
             isExtraTimeEnded = true
             setRoundEndedState()
-            failSound.play()
+            failSound?.play()
         } else if secondsLeft < 1 {
             isBasicTimeAlmostEnded = true
             if secondsLeft < 0 {
                 if !isBasicTimeEnded {
-                    failSound.play()
+                    failSound?.play()
                     UIView.animate(withDuration: 0.3) {
                         self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
                         self.errorLabel.text = LS.localizedString(forKey: "NO_WAY")
@@ -171,17 +170,18 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
 
     @IBAction func guessed(_ sender: AnyObject) {
-        wordsGuessed.append(Word(word: currentWord))
-        wordsGuessed.last!.state = .guessed
-        if scoreSound.isPlaying {
+        let word = Word(word: currentWord)
+        word.state = .guessed
+        wordsGuessed.append(word)
+        if scoreSound?.isPlaying == true {
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
-                self.scoreSound.pause()
-                self.scoreSound.currentTime = 0.0
-            }, completion: { (error) -> Void in
-                self.scoreSound.play()
+                self.scoreSound?.pause()
+                self.scoreSound?.currentTime = 0.0
+            }, completion: { _ in
+                self.scoreSound?.play()
             })
         } else {
-            scoreSound.play()
+            scoreSound?.play()
         }
         if isBasicTimeEnded {
             setRoundEndedState()
@@ -195,15 +195,17 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     func requiredTouchDurationReached() {
-        wordsGuessed.append(Word(word: currentWord))
-        wordsGuessed.last!.state = State.fail
+        let word = Word(word: currentWord)
+        word.state = .fail
+        wordsGuessed.append(word)
         endRound()
     }
-    
+
     func touchEnded() {
         if isBasicTimeEnded {
-            wordsGuessed.append(Word(word: currentWord))
-            wordsGuessed.last!.state = State.new
+            let word = Word(word: currentWord)
+            word.state = .new
+            wordsGuessed.append(word)
             endRound()
         }
     }

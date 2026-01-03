@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
+let loadedWordsNotificationKey = "com.dpfbop.loadedWordsNotificationKey"
 
 class GameSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, PlayerTableViewCellDelegate {
     
@@ -283,8 +283,9 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                     playersTableView.deleteRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
                 }
             } else {
-                let alertView = UIAlertView(title: "Error", message: "You need at least 2 players for game", delegate: nil, cancelButtonTitle: "Ok")
-                alertView.show()
+                let alert = UIAlertController(title: "Error", message: "You need at least 2 players for game", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                present(alert, animated: true)
             }
         }
     }
@@ -466,13 +467,14 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             }
         }
         if isPairsMode() && players.count % 2 == 1 {
-            let alertView = UIAlertView(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), delegate: nil, cancelButtonTitle: "Ok")
-            alertView.show()
+            let alert = UIAlertController(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            present(alert, animated: true)
             return false
         }
         if gameInstance.didWordsLoad == false {
             let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
-            NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotifictionKey), object: nil)
+            NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotificationKey), object: nil)
             activityIndicator.center = view.center
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
