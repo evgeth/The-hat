@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,36 +13,18 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Words" translatesAutoresizingMaskIntoConstraints="NO" id="jrF-7f-6Rh">
-                    <rect key="frame" x="0.0" y="16" width="480" height="464"/>
-                </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ln-vU-eZU" userLabel="The hat">
-                    <rect key="frame" x="0.0" y="190" width="480" height="100"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The hat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0US-Gr-tDS">
-                            <rect key="frame" x="162" y="18.5" width="156" height="63"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="46"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.42745098040000001" green="0.92549019610000005" blue="0.61960784310000006" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hat" translatesAutoresizingMaskIntoConstraints="NO" id="jrF-7f-6Rh">
+                    <rect key="frame" x="90" y="140" width="300" height="300"/>
                     <constraints>
-                        <constraint firstAttribute="centerX" secondItem="0US-Gr-tDS" secondAttribute="centerX" id="EDA-7C-y79"/>
-                        <constraint firstAttribute="centerY" secondItem="0US-Gr-tDS" secondAttribute="centerY" id="ex2-J5-N6S"/>
-                        <constraint firstAttribute="height" constant="100" id="uIV-bs-535"/>
+                        <constraint firstAttribute="width" constant="300" id="hat-width-001"/>
+                        <constraint firstAttribute="height" constant="300" id="hat-height-001"/>
                     </constraints>
-                </view>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.953" green="0.902" blue="0.827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="jrF-7f-6Rh" secondAttribute="bottom" id="27f-gF-hm0"/>
-                <constraint firstItem="jrF-7f-6Rh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="KPq-lk-he3"/>
-                <constraint firstAttribute="trailing" secondItem="2ln-vU-eZU" secondAttribute="trailing" id="Mxi-60-c9I"/>
-                <constraint firstItem="2ln-vU-eZU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RwQ-Gl-EtD"/>
-                <constraint firstItem="jrF-7f-6Rh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="ZRe-IA-M0Z"/>
-                <constraint firstItem="2ln-vU-eZU" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gjE-33-Lrx"/>
-                <constraint firstAttribute="trailing" secondItem="jrF-7f-6Rh" secondAttribute="trailing" id="t1B-bi-Emd"/>
+                <constraint firstItem="jrF-7f-6Rh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hat-centerX-001"/>
+                <constraint firstItem="jrF-7f-6Rh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hat-centerY-001"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -50,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Words" width="784" height="632"/>
+        <image name="hat" width="512" height="512"/>
     </resources>
 </document>

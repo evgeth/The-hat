@@ -25,7 +25,7 @@ final class PlayerView: UIView, ViewReusable {
     init() {
         super.init(frame: .zero)
 
-        backgroundColor = .white
+        backgroundColor = AppColors.background
         addSubviews()
         makeConstraints()
     }
@@ -72,8 +72,8 @@ private extension PlayerView {
     func makeTitleLabel(with text: String? = nil) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.textColor = .black
-        label.font = UIFont(name: "Avenir Next", size: 24)
+        label.textColor = AppColors.textPrimary
+        label.font = UIFont(name: "Excalifont", size: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }

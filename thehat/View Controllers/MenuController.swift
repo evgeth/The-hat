@@ -77,16 +77,16 @@ final class MenuController: UIViewController {
             holdToStartNewGameLabel.isHidden = false
             newGameLabel.text = LS.localizedString(forKey: "CONTINUE")
             newGameView.initializer(
-                startColor: UIColor(r: 109, g: 236, b: 158, a: 80),
-                finishColor: UIColor(r: 109, g: 250, b: 130, a: 90),
+                startColor: AppColors.primary,
+                finishColor: AppColors.primary.withAlphaComponent(0.9),
                 requiredTouchDuration: 0.6, delegate: self
             )
         } else {
             holdToStartNewGameLabel.isHidden = true
             newGameLabel.text = LS.localizedString(forKey: "NEW_GAME")
             newGameView.initializer(
-                startColor: UIColor(r: 109, g: 236, b: 158, a: 80),
-                finishColor: UIColor(r: 109, g: 236, b: 158, a: 80),
+                startColor: AppColors.primary,
+                finishColor: AppColors.primary,
                 requiredTouchDuration: 100, delegate: self
             )
         }

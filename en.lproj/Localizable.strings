@@ -11,7 +11,7 @@ CONTINUE = "Continue";
 
 WORDS_FILE = "english";
 
-GAME_SETTINGS = "Game Settings";
+GAME_SETTINGS = "New Game";
 
 TIMER_STRING = "3. 2. 1. Start!";
 
@@ -72,7 +72,7 @@ language = "English";
 words_in_the_hat = "Words in the hat";
 round_length = "Round length";
 game_type = "Game type";
-each_to_each = "Each to each";
+each_to_each = "Singles";
 pairs = "Pairs";
 got_it = "Got it!";
 mistake = "Mistake";

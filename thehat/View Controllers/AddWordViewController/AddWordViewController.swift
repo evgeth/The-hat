@@ -9,20 +9,20 @@ final class AddWordViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = LS.localizedString(forKey: "own_words")
-        label.textColor = .black
+        label.textColor = AppColors.textPrimary
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir Next", size: 20)
+        label.font = UIFont(name: "Excalifont", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let wordsInTheHatLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = AppColors.textPrimary
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir Next", size: 20)
+        label.font = UIFont(name: "Excalifont", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,10 +30,10 @@ final class AddWordViewController: UIViewController {
     private lazy var addWordButton: UIButton = {
         let button = UIButton()
         button.setTitle("\(LS.localizedString(forKey: "add_word"))", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.textColor = .black
-        button.titleLabel?.font = UIFont(name: "Avenir Next", size: 36)
-        button.backgroundColor = UIColor(red: 0.57, green: 0.95, blue: 0.715, alpha: 1)
+        button.setTitleColor(AppColors.textPrimary, for: .normal)
+        button.titleLabel?.textColor = AppColors.textPrimary
+        button.titleLabel?.font = UIFont(name: "Excalifont", size: 36)
+        button.backgroundColor = AppColors.primary
         button.addTarget(self, action: #selector(addWord), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -75,7 +75,7 @@ final class AddWordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = AppColors.background
         addSubviews()
         makeConstraints()
 

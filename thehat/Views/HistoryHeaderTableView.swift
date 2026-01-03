@@ -3,8 +3,8 @@ import UIKit
 final class HistoryHeaderTableView: UIView, ViewReusable {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
-        label.font = UIFont(name: "Avenir Next", size: 16)
+        label.textColor = AppColors.textSecondary
+        label.font = UIFont(name: "Excalifont", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         return label
@@ -24,7 +24,7 @@ final class HistoryHeaderTableView: UIView, ViewReusable {
     }
 
     private func setUp() {
-        backgroundColor = .white
+        backgroundColor = AppColors.background
         addSubview(titleLabel)
 
         NSLayoutConstraint.activate(

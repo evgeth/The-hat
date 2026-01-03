@@ -55,21 +55,21 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
             
         }
         cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(0))
-        cell.wordStatus.font = UIFont(name: "Avenir Next", size: 42)
+        cell.wordStatus.font = UIFont(name: "Excalifont", size: 42)
         if wordList[indexPath.row].state == State.guessed {
             cell.wordStatus.text = "✓";
-            cell.wordStatus.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
-            cell.wordLabel.textColor = UIColor(r: 0, g: 128, b: 0, a: 100)
+            cell.wordStatus.textColor = AppColors.success
+            cell.wordLabel.textColor = AppColors.success
         } else if wordList[indexPath.row].state == State.new {
             cell.wordStatus.text = "🎩";
             cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-            cell.wordStatus.font = UIFont(name: "Avenir Next", size: 34)
-            cell.wordStatus.textColor = UIColor(r: 0, g: 0, b: 0, a: 100)
-            cell.wordLabel.textColor = UIColor.black
+            cell.wordStatus.font = UIFont(name: "Excalifont", size: 34)
+            cell.wordStatus.textColor = AppColors.textPrimary
+            cell.wordLabel.textColor = AppColors.textPrimary
         } else {
             cell.wordStatus.text = "✗";
-            cell.wordStatus.textColor = UIColor(r: 128, g: 0, b: 0, a: 100)
-            cell.wordLabel.textColor = UIColor.red
+            cell.wordStatus.textColor = AppColors.fail
+            cell.wordLabel.textColor = AppColors.fail
         }
         return cell
     }
