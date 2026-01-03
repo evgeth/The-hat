@@ -19,7 +19,8 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     
     var titles = [
         LS.localizedString(forKey: "social"),
-        LS.localizedString(forKey: "developer")
+        LS.localizedString(forKey: "developer"),
+        LS.localizedString(forKey: "thanks")
     ]
     var rows: [[(String, String, String)]] = [
         [
@@ -28,6 +29,10 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
         ],
         [
             (LS.localizedString(forKey: "yurtaev"), "https://t.me/yurtaev", "telegram")
+        ],
+        [
+            (LS.localizedString(forKey: "lksh"), "http://lksh.ru", ""),
+            (LS.localizedString(forKey: "claude_code"), "https://claude.ai/code", "")
         ]
     ]
 

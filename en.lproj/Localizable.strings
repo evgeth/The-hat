@@ -54,10 +54,13 @@ results = "In the end of the game, you will see the results";
 
 social = "Social";
 developer = "Developed by";
+thanks = "Special thanks";
 
 friends = "Share";
 rate = "Rate App";
 yurtaev = "Evgeny Yurtaev";
+lksh = "LKSH (inspiration)";
+claude_code = "Claude Code";
 
 coffee = "Buy me a cup of coffee";
 tip = "Tip";
