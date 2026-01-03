@@ -64,7 +64,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         timerView.layer.masksToBounds = true
         inactiveColor = redErrorView.backgroundColor
         
-        redErrorView.initializer(startColor: inactiveColor, finishColor: UIColor(r: 184, g: 49, b: 49, a: 80), requiredTouchDuration: 0.6, delegate: self)
+        redErrorView.initializer(startColor: inactiveColor, finishColor: AppColors.fail, requiredTouchDuration: 0.6, delegate: self)
         
         self.scoreSound = self.setupAudioPlayerWithFile(file: "score", type:"wav")
         self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
@@ -119,7 +119,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
                 if !isBasicTimeEnded {
                     failSound?.play()
                     UIView.animate(withDuration: 0.3) {
-                        self.redErrorView.backgroundColor = UIColor(r: 184, g: 49, b: 49, a: 80)
+                        self.redErrorView.backgroundColor = AppColors.fail
                         self.errorLabel.text = LS.localizedString(forKey: "NO_WAY")
                     }
                 }

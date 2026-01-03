@@ -17,7 +17,7 @@ final class HistoryTableViewCell: UITableViewCell, ViewReusable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = AppColors.background
         selectionStyle = .none
         addSubviews()
         makeConstraints()

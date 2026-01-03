@@ -18,7 +18,8 @@ class PlayerResultCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundColor = AppColors.background
+        contentView.backgroundColor = AppColors.background
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

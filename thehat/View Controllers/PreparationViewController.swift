@@ -56,7 +56,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         self.countdownSound = self.setupAudioPlayerWithFile(file: "countdown", type:"wav")
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
         self.startButtonView.insertSubview(self.loadingView, at: 0)
-        self.loadingView.backgroundColor = UIColor(red: 109.0/256.0, green: 236.0/255.0, blue: 158.0/255.0, alpha: 1)
+        self.loadingView.backgroundColor = AppColors.primary
     }
 
     func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
@@ -112,14 +112,14 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
             let editWordsImage = UIImage(named: "Edit words")
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .plain, target: self, action: #selector(self.editGuessedWords))
         } else {
-            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 18)!, NSAttributedString.Key.foregroundColor : UIColor.red], for: UIControl.State.normal)
+            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Excalifont", size: 18)!, NSAttributedString.Key.foregroundColor : UIColor.red], for: UIControl.State.normal)
         }
         var size = UIFont.systemFont(ofSize: 18).sizeOfString(string: "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT")), constrainedToWidth: 200)
         size.width += 10
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
         label.text = "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT"))
-        label.textColor = UIColor(red: 0.272523, green: 0.594741, blue: 0.400047, alpha: 1)
-        label.font = UIFont(name: "Avenir Next", size: 18)
+        label.textColor = AppColors.primaryDark
+        label.font = UIFont(name: "Excalifont", size: 18)
         label.textAlignment = NSTextAlignment.right
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: #selector(self.closeButtonPressed)), UIBarButtonItem(customView: label)]
     }

@@ -16,9 +16,7 @@ final class SeparatorView: UIView {
 
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = UIColor(red: 0.894, green: 0.914, blue: 0.949, alpha: 1)
-
-
+        self.backgroundColor = AppColors.separator
     }
 
     @available(*, unavailable)

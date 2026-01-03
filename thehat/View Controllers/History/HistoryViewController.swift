@@ -27,7 +27,7 @@ final class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = AppColors.background
         addSubviews()
         makeConstraints()
         setupData()
@@ -113,8 +113,8 @@ extension HistoryViewController: UITableViewDataSource {
 extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UILabel()
-        header.backgroundColor = .white
-        header.font = UIFont(name: "Avenir Next SemiBold", size: 16)
+        header.backgroundColor = AppColors.background
+        header.font = UIFont(name: "Excalifont", size: 16)
 
         header.textAlignment = .center
         header.text = data[section].stringDate
@@ -133,7 +133,7 @@ private extension HistoryViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = AppColors.background
         tableView.register(cellClass: HistoryTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = true

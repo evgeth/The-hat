@@ -30,9 +30,9 @@ class TimerView: UIView {
         bezierPath.lineWidth = 6
         bezierPath.lineCapStyle = CGLineCap.round
         if percent < 0 {
-            UIColor.red.setStroke()
+            AppColors.fail.setStroke()
         } else {
-            UIColor(red: CGFloat(0), green: CGFloat(192.0 / 256.0), blue: CGFloat(50.0 / 256.0), alpha: 0.9).setStroke()
+            AppColors.primary.setStroke()
         }
         bezierPath.stroke()
     }

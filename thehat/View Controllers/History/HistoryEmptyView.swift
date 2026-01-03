@@ -3,10 +3,10 @@ import UIKit
 final class HistoryEmptyView: UIView, ViewReusable {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = AppColors.textPrimary
         label.text = LS.localizedString(forKey: "empty_history_title")
         label.numberOfLines = 0
-        label.font = UIFont(name: "Avenir Next", size: 18)
+        label.font = UIFont(name: "Excalifont", size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label

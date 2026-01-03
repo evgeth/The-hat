@@ -27,9 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Analytics.logEvent("app_started", parameters: ["lang": Locale.preferredLanguages[0]])
 
         let pageControl = UIPageControl.appearance()
-        pageControl.pageIndicatorTintColor = UIColor.lightGray
-        pageControl.currentPageIndicatorTintColor = UIColor.black
-        pageControl.backgroundColor = UIColor.white
+        pageControl.pageIndicatorTintColor = AppColors.textSecondary
+        pageControl.currentPageIndicatorTintColor = AppColors.textPrimary
+        pageControl.backgroundColor = AppColors.background
+
+        // Set navigation bar and bar button tint color
+        UINavigationBar.appearance().tintColor = AppColors.primaryDark
+        UIBarButtonItem.appearance().tintColor = AppColors.primaryDark
+
+        // Set global tint color
+        if let window = window {
+            window.tintColor = AppColors.primaryDark
+        }
+
         return true
     }
 
