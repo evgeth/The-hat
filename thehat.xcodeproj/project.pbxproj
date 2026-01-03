@@ -22,6 +22,7 @@
 		84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */; };
 		84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */; };
 		84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBD27BE50130072E0E7 /* DefaultsService.swift */; };
+		A1B2C3D527BE50200072E0E7 /* UsedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */; };
 		84C88BC027BE513A0072E0E7 /* GameHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */; };
 		84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC127BE54380072E0E7 /* ViewReusable.swift */; };
 		84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC327BE5C230072E0E7 /* Date + Extension.swift */; };
@@ -124,6 +125,7 @@
 		84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		84C88BBD27BE50130072E0E7 /* DefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsService.swift; sourceTree = "<group>"; };
+		A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedWordsService.swift; sourceTree = "<group>"; };
 		84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryItem.swift; sourceTree = "<group>"; };
 		84C88BC127BE54380072E0E7 /* ViewReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReusable.swift; sourceTree = "<group>"; };
 		84C88BC327BE5C230072E0E7 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				84C88BBD27BE50130072E0E7 /* DefaultsService.swift */,
+				A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				84C88BC627BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift in Sources */,
 				889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */,
 				84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */,
+				A1B2C3D527BE50200072E0E7 /* UsedWordsService.swift in Sources */,
 				88DBAC1B1C333A7E00C4EB1F /* Game.swift in Sources */,
 				88DBAC4A1C333ACC00C4EB1F /* Extensions.swift in Sources */,
 				88DBAC311C333AB300C4EB1F /* EditWordsGuessedViewController.swift in Sources */,
