@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 
 final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
@@ -53,7 +53,7 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Edit words"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Edit words"])
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

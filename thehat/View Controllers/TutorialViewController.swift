@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 
 
 final class TutorialViewController: UIViewController {
@@ -57,7 +57,7 @@ final class TutorialViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationItem.title = LS.localizedString(forKey: "RULES")
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Tutorial"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Tutorial"])
     }
 }
 

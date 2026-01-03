@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 import StoreKit
 import SafariServices
 
@@ -54,7 +54,7 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,7 +91,7 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
                 UIApplication.shared.openURL(url as URL)
             }
         }
-        Answers.logCustomEvent(withName: "About action", customAttributes: ["Action": obj.1])
+        Analytics.logEvent("about_action", parameters: ["action": obj.1])
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 
 final class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -50,9 +50,9 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Results"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Results"])
         for player in sortedPlayers {
-            Answers.logCustomEvent(withName: "Player Finished", customAttributes: ["name": player.name.lowercased().capitalized, "score": player.score])
+            Analytics.logEvent("player_finished", parameters: ["name": player.name.lowercased().capitalized, "score": player.score])
         }
     }
     

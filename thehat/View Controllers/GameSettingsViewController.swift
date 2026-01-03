@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 
 let loadedWordsNotifictionKey = "com.dpfbop.loadedWordsNotificationKey"
 
@@ -97,7 +97,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Game Settings"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Game Settings"])
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -502,10 +502,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         var playersList: [Player] = []
         for playerName in players {
             playersList.append(Player(name: playerName))
-            Answers.logCustomEvent(
-                withName: "Player",
-                customAttributes: ["name": playerName.lowercased().capitalized]
-            )
+            Analytics.logEvent("player", parameters: ["name": playerName.lowercased().capitalized])
         }
         gameInstance.players = playersList
         gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
@@ -513,15 +510,12 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         gameInstance.type = gameTypeSegmentControl.selectedSegmentIndex == 0 ? GameType.EachToEach : GameType.Pairs
         gameInstance.difficulty = 20 * difficultyPicker.selectedRow(inComponent: 0) + 10
 
-        Answers.logCustomEvent(
-            withName: "Start game",
-            customAttributes: [
-                "Duration": "\(gameInstance.roundDuration)",
-                "Number of words": "\(gameInstance.wordsInTheHat)",
-                "Game type": "\(gameInstance.type)",
-                "Difficulty": "\(gameInstance.difficulty)"
-            ]
-        )
+        Analytics.logEvent("start_game", parameters: [
+            "duration": "\(gameInstance.roundDuration)",
+            "number_of_words": "\(gameInstance.wordsInTheHat)",
+            "game_type": "\(gameInstance.type)",
+            "difficulty": "\(gameInstance.difficulty)"
+        ])
 
         navigationController?.pushViewController(AddWordViewController(), animated: true)
     }

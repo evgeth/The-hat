@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import Crashlytics
+import FirebaseAnalytics
 
 final class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
     var gameInstance = GameSingleton.gameInstance
@@ -77,7 +77,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Preparation"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Preparation"])
         
         let currentPlayers = gameInstance.currentPlayers()
         speaker.text = currentPlayers.0.name
@@ -203,10 +203,10 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
             } else if word.state == State.guessed {
                 state = "Guessed"
             }
-            Answers.logCustomEvent(withName: "Word guessed", customAttributes:
+            Analytics.logEvent("word_guessed", parameters:
                 ["word": word.word,
                     "status": state])
-            Answers.logCustomEvent(withName: "Word_played_" + word.word, customAttributes:
+            Analytics.logEvent("word_played_\(word.word)", parameters:
                 ["status": state])
         }
     }

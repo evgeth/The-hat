@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import Crashlytics
+import FirebaseAnalytics
 
 final class RoundViewController: UIViewController, ColorChangingViewDelegate {
 
@@ -99,7 +99,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Answers.logCustomEvent(withName: "Open Screen", customAttributes: ["Screen name": "Main Menu"])
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
     }
     
     @objc func timerFired() {

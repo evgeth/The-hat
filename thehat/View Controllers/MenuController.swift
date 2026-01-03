@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Crashlytics
+import FirebaseAnalytics
 
 final class MenuController: UIViewController {
 
@@ -62,10 +62,7 @@ final class MenuController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Answers.logCustomEvent(
-            withName: "Open Screen",
-            customAttributes: ["Screen name": "Main Menu"]
-        )
+        Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
         initNewGameButton()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

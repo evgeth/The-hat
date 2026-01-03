@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
-import Firebase
+import FirebaseCore
+import FirebaseCrashlytics
+import FirebaseAnalytics
 
 
 @UIApplicationMain
@@ -20,13 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
-        
-        Fabric.with([Crashlytics.self])
-        
+
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
-        
-        Answers.logCustomEvent(withName: "App started", customAttributes: ["lang": Locale.preferredLanguages[0]])
+
+        Analytics.logEvent("app_started", parameters: ["lang": Locale.preferredLanguages[0]])
 
         let pageControl = UIPageControl.appearance()
         pageControl.pageIndicatorTintColor = UIColor.lightGray
