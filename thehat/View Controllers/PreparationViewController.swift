@@ -13,6 +13,7 @@ import FirebaseAnalytics
 final class PreparationViewController: UIViewController, UIPopoverPresentationControllerDelegate, ColorChangingViewDelegate, PopoverSaveDelegate {
     var gameInstance = GameSingleton.gameInstance
     private var defaultsService: DefaultsServiceProtocol = DefaultsService()
+    private var usedWordsService: UsedWordsServiceProtocol = UsedWordsService.shared
     @IBOutlet weak var listener: UILabel!
     @IBOutlet weak var speaker: UILabel!
     //    @IBOutlet weak var startImageView: UIImageView!
@@ -247,6 +248,11 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
             var history = defaultsService.gamesHistory
             history.append(GameHistoryItem(game: gameInstance))
             defaultsService.gamesHistory = history
+
+            // Mark all played words as used to avoid repetition in future games
+            let playedWords = gameInstance.rounds.flatMap { $0.guessedWords.map { $0.word } }
+            usedWordsService.markWordsAsUsed(playedWords)
+
             gameInstance.wordsInTheHat = 60
             gameInstance.reinitialize()
             performSegue(withIdentifier: "Results Segue", sender: nil)

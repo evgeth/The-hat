@@ -38,8 +38,15 @@ final class LocalWordsLoader: WordsLoaderProtocol {
         var list: [String] = []
         var localPoolWithDifficulty = localPool.filter { abs($0.complexity - averageDifficulty) <= 10 }
         localPoolWithDifficulty.shuffle()
-        
-        for word in localPoolWithDifficulty {
+
+        // Filter out recently used words to avoid repetition across games
+        let usedWords = UsedWordsService.shared.getUsedWords()
+        let freshWords = localPoolWithDifficulty.filter { !usedWords.contains($0.word) }
+
+        // Use fresh words first, fall back to used words if not enough
+        let wordsToUse = freshWords.count >= numberOfWordsRequired ? freshWords : localPoolWithDifficulty
+
+        for word in wordsToUse {
             list.append(word.word)
             if list.count == numberOfWordsRequired {
                 break
