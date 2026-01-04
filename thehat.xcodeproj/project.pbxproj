@@ -22,7 +22,6 @@
 		84C88BB927BE4F930072E0E7 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */; };
 		84C88BBB27BE4FB40072E0E7 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */; };
 		84C88BBE27BE50130072E0E7 /* DefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBD27BE50130072E0E7 /* DefaultsService.swift */; };
-		A1B2C3D527BE50200072E0E7 /* UsedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */; };
 		84C88BC027BE513A0072E0E7 /* GameHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */; };
 		84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC127BE54380072E0E7 /* ViewReusable.swift */; };
 		84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC327BE5C230072E0E7 /* Date + Extension.swift */; };
@@ -81,6 +80,7 @@
 		88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC581C333DDA00C4EB1F /* Localizable.strings */; };
 		9147375A351DD96BD7D4D26B /* Pods_thehatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */; };
 		986F5419A8192B7DA74015D4 /* Pods_thehat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DF9907B75648E0BE2D411E /* Pods_thehat.framework */; };
+		A1B2C3D527BE50200072E0E7 /* UsedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */; };
 		BE1EB3232F09A5FC00437C2F /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BE1EB3222F09A5FC00437C2F /* AppIcon.icon */; };
 		BE1EB3242F09B00000437C2F /* Excalifont-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE1EB3252F09B00000437C2F /* Excalifont-Regular.ttf */; };
 		BE1EB3262F09C00000437C2F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1EB3272F09C00000437C2F /* Colors.swift */; };
@@ -127,7 +127,6 @@
 		84C88BB827BE4F930072E0E7 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		84C88BBA27BE4FB40072E0E7 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		84C88BBD27BE50130072E0E7 /* DefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsService.swift; sourceTree = "<group>"; };
-		A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedWordsService.swift; sourceTree = "<group>"; };
 		84C88BBF27BE513A0072E0E7 /* GameHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryItem.swift; sourceTree = "<group>"; };
 		84C88BC127BE54380072E0E7 /* ViewReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReusable.swift; sourceTree = "<group>"; };
 		84C88BC327BE5C230072E0E7 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
@@ -188,6 +187,7 @@
 		88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderProtocol.swift; sourceTree = "<group>"; };
 		88DBAC5B1C333E1000C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.release.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.release.xcconfig"; sourceTree = "<group>"; };
+		A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedWordsService.swift; sourceTree = "<group>"; };
 		BE1EB3222F09A5FC00437C2F /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BE1EB3252F09B00000437C2F /* Excalifont-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Excalifont-Regular.ttf"; sourceTree = "<group>"; };
 		BE1EB3272F09C00000437C2F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -986,7 +986,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1013,7 +1013,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

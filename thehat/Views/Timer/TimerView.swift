@@ -32,7 +32,7 @@ class TimerView: UIView {
         if percent < 0 {
             AppColors.fail.setStroke()
         } else {
-            AppColors.primary.setStroke()
+            AppColors.primaryDark.setStroke()
         }
         bezierPath.stroke()
     }
