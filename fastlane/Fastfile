@@ -1,19 +1,38 @@
 default_platform(:ios)
 
+# Note: fastlane's built-in screenshots.html iterates a hardcoded device-name
+# table that ends at iPhone 15 Pro Max / iPad Pro 12.9" (6th gen) — anything
+# newer is silently dropped from the report. We don't try to monkey-patch it;
+# `make screenshots` runs `scripts/build_screenshot_index.rb` afterward to
+# produce a self-contained index.html that lists everything actually captured.
+#
+# `simctl list runtimes` and `xcodebuild -showdestinations` can disagree about
+# the iOS patch version (e.g. 26.4 vs 26.4.1). Fastlane builds its destination
+# string from simctl, so the resulting `OS=26.4` filter matches no destination
+# and xcodebuild fails before tests can run. Discover what xcodebuild itself
+# sees and pass it to capture_screenshots as `ios_version` so the two agree.
+def detect_ios_version_for(device)
+  out = `xcodebuild -showdestinations -workspace thehat.xcworkspace -scheme thehat 2>/dev/null`
+  versions = out.scan(/\{ platform:iOS Simulator,[^}]*OS:([\d.]+),\s*name:#{Regexp.escape(device)}\s*\}/).flatten
+  versions.max_by { |v| Gem::Version.new(v) }
+end
+
 platform :ios do
   desc "Generate App Store screenshots for all configured devices and locales"
   lane :screenshots do
     capture_screenshots(
       test_without_building: false,
       reinstall_app: true,
-      erase_simulator: false
+      erase_simulator: false,
+      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
     )
   end
 
   desc "Just capture (assume tests are already built)"
   lane :screenshots_fast do
     capture_screenshots(
-      test_without_building: true
+      test_without_building: true,
+      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
     )
   end
 
@@ -21,7 +40,8 @@ platform :ios do
   lane :screenshots_smoke do
     capture_screenshots(
       devices: ["iPhone 17 Pro Max"],
-      languages: ["en-US"]
+      languages: ["en-US"],
+      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
     )
   end
 end

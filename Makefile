@@ -19,9 +19,11 @@ screenshots-setup:
 
 screenshots: screenshots-setup
 	bundle exec fastlane screenshots
+	bundle exec ruby scripts/build_screenshot_index.rb
 
 screenshots-fast:
 	bundle exec fastlane screenshots_fast
+	bundle exec ruby scripts/build_screenshot_index.rb
 
 screenshots-open:
-	open fastlane/screenshots
+	open fastlane/screenshots/index.html
