@@ -1,0 +1,38 @@
+# Devices and locales for App Store screenshots.
+#
+# Apple now accepts:
+#   - 6.9" iPhone (iPhone 16/17 Pro Max)        — required
+#   - 13"  iPad   (iPad Pro 13-inch M4)         — required
+#
+# The 5.5" iPhone and iPad Pro (12.9-inch) (2nd generation) screenshots
+# Apple flagged in the 1.3 rejection are legacy slots. Modern Xcode no longer
+# ships their simulator runtimes. Easiest fix: in App Store Connect, delete the
+# legacy slots and supply only the modern device sizes below — App Store
+# Connect will display the modern screenshots on older devices automatically.
+#
+# To regenerate legacy screenshots anyway, install an older Xcode that ships
+# iOS 16/17 runtimes, then add "iPhone 8 Plus" / "iPad Pro (12.9-inch) (2nd
+# generation)" to the devices list below.
+
+devices([
+  "iPhone 17 Pro Max",
+  "iPad Pro 13-inch (M4)"
+])
+
+languages([
+  "en-US",
+  "ru-RU"
+])
+
+scheme("thehat")
+workspace("thehat.xcworkspace")
+output_directory("./fastlane/screenshots")
+
+clear_previous_screenshots(true)
+override_status_bar(true)
+concurrent_simulators(false)
+stop_after_first_error(false)
+
+launch_arguments([
+  "--snapshot"
+])
