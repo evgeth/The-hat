@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.tintColor = AppColors.primaryDark
         }
 
+        ScreenshotMode.applyIfRequested()
+
         return true
     }
 

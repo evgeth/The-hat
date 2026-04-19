@@ -1,0 +1,27 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate App Store screenshots for all configured devices and locales"
+  lane :screenshots do
+    capture_screenshots(
+      test_without_building: false,
+      reinstall_app: true,
+      erase_simulator: false
+    )
+  end
+
+  desc "Just capture (assume tests are already built)"
+  lane :screenshots_fast do
+    capture_screenshots(
+      test_without_building: true
+    )
+  end
+
+  desc "Smoke test: one device, English only — fast verification of the pipeline"
+  lane :screenshots_smoke do
+    capture_screenshots(
+      devices: ["iPhone 17 Pro Max"],
+      languages: ["en-US"]
+    )
+  end
+end
