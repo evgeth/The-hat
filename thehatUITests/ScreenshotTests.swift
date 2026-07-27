@@ -2,10 +2,17 @@ import XCTest
 
 final class ScreenshotTests: XCTestCase {
 
+    // Must be the *same* instance throughout: `setupSnapshot` appends
+    // -AppleLanguages / -AppleLocale / -FASTLANE_SNAPSHOT to the instance it is
+    // handed, and `launchArguments` is per-instance. Launching a freshly
+    // constructed XCUIApplication silently discards them, and every locale ends
+    // up rendering in the simulator's default language.
+    private var app: XCUIApplication!
+
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
-        let app = XCUIApplication()
+        app = XCUIApplication()
         setupSnapshot(app)
     }
 
@@ -35,12 +42,13 @@ final class ScreenshotTests: XCTestCase {
     }
 
     private func launch(screen: String?) {
-        let app = XCUIApplication()
-        var args = ["--snapshot"]
+        // Snapfile also supplies --snapshot via launch_arguments; ScreenshotMode
+        // matches on `contains`, so a duplicate is harmless and keeps the test
+        // working even if that Snapfile entry goes away.
+        app.launchArguments.append("--snapshot")
         if let screen = screen {
-            args.append("--snapshot-screen=\(screen)")
+            app.launchArguments.append("--snapshot-screen=\(screen)")
         }
-        app.launchArguments += args
         app.launch()
     }
 }

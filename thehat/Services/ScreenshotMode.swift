@@ -21,14 +21,28 @@ enum ScreenshotMode {
         return nil
     }
 
+    /// Reads a comma-separated list from Localizable.strings. Screenshot sample
+    /// data has to follow the locale under capture, otherwise the ru-RU App
+    /// Store screenshots show English player names and words.
+    private static func localizedList(_ key: String, fallback: [String]) -> [String] {
+        let raw = LS.localizedString(forKey: key)
+        // `localizedString(forKey:)` echoes the key back when it is missing.
+        guard raw != key else { return fallback }
+        let items = raw.split(separator: ",").map {
+            $0.trimmingCharacters(in: .whitespaces)
+        }.filter { !$0.isEmpty }
+        return items.isEmpty ? fallback : items
+    }
+
     private static func primeGameForScreenshots() {
         let game = GameSingleton.gameInstance
-        game.players = [
-            Player(name: "Alice"),
-            Player(name: "Bob"),
-            Player(name: "Carol"),
-            Player(name: "David")
-        ]
+        // primeResults() and the pair indices below assume exactly four players,
+        // so a mistranslated list must not shorten the roster.
+        let defaultNames = ["Alice", "Bob", "Carol", "David"]
+        let names = localizedList("SCREENSHOT_PLAYERS", fallback: defaultNames)
+        game.players = defaultNames.indices.map {
+            Player(name: $0 < names.count ? names[$0] : defaultNames[$0])
+        }
         game.roundDuration = 30
         game.difficulty = 50
         game.wordsInTheHat = 60
@@ -36,6 +50,23 @@ enum ScreenshotMode {
         game.previousPair = (0, 0)
         game.playingPair = (0, 1)
         game.roundNumber = 0
+        primeWordPool()
+    }
+
+    /// `Game.loadWords()` builds the pool on a background queue and only flips
+    /// `didWordsLoad` afterwards, so a screenshot can outrun it: `updatePool()`
+    /// bails early, the hat stays empty ("0 words left"), and the round screen
+    /// has nothing to show and falls back to the menu. Screenshot runs are
+    /// single-shot, so load synchronously and skip the race entirely.
+    private static func primeWordPool() {
+        let game = GameSingleton.gameInstance
+        if game.wordsLoader == nil {
+            game.wordsLoader = LocalWordsLoader()
+        }
+        game.areWordsLoading = false
+        game.didWordsLoad = true
+        game.isPoolShouldBeUpdated = true
+        game.updatePool()
     }
 
     private static func presentScreen(_ name: String) {
@@ -71,11 +102,19 @@ enum ScreenshotMode {
     }
 
     private static func primeRound() {
+        // The pool is already loaded synchronously by primeGameForScreenshots().
         let game = GameSingleton.gameInstance
-        game.loadWords()
-        game.isPoolShouldBeUpdated = true
-        game.updatePool()
         game.initFirstRound()
+
+        // `getWord()` draws with randomElement(), so the word featured in the
+        // App Store screenshot would otherwise be a fresh lottery over the whole
+        // pool on every run. Pin a curated one so runs are reproducible and no
+        // unfortunate entry can end up on the store listing. Safe to narrow the
+        // pool here: the round screen shows the word, not a remaining count.
+        let word = LS.localizedString(forKey: "SCREENSHOT_ROUND_WORD")
+        if word != "SCREENSHOT_ROUND_WORD" && !word.isEmpty {
+            game.newWords = [word]
+        }
     }
 
     private static func primeResults() {
@@ -90,7 +129,10 @@ enum ScreenshotMode {
         game.players[3].guessed = 4
 
         let previousRound = Round(number: 1, speaker: game.players[0], listener: game.players[1])
-        let sample = ["river", "thunder", "garden", "library", "mountain", "harbor", "candle"]
+        let sample = localizedList(
+            "SCREENSHOT_SAMPLE_WORDS",
+            fallback: ["river", "thunder", "garden", "library", "mountain", "harbor", "candle"]
+        )
         previousRound.guessedWords = sample.map { Word(word: $0) }
         for word in previousRound.guessedWords {
             word.state = State.guessed
