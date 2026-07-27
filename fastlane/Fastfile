@@ -5,43 +5,130 @@ default_platform(:ios)
 # newer is silently dropped from the report. We don't try to monkey-patch it;
 # `make screenshots` runs `scripts/build_screenshot_index.rb` afterward to
 # produce a self-contained index.html that lists everything actually captured.
-#
-# `simctl list runtimes` and `xcodebuild -showdestinations` can disagree about
-# the iOS patch version (e.g. 26.4 vs 26.4.1). Fastlane builds its destination
-# string from simctl, so the resulting `OS=26.4` filter matches no destination
-# and xcodebuild fails before tests can run. Discover what xcodebuild itself
-# sees and pass it to capture_screenshots as `ios_version` so the two agree.
-def detect_ios_version_for(device)
-  out = `xcodebuild -showdestinations -workspace thehat.xcworkspace -scheme thehat 2>/dev/null`
-  versions = out.scan(/\{ platform:iOS Simulator,[^}]*OS:([\d.]+),\s*name:#{Regexp.escape(device)}\s*\}/).flatten
-  versions.max_by { |v| Gem::Version.new(v) }
+
+# ----------------------------------------------------------------------------
+# Xcode 26 / fastlane 2.233.0 compatibility patches
+# ----------------------------------------------------------------------------
+
+# (1) The simctl gem (1.6.10) reads `xcrun simctl list -j ...` output as
+#     ASCII-8BIT, then hands it to JSON.parse. Xcode 26 ships an "iPhone Xʀ"
+#     devicetype whose bundle path contains a non-ASCII ʀ (UTF-8 0xCA 0x80),
+#     and JSON.parse blows up with Encoding::InvalidByteSequenceError before
+#     any of our code runs. Force UTF-8 on the output.
+require 'simctl/executor'
+module SimCtl
+  class Executor
+    class << self
+      def execute(command)
+        command = command.flatten.join(' ')
+        $stderr.puts command if ENV['SIMCTL_DEBUG']
+        Open3.popen3(command) do |_stdin, stdout, stderr, result|
+          output = stdout.read.force_encoding('UTF-8')
+          if result.value.to_i > 0
+            output = stderr.read.force_encoding('UTF-8') if output.empty?
+            raise output
+          end
+          return unless block_given?
+          if output.start_with?('[', '{')
+            yield JSON.parse(output)
+          else
+            yield output.chomp
+          end
+        end
+      end
+    end
+  end
 end
+
+# (2) fastlane snapshot's `get_device_type_with_simctl` walks
+#     `SimCtl::Device#devicetype`, which silently falls back to the identifier
+#     *string* when the gem's DeviceType cache doesn't recognize the device.
+#     On Xcode 26 that fallback triggers for every new device (iPhone 17*,
+#     iPad Pro M4/M5), and the downstream code crashes with
+#     `undefined method 'name' for String`. Skip the simctl round-trip
+#     entirely: fastlane only uses the result for an iPhone/iPad/Apple TV/
+#     Apple Watch family check — our human-readable device names already
+#     satisfy that.
+require 'snapshot/test_command_generator'
+Snapshot::TestCommandGenerator.define_singleton_method(:get_device_type_with_simctl) do |device_names|
+  device_names
+end
+
+# (3) Multiple iOS runtimes can share the same "iOS-26-4" identifier while
+#     reporting different patch versions (26.4 vs 26.4.1). `simctl list
+#     devices` renders both under a single `-- iOS 26.4 --` header, so
+#     fastlane_core's DeviceManager records the simulator's os_version as
+#     "26.4"; `xcodebuild -showdestinations` enumerates the same sim as
+#     OS=26.4.1. As a result no name+OS string fastlane builds is ever
+#     accepted by xcodebuild ("Unable to find a device matching the provided
+#     destination specifier"). Address simulators by UDID instead — the IDs
+#     come straight from `xcodebuild -showdestinations` so both sides agree.
+#     Use `prepend` because fastlane's action layer re-imports snapshot classes
+#     and re-defining the singleton method directly gets overwritten.
+module DestinationOverride
+  DESTINATIONS_CACHE = []
+
+  def xcodebuild_destinations
+    return DESTINATIONS_CACHE unless DESTINATIONS_CACHE.empty?
+    out = `xcodebuild -showdestinations -workspace thehat.xcworkspace -scheme thehat 2>/dev/null`.force_encoding('UTF-8')
+    out.scan(/\{ platform:iOS Simulator,[^}]*id:([0-9A-F-]+),[^}]*OS:([\d.]+),\s*name:([^}]+?)\s*\}/).each do |id, os, name|
+      DESTINATIONS_CACHE << { id: id, os: Gem::Version.new(os), name: name }
+    end
+    DESTINATIONS_CACHE
+  end
+
+  def xcodebuild_udid_for(device_name)
+    match = xcodebuild_destinations
+      .select { |d| d[:name] == device_name }
+      .max_by { |d| d[:os] }
+    match && match[:id]
+  end
+
+  def destination(devices)
+    return ["-destination 'platform=macOS'"] if devices.first.to_s =~ /^Mac/
+    os = case devices.first.to_s
+         when /^Apple TV/ then 'tvOS'
+         when /^Apple Watch/ then 'watchOS'
+         else 'iOS'
+         end
+    destinations = devices.map do |name|
+      udid = xcodebuild_udid_for(name)
+      Fastlane::UI.user_error!("No simulator UDID found for device '#{name}' in xcodebuild destinations") unless udid
+      "-destination 'platform=#{os} Simulator,id=#{udid}'"
+    end
+    [destinations.join(' ')]
+  end
+end
+Snapshot::TestCommandGenerator.singleton_class.prepend(DestinationOverride)
+
+# ----------------------------------------------------------------------------
+# Lanes
+# ----------------------------------------------------------------------------
 
 platform :ios do
   desc "Generate App Store screenshots for all configured devices and locales"
   lane :screenshots do
+    # We address simulators by UDID (see destination patch above) so a single
+    # capture_screenshots call across devices on different runtimes works fine.
+    # `reinstall_app: true` would trigger an interactive "App Identifier:"
+    # prompt under non-interactive runs, so leave it off — the build already
+    # re-installs the app each time.
     capture_screenshots(
       test_without_building: false,
-      reinstall_app: true,
-      erase_simulator: false,
-      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
+      erase_simulator: false
     )
   end
 
   desc "Just capture (assume tests are already built)"
   lane :screenshots_fast do
-    capture_screenshots(
-      test_without_building: true,
-      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
-    )
+    capture_screenshots(test_without_building: true)
   end
 
   desc "Smoke test: one device, English only — fast verification of the pipeline"
   lane :screenshots_smoke do
     capture_screenshots(
       devices: ["iPhone 17 Pro Max"],
-      languages: ["en-US"],
-      ios_version: detect_ios_version_for("iPhone 17 Pro Max")
+      languages: ["en-US"]
     )
   end
 end

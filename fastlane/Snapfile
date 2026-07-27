@@ -2,7 +2,13 @@
 #
 # Apple now accepts:
 #   - 6.9" iPhone (iPhone 16/17 Pro Max)        — required
-#   - 13"  iPad   (iPad Pro 13-inch M4)         — required
+#   - 13"  iPad   (iPad Pro 13-inch)            — required
+#
+# Device names track whatever simulators the installed Xcode ships, and Apple
+# renames the iPad generation every cycle (M4 under Xcode 26.1, M5 under 26.3).
+# If a run aborts with "not in list of available simulators", take the current
+# name from that error message (or `xcrun simctl list devicetypes`) and update
+# the list below — the App Store slot is defined by the 13" size, not the chip.
 #
 # The 5.5" iPhone and iPad Pro (12.9-inch) (2nd generation) screenshots
 # Apple flagged in the 1.3 rejection are legacy slots. Modern Xcode no longer
@@ -16,7 +22,7 @@
 
 devices([
   "iPhone 17 Pro Max",
-  "iPad Pro 13-inch (M4)"
+  "iPad Pro 13-inch (M5)"
 ])
 
 languages([

@@ -8,6 +8,15 @@
 
 require 'cgi'
 require 'pathname'
+require 'uri'
+
+# Encode a relative path for use as an <img src>. File names contain spaces
+# and parens ("iPad Pro 13-inch (M4)-…") which file:// URLs treat as invalid,
+# so the browser silently fails to load them. Encode each segment separately
+# so the forward slash between locale/ and filename is preserved.
+def url_encode_path(path)
+  path.split('/').map { |seg| URI::DEFAULT_PARSER.escape(seg) }.join('/')
+end
 
 ROOT = Pathname.new(File.expand_path('../fastlane/screenshots', __dir__))
 abort "No screenshots directory at #{ROOT}" unless ROOT.directory?
@@ -60,7 +69,7 @@ by_locale.sort.each do |locale, devices|
     html << "    <h3>#{CGI.escapeHTML(device)}</h3>\n"
     html << "    <div class=\"device-row\">\n"
     shots.sort_by { |s| s[:name] }.each do |shot|
-      html << "      <div class=\"shot\"><img src=\"#{CGI.escapeHTML(shot[:file])}\" alt=\"#{CGI.escapeHTML(shot[:name])}\"><div class=\"label\">#{CGI.escapeHTML(shot[:name])}</div></div>\n"
+      html << "      <div class=\"shot\"><img src=\"#{CGI.escapeHTML(url_encode_path(shot[:file]))}\" alt=\"#{CGI.escapeHTML(shot[:name])}\"><div class=\"label\">#{CGI.escapeHTML(shot[:name])}</div></div>\n"
     end
     html << "    </div>\n"
   end
