@@ -7,7 +7,8 @@ target 'thehat' do
 
   # Pods for thehat
   pod 'SwiftyJSON', '~> 5.0'
-  pod 'FirebaseAnalytics', '~> 11.0'
+  # Keep analytics without advertising identifiers or ad conversion frameworks.
+  pod 'FirebaseAnalytics/Core', '~> 11.0'
   pod 'FirebaseCrashlytics', '~> 11.0'
 
   target 'thehatTests' do

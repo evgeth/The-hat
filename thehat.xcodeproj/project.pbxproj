@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */; };
 		6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713D772386750B5F7713E91 /* ScreenshotMode.swift */; };
 		7184F8408D0E917DA75F289A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */; };
 		7E778A9524EF38E67AAF4305 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42A5297DA08739418BB994BE /* Foundation.framework */; };
@@ -208,6 +209,7 @@
 		BE1EB3272F09C00000437C2F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		D3FF98228F470861580F36EC /* ScreenshotTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.release.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -369,6 +371,7 @@
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
 				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
 				8847B0371C44349C008497E2 /* StoreKit.framework */,
+				F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */,
 			);
 			path = thehat;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				8847AFFE1C3BC266008497E2 /* results.png in Resources */,
 				889325061AE41C3D009B68B2 /* Images.xcassets in Resources */,
 				834859D9245F75B100DD4772 /* telegram.png in Resources */,
+				521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
