@@ -15,7 +15,7 @@ UI_TEST_TARGET_NAME = 'thehatUITests'
 UI_TEST_DIR = File.expand_path('../thehatUITests', __dir__)
 SCREENSHOT_MODE_PATH = 'thehat/Services/ScreenshotMode.swift'
 TEAM_ID = 'DSQACR84TV'
-DEPLOYMENT_TARGET = '12.0'
+DEPLOYMENT_TARGET = '15.0'
 SWIFT_VERSION = '5.0'
 
 project = Xcodeproj::Project.open(PROJECT_PATH)
