@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4091F2BF261F3106E501D8CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C531650477AD57B3D91950A /* SceneDelegate.swift */; };
+		521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */; };
+		6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713D772386750B5F7713E91 /* ScreenshotMode.swift */; };
+		7184F8408D0E917DA75F289A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */; };
+		7E778A9524EF38E67AAF4305 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42A5297DA08739418BB994BE /* Foundation.framework */; };
 		8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */; };
 		8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346E1EC238CCA8B00A56FEB /* StoreReviewHelper.swift */; };
 		834859D9245F75B100DD4772 /* telegram.png in Resources */ = {isa = PBXBuildFile; fileRef = 834859D8245F75B100DD4772 /* telegram.png */; };
@@ -84,6 +89,7 @@
 		BE1EB3232F09A5FC00437C2F /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BE1EB3222F09A5FC00437C2F /* AppIcon.icon */; };
 		BE1EB3242F09B00000437C2F /* Excalifont-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE1EB3252F09B00000437C2F /* Excalifont-Regular.ttf */; };
 		BE1EB3262F09C00000437C2F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1EB3272F09C00000437C2F /* Colors.swift */; };
+		CE333251A15A63F770964AA2 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF98228F470861580F36EC /* ScreenshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,11 +100,21 @@
 			remoteGlobalIDString = 889324F81AE41C3D009B68B2;
 			remoteInfo = thehat;
 		};
+		D934619C7B2B48667A0BF8B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 889324F11AE41C3D009B68B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 889324F81AE41C3D009B68B2;
+			remoteInfo = thehat;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C531650477AD57B3D91950A /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DF9907B75648E0BE2D411E /* Pods_thehat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42A5297DA08739418BB994BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		455ADE227E2D6BB3C682BC9A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		652686D9F328666A0EFB0246 /* Pods-thehat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.debug.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.debug.xcconfig"; sourceTree = "<group>"; };
 		75C500F7551685DAC4E59529 /* Pods-thehatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.debug.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8346E1EA238CBB0700A56FEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -187,10 +203,15 @@
 		88DBAC481C333ACC00C4EB1F /* WordsLoaderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsLoaderProtocol.swift; sourceTree = "<group>"; };
 		88DBAC5B1C333E1000C4EB1F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F25781847BACF6A06AD5E20 /* Pods-thehat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehat.release.xcconfig"; path = "Target Support Files/Pods-thehat/Pods-thehat.release.xcconfig"; sourceTree = "<group>"; };
+		A11C475ECDC9E07EAEF00D9F /* thehatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = thehatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedWordsService.swift; sourceTree = "<group>"; };
+		B713D772386750B5F7713E91 /* ScreenshotMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotMode.swift; sourceTree = "<group>"; };
 		BE1EB3222F09A5FC00437C2F /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BE1EB3252F09B00000437C2F /* Excalifont-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Excalifont-Regular.ttf"; sourceTree = "<group>"; };
 		BE1EB3272F09C00000437C2F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		D3FF98228F470861580F36EC /* ScreenshotTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F7CCD01033C8621462A4A38D /* Pods-thehatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thehatTests.release.xcconfig"; path = "Target Support Files/Pods-thehatTests/Pods-thehatTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +233,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98B317AF425A187BA072AF11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E778A9524EF38E67AAF4305 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -220,8 +249,17 @@
 			children = (
 				30DF9907B75648E0BE2D411E /* Pods_thehat.framework */,
 				2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */,
+				2D17631F4898B604AED2BB00 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2D17631F4898B604AED2BB00 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				42A5297DA08739418BB994BE /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		56D117D1B4EB528D2A31DA46 /* Pods */ = {
@@ -286,6 +324,7 @@
 			children = (
 				84C88BBD27BE50130072E0E7 /* DefaultsService.swift */,
 				A1B2C3D427BE50200072E0E7 /* UsedWordsService.swift */,
+				B713D772386750B5F7713E91 /* ScreenshotMode.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -298,6 +337,7 @@
 				889324FA1AE41C3D009B68B2 /* Products */,
 				56D117D1B4EB528D2A31DA46 /* Pods */,
 				264E9323CE36446A1A3C31A2 /* Frameworks */,
+				F4D40753B30B6EDD0E09AF28 /* thehatUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +346,7 @@
 			children = (
 				889324F91AE41C3D009B68B2 /* thehat.app */,
 				8893250E1AE41C3D009B68B2 /* thehatTests.xctest */,
+				A11C475ECDC9E07EAEF00D9F /* thehatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,6 +373,8 @@
 				889324FC1AE41C3D009B68B2 /* Supporting Files */,
 				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
 				8847B0371C44349C008497E2 /* StoreKit.framework */,
+				F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */,
+				2C531650477AD57B3D91950A /* SceneDelegate.swift */,
 			);
 			path = thehat;
 			sourceTree = "<group>";
@@ -451,9 +494,38 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F4D40753B30B6EDD0E09AF28 /* thehatUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D3FF98228F470861580F36EC /* ScreenshotTests.swift */,
+				C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */,
+				455ADE227E2D6BB3C682BC9A /* Info.plist */,
+			);
+			name = thehatUITests;
+			path = thehatUITests;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		546F6052F026CB7549AB6002 /* thehatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67F860AA556847916D655722 /* Build configuration list for PBXNativeTarget "thehatUITests" */;
+			buildPhases = (
+				565EA4A8F0F15F8D20783FB0 /* Sources */,
+				98B317AF425A187BA072AF11 /* Frameworks */,
+				B8480A6971BA987572B3F22E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52CAADC141D664C8113A3569 /* PBXTargetDependency */,
+			);
+			name = thehatUITests;
+			productName = thehatUITests;
+			productReference = A11C475ECDC9E07EAEF00D9F /* thehatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		889324F81AE41C3D009B68B2 /* thehat */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 889325181AE41C3D009B68B2 /* Build configuration list for PBXNativeTarget "thehat" */;
@@ -534,6 +606,7 @@
 			targets = (
 				889324F81AE41C3D009B68B2 /* thehat */,
 				8893250D1AE41C3D009B68B2 /* thehatTests */,
+				546F6052F026CB7549AB6002 /* thehatUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -571,10 +644,18 @@
 				8847AFFE1C3BC266008497E2 /* results.png in Resources */,
 				889325061AE41C3D009B68B2 /* Images.xcassets in Resources */,
 				834859D9245F75B100DD4772 /* telegram.png in Resources */,
+				521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8893250C1AE41C3D009B68B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8480A6971BA987572B3F22E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -696,6 +777,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		565EA4A8F0F15F8D20783FB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE333251A15A63F770964AA2 /* ScreenshotTests.swift in Sources */,
+				7184F8408D0E917DA75F289A /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		889324F51AE41C3D009B68B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -745,6 +835,8 @@
 				88DBAC361C333AB300C4EB1F /* RoundViewController.swift in Sources */,
 				88DBAC3F1C333AC500C4EB1F /* GuessedWordCell.swift in Sources */,
 				84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */,
+				6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */,
+				4091F2BF261F3106E501D8CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +851,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		52CAADC141D664C8113A3569 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = thehat;
+			target = 889324F81AE41C3D009B68B2 /* thehat */;
+			targetProxy = D934619C7B2B48667A0BF8B7 /* PBXContainerItemProxy */;
+		};
 		889325101AE41C3D009B68B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 889324F81AE41C3D009B68B2 /* thehat */;
@@ -868,6 +966,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0D5C8DE2B27D124BABD3E830 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DSQACR84TV;
+				INFOPLIST_FILE = thehatUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dpfbop.thehatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = thehat;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		7C013A933789A0B99C1BE2C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DSQACR84TV;
+				INFOPLIST_FILE = thehatUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dpfbop.thehatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = thehat;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		889325161AE41C3D009B68B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -916,7 +1055,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -967,7 +1106,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -986,14 +1125,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/thehat",
 				);
 				INFOPLIST_FILE = thehat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dpfbop.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1013,14 +1152,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = DSQACR84TV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/thehat",
 				);
 				INFOPLIST_FILE = thehat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dpfbop.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1065,6 +1204,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		67F860AA556847916D655722 /* Build configuration list for PBXNativeTarget "thehatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C013A933789A0B99C1BE2C5 /* Release */,
+				0D5C8DE2B27D124BABD3E830 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		889324F41AE41C3D009B68B2 /* Build configuration list for PBXProject "thehat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

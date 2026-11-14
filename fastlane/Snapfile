@@ -1,0 +1,49 @@
+# Devices and locales for App Store screenshots.
+#
+# Apple now accepts:
+#   - 6.9" iPhone (iPhone 16/17 Pro Max)        — required
+#   - 13"  iPad   (iPad Pro 13-inch)            — required
+#
+# These are dedicated simulators that the Fastfile lanes create on demand
+# (see SCREENSHOT_SIMULATORS there), not the stock ones Xcode ships, so no
+# other project's test run can interfere with a capture. The lanes pass the
+# device list explicitly; it is repeated here so a bare `fastlane snapshot`
+# uses the same simulators. Keep both lists in sync.
+#
+# Apple renames the iPad generation every cycle (M4 under Xcode 26.1, M5 under
+# 26.3). If a run aborts with "has no '...' device type", take the current name
+# from `xcrun simctl list devicetypes` and update the Fastfile mapping — the
+# App Store slot is defined by the 13" size, not the chip.
+#
+# The 5.5" iPhone and iPad Pro (12.9-inch) (2nd generation) screenshots
+# Apple flagged in the 1.3 rejection are legacy slots. Modern Xcode no longer
+# ships their simulator runtimes. Easiest fix: in App Store Connect, delete the
+# legacy slots and supply only the modern device sizes below — App Store
+# Connect will display the modern screenshots on older devices automatically.
+#
+# To regenerate legacy screenshots anyway, install an older Xcode that ships
+# iOS 16/17 runtimes, then add "iPhone 8 Plus" / "iPad Pro (12.9-inch) (2nd
+# generation)" to the devices list below.
+
+devices([
+  "iPhone 17 Pro Max (The Hat)",
+  "iPad Pro 13-inch (M5) (The Hat)"
+])
+
+languages([
+  "en-US",
+  "ru-RU"
+])
+
+scheme("thehat")
+workspace("thehat.xcworkspace")
+output_directory("./fastlane/screenshots")
+
+clear_previous_screenshots(true)
+override_status_bar(true)
+concurrent_simulators(false)
+stop_after_first_error(false)
+
+launch_arguments([
+  "--snapshot"
+])

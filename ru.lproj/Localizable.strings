@@ -84,3 +84,8 @@ add_words = "Add words";
 add_word = "Добавить слово";
 own_words = "Вы можете добавить свои слова в шляпу";
 empty_history_title = "Здесь будет отображаться история сыгранных партий";
+
+/* Sample data used only when the app runs in App Store screenshot mode. */
+SCREENSHOT_PLAYERS = "Алиса,Боб,Вера,Дмитрий";
+SCREENSHOT_SAMPLE_WORDS = "река,гроза,сад,библиотека,гора,гавань,свеча";
+SCREENSHOT_ROUND_WORD = "маяк";
