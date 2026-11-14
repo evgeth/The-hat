@@ -160,7 +160,7 @@ final class AddWordViewController: UIViewController, UIGestureRecognizerDelegate
 
     private func makeConstraints() {
         let safe = view.safeAreaLayoutGuide
-        let header = WarmUI.brandHeader(title: WarmUI.text("warm_words_heading"), subtitle: "", image: "WarmHat", width: view.bounds.width)
+        let header = WarmUI.brandHeader(title: WarmUI.text("warm_words_heading"), image: "WarmHat", width: view.bounds.width)
         header.translatesAutoresizingMaskIntoConstraints = false
         let scroll = UIScrollView(); scroll.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(scroll, at: 0)

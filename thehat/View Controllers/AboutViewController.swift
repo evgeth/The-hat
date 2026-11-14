@@ -43,7 +43,7 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
         tableView.separatorStyle = .none
         tableView.rowHeight = 56
         tableView.sectionFooterHeight = 4
-        tableView.tableHeaderView = WarmUI.brandHeader(title: WarmUI.text("warm_title"), subtitle: WarmUI.text("warm_tagline"), image: "WarmHat", width: tableView.bounds.width)
+        tableView.tableHeaderView = WarmUI.brandHeader(title: WarmUI.text("warm_title"), image: "WarmHat", width: tableView.bounds.width)
         tableView.accessibilityIdentifier = "about.links"
     }
 

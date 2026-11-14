@@ -51,8 +51,8 @@ round = "Партнёр угадал — нажмите «Угадал!». Пр�
 allow_skips = "Разрешить пропуски";
 skip_word = "Пропустить";
 skip_no_penalty = "Без штрафа";
-hold_to_end = "Удержите для конца хода";
-keep_holding = "Держите до конца хода";
+hold_to_end = "Удерживайте, чтобы закончить ход";
+keep_holding = "Нажмите и держите, чтобы закончить ход";
 round_not_guessed = "Не угадано";
 tap_to_return = "Нажмите, чтобы вернуть";
 overtime_actions = "Нажать — вернуть\nДержать — ошибка";
@@ -103,7 +103,6 @@ SCREENSHOT_ROUND_WORD = "маяк";
 
 /* Warm Modern presentation */
 warm_title = "Шляпа";
-warm_tagline = "Хорошие слова. Отличная компания.";
 warm_settings = "Настройки";
 warm_difficulty = "Сложность";
 warm_your_turn = "Ваш ход";

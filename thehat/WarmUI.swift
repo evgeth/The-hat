@@ -155,8 +155,6 @@ enum WarmUI {
         let title = label(text("warm_title"), size: 58, serif: true, centered: true)
         let hat = UIImageView(image: UIImage(named: "WarmHat"))
         hat.contentMode = .scaleAspectFit
-        let tagline = label(text("warm_tagline"), size: 21, serif: false, centered: true)
-        tagline.font = UIFont(name: "Georgia", size: 21)
         let linksCard = card()
         let line = divider()
         let book = symbol("book", fallback: "≡")
@@ -165,7 +163,7 @@ enum WarmUI {
         let chevron1 = label("›", size: 26, color: AppColors.primaryDark, centered: true)
         let chevron2 = label("›", size: 26, color: AppColors.primaryDark, centered: true)
         canvas.insertSubview(linksCard, at: 0)
-        [title, hat, tagline, line, book, history, arrow, chevron1, chevron2].forEach(canvas.addSubview)
+        [title, hat, line, book, history, arrow, chevron1, chevron2].forEach(canvas.addSubview)
         rules.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "menu.rules"
         about.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "menu.about"
         vc.historyButton.accessibilityIdentifier = "menu.history"
@@ -177,9 +175,8 @@ enum WarmUI {
             let unit = r.height / 840
             func y(_ value: CGFloat) -> CGFloat { r.minY + value * unit }
             vc.languageButton.frame = CGRect(x: r.maxX - 136, y: y(10), width: 136, height: 36)
-            title.frame = CGRect(x: r.minX, y: y(90), width: r.width, height: min(76, 80 * unit))
-            hat.frame = CGRect(x: r.minX + 28, y: y(180), width: r.width - 56, height: 265 * unit)
-            tagline.frame = CGRect(x: r.minX, y: y(455), width: r.width, height: 58 * unit)
+            title.frame = CGRect(x: r.minX, y: y(100), width: r.width, height: min(76, 80 * unit))
+            hat.frame = CGRect(x: r.minX + 28, y: y(194), width: r.width - 56, height: 305 * unit)
             vc.newGameView.frame = CGRect(x: r.minX, y: y(535), width: r.width, height: 76 * unit)
             layoutAction(vc.newGameView, label: vc.newGameLabel, hint: vc.holdToStartLabel)
             arrow.frame = CGRect(x: r.maxX - 55, y: y(548), width: 40, height: 46 * unit)
@@ -380,7 +377,8 @@ enum WarmUI {
             layoutAction(vc.redErrorView, label: vc.errorLabel, symbol: cross)
             cross.frame = CGRect(x: 8, y: 6, width: width - 16, height: 29)
             vc.errorLabel.frame = CGRect(x: 6, y: 35, width: width - 12, height: 38)
-            vc.actionHint.frame = CGRect(x: 6, y: 73, width: width - 12, height: 30)
+            vc.actionHint.frame = CGRect(x: 6, y: vc.errorLabel.frame.maxY, width: width - 12,
+                                         height: vc.redErrorView.bounds.height - vc.errorLabel.frame.maxY - 3)
             layoutAction(guessed, label: vc.gotItLabel, symbol: check)
             guessed.bringSubviewToFront(check)
         }
@@ -465,7 +463,7 @@ final class WarmCanvas: UIView {
 
 extension WarmUI {
     /// Compact editorial header for scrollable secondary screens.
-    static func brandHeader(title: String, subtitle: String, image: String, width: CGFloat) -> UIView {
+    static func brandHeader(title: String, image: String, width: CGFloat) -> UIView {
         let host = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 154))
         let panel = card()
         let art = UIImageView(image: UIImage(named: image))
@@ -473,17 +471,15 @@ extension WarmUI {
         let heading = label(title, size: 30, serif: true)
         heading.adjustsFontSizeToFitWidth = true
         heading.minimumScaleFactor = 0.7
-        let detail = label(subtitle, size: 15, color: AppColors.textSecondary)
-        let copy = UIStackView(arrangedSubviews: [heading, detail]); copy.axis = .vertical; copy.spacing = 5
-        host.addSubview(panel); panel.addSubview(art); panel.addSubview(copy)
-        [panel, art, copy].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        host.addSubview(panel); panel.addSubview(art); panel.addSubview(heading)
+        [panel, art, heading].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         let panelWidth = panel.widthAnchor.constraint(equalTo: host.widthAnchor, constant: -40); panelWidth.priority = .defaultHigh
         NSLayoutConstraint.activate([
             panel.centerXAnchor.constraint(equalTo: host.centerXAnchor), panelWidth, panel.widthAnchor.constraint(lessThanOrEqualToConstant: 520),
             panel.topAnchor.constraint(equalTo: host.topAnchor, constant: 12), panel.bottomAnchor.constraint(equalTo: host.bottomAnchor, constant: -8),
             art.trailingAnchor.constraint(equalTo: panel.trailingAnchor, constant: -12), art.centerYAnchor.constraint(equalTo: panel.centerYAnchor),
             art.widthAnchor.constraint(equalTo: panel.widthAnchor, multiplier: 0.28), art.heightAnchor.constraint(equalTo: panel.heightAnchor, multiplier: 0.8),
-            copy.leadingAnchor.constraint(equalTo: panel.leadingAnchor, constant: 18), copy.trailingAnchor.constraint(equalTo: art.leadingAnchor, constant: -6), copy.centerYAnchor.constraint(equalTo: panel.centerYAnchor)
+            heading.leadingAnchor.constraint(equalTo: panel.leadingAnchor, constant: 18), heading.trailingAnchor.constraint(equalTo: art.leadingAnchor, constant: -6), heading.centerYAnchor.constraint(equalTo: panel.centerYAnchor)
         ])
         return host
     }
@@ -513,7 +509,7 @@ extension WarmUI {
         table.separatorInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
         table.tableFooterView = UIView()
         if #available(iOS 15.0, *) { table.sectionHeaderTopPadding = 0 }
-        let header = brandHeader(title: text("warm_scorecard"), subtitle: "", image: "WarmRulesResults", width: table.bounds.width)
+        let header = brandHeader(title: text("warm_scorecard"), image: "WarmRulesResults", width: table.bounds.width)
         table.tableHeaderView = header
         canvas.arrange = { host in table.frame = host.contentRect }
     }
