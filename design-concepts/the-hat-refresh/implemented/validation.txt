@@ -1,20 +1,17 @@
-Warm Modern — presentation-only correction
+The Hat — Warm Modern UI verification
 
-Original UX restored.
+Screens: Menu, Settings, Add words (including keyboard), Handoff, Play, Review, final scores (singles and pairs), History (empty and populated), About, and all seven Rules pages. The launch image uses the same hat as the menu.
 
-Verified by 3 passing iPhone UI tests on iOS 27:
-- A tap on Start does not begin a turn; the original hold duration still does.
-- Tapping Mistake does not end the turn; the original hold still does.
-- No pause action on Play.
-- End of turn returns directly to handoff; review is opened manually and Save dismisses it.
-- Setup retains the original difficulty picker and top confirmation action, with no new Edit mode or Continue button.
-- A normal launch displays the menu, and switching English to Russian and back updates the visible window.
+Rules: six transparent illustrations in thehat/Images.xcassets/WarmRules*.imageset, created with the built-in image generator. Each exact prompt is in ../rules/. The closing New Game page uses WarmHat. Native English and Russian text remains selectable by the app's language setting; the artwork contains no language-specific UI. The old phone frame and tutorial captures are no longer bundled.
 
-Source integrity check: all five original controllers match the pre-redesign revision b34e6b2 exactly after removing WarmUI presentation calls. Both storyboards, ColorChangingView, the game model and the custom-word controller match that revision byte for byte.
+Player rows: the badge occupies 32 points at x=14. The editable field starts at x=58 in the same content view, leaving a 12-point gap regardless of editing margins or cell reuse. The badge follows name changes. Existing text-field actions and reorder controls are retained.
 
-iOS 27 compatibility: added a single-window scene manifest and scene delegate. UIKit loads the same Main storyboard; the existing language switch and screenshot paths retain access to that window. This fixes the launch trap in UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption without adding game lifecycle actions.
+Checks: OriginalUXTests verifies hold-to-start, hold-for-mistake, no Play pause, manual review, setup controls and language switching. WholeAppVisualTests exercises the Rules pager and final action, About and secondary screens, and player names and the custom-word input with its keyboard. English and Russian screenshots come from running iPhone 17 Pro Max simulators; select a thumbnail for the full capture.
 
-Image asset: thehat/Images.xcassets/WarmHat.imageset/hat.png
-Created with the built-in imagegen tool; exact prompt: ../03-hat-illustration-prompt.txt
+Device build: Debug iphoneos, signed with the project's development team. The CLI deployment-target override is 15.0 for the installed Xcode; project deployment settings are unchanged. The single-window scene configuration supports iOS 27.
 
-Build validation uses IPHONEOS_DEPLOYMENT_TARGET=15.0 as a command-line override because the installed Xcode does not accept the existing iOS 12 deployment target. Project deployment settings are unchanged.
+Latest interaction checks (iPhone 17 Pro Max, iOS 27.2): tap outside a player field dismisses the keyboard; switching fields and tapping Done still work. The handoff count and menu have distinct frames. The primary label reads Hold to Start immediately. Both hold actions use elapsed time.
+
+Word review: a 31-word modal list was exercised with row insets, two status changes, scroll and Save. Correct is green (check), returned is warm grey (return arrow), and mistake is terracotta (cross). The Not guessed button uses the same neutral colour after time expires in either mode.
+
+Optional word skips default off at New Game. Checked a real setup-to-round flow and skip → guess → skip on a three-word hat: only the two skipped words return for the next turn; there is no deduction. An overtime return ends the turn without drawing a new word. Reference for the no-replacement default: https://ejudge.lksh.ru/assets/hat_rules.html (a player can return the word and give up the rest of the turn).

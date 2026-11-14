@@ -51,6 +51,10 @@ enum WarmUI {
         return label(fallback, size: 24, centered: true)
     }
     static func navigation(_ vc: UIViewController) {
+        if #available(iOS 14.0, *) {
+            vc.navigationItem.backButtonTitle = nil
+            vc.navigationItem.backButtonDisplayMode = .minimal
+        }
         let bar = vc.navigationController?.navigationBar
         bar?.tintColor = AppColors.primaryDark
         bar?.barTintColor = AppColors.background
@@ -162,6 +166,9 @@ enum WarmUI {
         let chevron2 = label("›", size: 26, color: AppColors.primaryDark, centered: true)
         canvas.insertSubview(linksCard, at: 0)
         [title, hat, tagline, line, book, history, arrow, chevron1, chevron2].forEach(canvas.addSubview)
+        rules.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "menu.rules"
+        about.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "menu.about"
+        vc.historyButton.accessibilityIdentifier = "menu.history"
         vc.newGameView.accessibilityIdentifier = "menu.play"
         vc.newGameLabel.accessibilityIdentifier = "menu.play.label"
         canvas.arrange = { [weak vc] c in
@@ -170,7 +177,7 @@ enum WarmUI {
             let unit = r.height / 840
             func y(_ value: CGFloat) -> CGFloat { r.minY + value * unit }
             vc.languageButton.frame = CGRect(x: r.maxX - 136, y: y(10), width: 136, height: 36)
-            title.frame = CGRect(x: r.minX, y: y(90), width: r.width, height: 76)
+            title.frame = CGRect(x: r.minX, y: y(90), width: r.width, height: min(76, 80 * unit))
             hat.frame = CGRect(x: r.minX + 28, y: y(180), width: r.width - 56, height: 265 * unit)
             tagline.frame = CGRect(x: r.minX, y: y(455), width: r.width, height: 58 * unit)
             vc.newGameView.frame = CGRect(x: r.minX, y: y(535), width: r.width, height: 76 * unit)
@@ -204,8 +211,13 @@ enum WarmUI {
         let settingsTitle = label(text("warm_settings"), size: 19, color: AppColors.primaryDark)
         settingsTitle.font = playersTitle.font
         let difficulty = label(text("warm_difficulty"), size: 16)
-        [playersTitle, settingsTitle, difficulty].forEach(canvas.addSubview)
-        let lines = (0..<3).map { _ in divider() }
+        let skips = label(text("allow_skips"), size: 16)
+        let toggle = vc.allowsSkippingSwitch
+        toggle.onTintColor = AppColors.primary
+        toggle.accessibilityLabel = skips.text
+        toggle.accessibilityIdentifier = "setup.allowSkips"
+        [playersTitle, settingsTitle, difficulty, skips, toggle].forEach(canvas.addSubview)
+        let lines = (0..<4).map { _ in divider() }
         lines.forEach(canvas.addSubview)
         [vc.wordsLabel!, vc.roundLabel!, vc.gameTypeLabel!].forEach {
             styleLabel($0, size: 16)
@@ -226,8 +238,8 @@ enum WarmUI {
         canvas.arrange = { [weak vc] c in
             guard let vc = vc else { return }
             let r = c.contentRect
-            let settingsHeight: CGFloat = min(300, r.height * 0.43)
-            let tableHeight = max(140, min(CGFloat(vc.players.count + 1) * 54, r.height - settingsHeight - 100))
+            let settingsHeight: CGFloat = min(350, max(260, r.height * 0.51))
+            let tableHeight = max(60, min(CGFloat(vc.players.count + 1) * 54, r.height - settingsHeight - 114))
             playersTitle.frame = CGRect(x: r.minX, y: r.minY + 8, width: r.width, height: 28)
             roster.frame = CGRect(x: r.minX, y: r.minY + 46, width: r.width, height: tableHeight)
             vc.playersTableView.frame = roster.frame.insetBy(dx: 5, dy: 4)
@@ -242,13 +254,17 @@ enum WarmUI {
             vc.roundLabel.frame = CGRect(x: inner.minX, y: inner.minY + row, width: inner.width - 160, height: row)
             vc.roundLengthLabel.frame = CGRect(x: inner.maxX - 151, y: inner.minY + row, width: 44, height: row)
             vc.roundLengthStepper.frame = CGRect(x: inner.maxX - 94, y: inner.minY + row + 9, width: 94, height: 32)
-            let pickerHeight = settingsHeight - 2 * row - 68
+            let pickerHeight = settingsHeight - 3 * row - 68
             difficulty.frame = CGRect(x: inner.minX, y: inner.minY + 2 * row, width: inner.width * 0.4, height: pickerHeight)
             vc.difficultyPicker.frame = CGRect(x: inner.minX + inner.width * 0.4, y: inner.minY + 2 * row, width: inner.width * 0.6, height: pickerHeight)
-            let lastY = inner.maxY - 48
+            let skipY = inner.maxY - 48
+            let lastY = skipY - 48
             vc.gameTypeLabel.frame = CGRect(x: inner.minX, y: lastY, width: inner.width * 0.36, height: 48)
             vc.gameTypeSegmentControl.frame = CGRect(x: inner.minX + inner.width * 0.38, y: lastY + 4, width: inner.width * 0.62, height: 40)
-            for (i, y) in [inner.minY + row, inner.minY + 2 * row, lastY - 4].enumerated() {
+            toggle.sizeToFit()
+            toggle.frame.origin = CGPoint(x: inner.maxX - toggle.bounds.width, y: skipY + (48 - toggle.bounds.height) / 2)
+            skips.frame = CGRect(x: inner.minX, y: skipY, width: inner.width - 68, height: 48)
+            for (i, y) in [inner.minY + row, inner.minY + 2 * row, lastY - 4, skipY].enumerated() {
                 lines[i].frame = CGRect(x: inner.minX, y: y, width: inner.width, height: 1)
             }
         }
@@ -327,21 +343,30 @@ enum WarmUI {
         vc.wordLabel.numberOfLines = 3
         styleLabel(vc.errorLabel, size: 26, serif: true, color: AppColors.surface)
         styleLabel(vc.gotItLabel, size: 26, serif: true, color: AppColors.surface)
-        actionSurface(vc.redErrorView, color: AppColors.fail)
+        let skipping = vc.gameInstance.allowsSkipping
+        let secondaryActionColor = skipping ? AppColors.returnedWord : AppColors.fail
+        actionSurface(vc.redErrorView, color: secondaryActionColor)
         actionSurface(guessed)
-        vc.redErrorView.startColor = AppColors.fail
-        vc.redErrorView.finishColor = AppColors.fail
+        vc.redErrorView.startColor = secondaryActionColor
+        vc.redErrorView.finishColor = UIColor(red: 0.41, green: 0.17, blue: 0.10, alpha: 1)
+        styleLabel(vc.actionHint, size: 13, color: AppColors.surface)
+        vc.actionHint.textAlignment = .center
+        vc.actionHint.accessibilityIdentifier = "round.actionHint"
+        vc.redErrorView.addSubview(vc.actionHint)
         let wordCard = card()
         wordCard.layer.shadowColor = AppColors.textPrimary.cgColor
         wordCard.layer.shadowOffset = CGSize(width: 0, height: 5)
         wordCard.layer.shadowOpacity = 0.04
         wordCard.layer.shadowRadius = 14
         canvas.insertSubview(wordCard, at: 0)
-        let cross = label("×", size: 42, color: AppColors.surface, centered: true)
+        let cross = vc.actionSymbol
+        styleLabel(cross, size: 32, color: AppColors.surface)
+        cross.textAlignment = .center
+        cross.isAccessibilityElement = false
         let check = label("✓", size: 36, color: AppColors.surface, centered: true)
         vc.redErrorView.addSubview(cross)
         guessed.addSubview(check)
-        vc.redErrorView.accessibilityIdentifier = "round.mistake"
+        if !skipping { vc.redErrorView.accessibilityIdentifier = "round.mistake" }
         vc.timerLabel.accessibilityIdentifier = "round.timer"
         vc.wordLabel.accessibilityIdentifier = "round.word"
         guessed.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "round.guessed"
@@ -360,6 +385,9 @@ enum WarmUI {
             vc.redErrorView.frame = CGRect(x: r.minX, y: r.maxY - 124, width: width, height: 112)
             guessed.frame = CGRect(x: r.minX + width + 14, y: r.maxY - 124, width: width, height: 112)
             layoutAction(vc.redErrorView, label: vc.errorLabel, symbol: cross)
+            cross.frame = CGRect(x: 8, y: 6, width: width - 16, height: 29)
+            vc.errorLabel.frame = CGRect(x: 6, y: 35, width: width - 12, height: 38)
+            vc.actionHint.frame = CGRect(x: 6, y: 73, width: width - 12, height: 30)
             layoutAction(guessed, label: vc.gotItLabel, symbol: check)
             guessed.bringSubviewToFront(check)
         }
@@ -379,55 +407,41 @@ enum WarmUI {
         vc.guessedWordsTableView.separatorInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
         vc.guessedWordsTableView.rowHeight = 58
         vc.guessedWordsTableView.tableFooterView = UIView()
-        vc.guessedWordsTableView.sectionHeaderHeight = 54
+        vc.guessedWordsTableView.sectionHeaderHeight = 0
+        vc.guessedWordsTableView.sectionFooterHeight = 0
+        let title = label(text("GUESSED_WORDS"), size: 30, serif: true)
+        let hint = label(text("review_instruction"), size: 16, color: AppColors.textSecondary)
+        title.accessibilityTraits.insert(.header)
+        [title, hint].forEach(canvas.addSubview)
         if #available(iOS 15.0, *) { vc.guessedWordsTableView.sectionHeaderTopPadding = 0 }
         vc.saveView.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "review.save"
         canvas.arrange = { [weak vc] c in
             guard let vc = vc else { return }
             let r = c.contentRect
-            if let header = vc.guessedWordsTableView.headerView(forSection: 0) {
-                header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-                header.textLabel?.textColor = AppColors.primaryDark
-            }
-            let height = min(CGFloat(vc.wordList.count) * 58 + 54, r.height - 120)
-            vc.guessedWordsTableView.frame = CGRect(x: r.minX, y: r.minY + 24, width: r.width, height: height)
+            title.frame = CGRect(x: r.minX, y: r.minY + 16, width: r.width, height: 44)
+            let hintHeight = ceil(hint.sizeThatFits(CGSize(width: r.width, height: .greatestFiniteMagnitude)).height)
+            hint.frame = CGRect(x: r.minX, y: title.frame.maxY + 3, width: r.width, height: hintHeight)
             vc.saveView.frame = CGRect(x: r.minX, y: r.maxY - 80, width: r.width, height: 70)
+            let top = hint.frame.maxY + 18
+            let height = min(CGFloat(vc.wordList.count) * 58, max(0, vc.saveView.frame.minY - 16 - top))
+            vc.guessedWordsTableView.frame = CGRect(x: r.minX, y: top, width: r.width, height: height)
             layoutAction(vc.saveView, label: vc.saveLabel)
         }
     }
 
     static func reviewCell(_ cell: GuessedWordCell, at indexPath: IndexPath) {
         styleLabel(cell.wordLabel, size: 19)
-        cell.wordStatus.font = .systemFont(ofSize: 27, weight: .medium)
+        cell.wordLabel.numberOfLines = 2
+        cell.wordStatus.font = .systemFont(ofSize: 18, weight: .semibold)
+        cell.wordStatus.textAlignment = .center
+        cell.wordStatus.layer.cornerRadius = 16
+        cell.wordStatus.clipsToBounds = true
+        cell.wordStatus.backgroundColor = cell.wordStatus.textColor.withAlphaComponent(0.12)
         cell.backgroundColor = AppColors.surface
         cell.accessibilityIdentifier = "review.word.\(indexPath.row)"
     }
     static func playerCell(_ cell: PlayerTableViewCell) {
-        cell.playerLabel.font = .systemFont(ofSize: 18, weight: .medium)
-        cell.playerLabel.textColor = AppColors.textPrimary
-        cell.backgroundColor = .clear
-        let avatar: UILabel
-        if let existing = cell.contentView.viewWithTag(9017) as? UILabel {
-            avatar = existing
-        } else {
-            avatar = label(size: 17, serif: true, centered: true)
-            avatar.tag = 9017
-            avatar.backgroundColor = AppColors.secondary
-            avatar.layer.cornerRadius = 16
-            avatar.clipsToBounds = true
-            avatar.translatesAutoresizingMaskIntoConstraints = false
-            cell.contentView.addSubview(avatar)
-            NSLayoutConstraint.activate([
-                avatar.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 14),
-                avatar.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
-                avatar.widthAnchor.constraint(equalToConstant: 32),
-                avatar.heightAnchor.constraint(equalToConstant: 32)
-            ])
-            for constraint in cell.contentView.constraints where constraint.firstItem as? UIView === cell.playerLabel && constraint.firstAttribute == .leading {
-                constraint.constant = 38
-            }
-        }
-        avatar.text = String((cell.playerLabel.text ?? "").prefix(1)).uppercased()
+        cell.applyWarmAppearance()
     }
     static func addPlayerCell(_ cell: UITableViewCell) {
         cell.backgroundColor = .clear
@@ -454,4 +468,87 @@ final class WarmCanvas: UIView {
     }
     required init?(coder: NSCoder) { fatalError("Use init(frame:)") }
     override func layoutSubviews() { super.layoutSubviews(); arrange?(self) }
+}
+
+extension WarmUI {
+    /// Compact editorial header for scrollable secondary screens.
+    static func brandHeader(title: String, subtitle: String, image: String, width: CGFloat) -> UIView {
+        let host = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 154))
+        let panel = card()
+        let art = UIImageView(image: UIImage(named: image))
+        art.contentMode = .scaleAspectFit
+        let heading = label(title, size: 30, serif: true)
+        heading.adjustsFontSizeToFitWidth = true
+        heading.minimumScaleFactor = 0.7
+        let detail = label(subtitle, size: 15, color: AppColors.textSecondary)
+        let copy = UIStackView(arrangedSubviews: [heading, detail]); copy.axis = .vertical; copy.spacing = 5
+        host.addSubview(panel); panel.addSubview(art); panel.addSubview(copy)
+        [panel, art, copy].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        let panelWidth = panel.widthAnchor.constraint(equalTo: host.widthAnchor, constant: -40); panelWidth.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            panel.centerXAnchor.constraint(equalTo: host.centerXAnchor), panelWidth, panel.widthAnchor.constraint(lessThanOrEqualToConstant: 520),
+            panel.topAnchor.constraint(equalTo: host.topAnchor, constant: 12), panel.bottomAnchor.constraint(equalTo: host.bottomAnchor, constant: -8),
+            art.trailingAnchor.constraint(equalTo: panel.trailingAnchor, constant: -12), art.centerYAnchor.constraint(equalTo: panel.centerYAnchor),
+            art.widthAnchor.constraint(equalTo: panel.widthAnchor, multiplier: 0.28), art.heightAnchor.constraint(equalTo: panel.heightAnchor, multiplier: 0.8),
+            copy.leadingAnchor.constraint(equalTo: panel.leadingAnchor, constant: 18), copy.trailingAnchor.constraint(equalTo: art.leadingAnchor, constant: -6), copy.centerYAnchor.constraint(equalTo: panel.centerYAnchor)
+        ])
+        return host
+    }
+
+    static func sectionHeading(_ text: String, width: CGFloat) -> UIView {
+        let host = UIView(); host.backgroundColor = AppColors.background
+        let title = label(text, size: 16, color: AppColors.primaryDark)
+        title.font = .systemFont(ofSize: 16, weight: .semibold)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        host.addSubview(title)
+        let titleWidth = title.widthAnchor.constraint(equalTo: host.widthAnchor, constant: -48)
+        titleWidth.priority = UILayoutPriority(999)
+        NSLayoutConstraint.activate([title.centerXAnchor.constraint(equalTo: host.centerXAnchor),
+            titleWidth, title.widthAnchor.constraint(lessThanOrEqualToConstant: 512),
+            title.topAnchor.constraint(equalTo: host.topAnchor), title.bottomAnchor.constraint(equalTo: host.bottomAnchor)])
+        return host
+    }
+}
+
+extension WarmUI {
+    static func scoreboard(_ vc: ResultsViewController) {
+        let table = vc.resultsTableView!
+        let canvas = install(on: vc, keeping: [table])
+        table.backgroundColor = .clear
+        table.rowHeight = 56
+        table.separatorColor = AppColors.separator
+        table.separatorInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        table.tableFooterView = UIView()
+        if #available(iOS 15.0, *) { table.sectionHeaderTopPadding = 0 }
+        let header = brandHeader(title: text("warm_scorecard"), subtitle: "", image: "WarmRulesResults", width: table.bounds.width)
+        table.tableHeaderView = header
+        canvas.arrange = { host in table.frame = host.contentRect }
+    }
+
+    private static func scoreColumns(_ labels: [UILabel], in cell: UITableViewCell, heading: Bool) {
+        let host = cell.contentView
+        guard host.viewWithTag(9080) == nil else { return }
+        labels.forEach { $0.removeFromSuperview(); NSLayoutConstraint.deactivate($0.constraints) }
+        host.subviews.forEach { $0.removeFromSuperview() }
+        let row = UIStackView(arrangedSubviews: labels); row.tag = 9080; row.spacing = 3
+        row.translatesAutoresizingMaskIntoConstraints = false; host.addSubview(row)
+        host.backgroundColor = heading ? AppColors.secondary : AppColors.surface
+        NSLayoutConstraint.activate([row.leadingAnchor.constraint(equalTo: host.leadingAnchor, constant: 12),
+            row.trailingAnchor.constraint(equalTo: host.trailingAnchor, constant: -12), row.topAnchor.constraint(equalTo: host.topAnchor), row.bottomAnchor.constraint(equalTo: host.bottomAnchor)])
+        for (i, label) in labels.enumerated() {
+            label.textColor = i == 3 || heading ? AppColors.primaryDark : AppColors.textPrimary
+            label.font = heading ? .systemFont(ofSize: 13, weight: .semibold) : (i == 3 ? displayFont(22) : .systemFont(ofSize: 17, weight: .medium))
+            label.numberOfLines = 1; label.textAlignment = i == 0 ? .left : .center
+            label.adjustsFontSizeToFitWidth = true; label.minimumScaleFactor = 0.73
+            label.lineBreakMode = .byTruncatingTail
+            if i > 0 { label.widthAnchor.constraint(equalTo: row.widthAnchor, multiplier: 0.18).isActive = true }
+        }
+    }
+    static func scoreHeader(_ cell: UITableViewCell) -> UITableViewCell {
+        scoreColumns(["warm_player_placeholder", "warm_explained", "warm_guessed", "warm_total"].map { label(text($0)) }, in: cell, heading: true)
+        return cell
+    }
+    static func scorePlayer(_ cell: PlayerResultCell) {
+        scoreColumns([cell.playerNameLabel, cell.playerExplainedLabel, cell.playerGuessedLabel, cell.playerSumLabel], in: cell, heading: false)
+    }
 }

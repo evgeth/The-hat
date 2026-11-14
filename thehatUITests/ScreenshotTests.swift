@@ -69,15 +69,18 @@ final class OriginalUXTests: XCTestCase {
         app.launch()
         let start = app.staticTexts["handoff.start.label"]
         XCTAssertTrue(start.waitForExistence(timeout: 10))
+        XCTAssertEqual(start.label, "Hold to Start")
         start.tap()
         XCTAssertFalse(app.staticTexts["round.word"].exists)
-        XCTAssertTrue(app.staticTexts["Hold to start"].exists)
+        XCTAssertEqual(start.label, "Hold to Start")
         start.press(forDuration: 2.0)
         XCTAssertTrue(app.staticTexts["round.word"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["round.pause"].exists)
         XCTAssertFalse(app.buttons["Pause"].exists)
         app.buttons["round.guessed"].tap()
+        XCTAssertEqual(app.staticTexts["round.actionHint"].label, "Hold to end turn")
         app.staticTexts["Mistake"].tap()
+        XCTAssertEqual(app.staticTexts["round.actionHint"].label, "Keep holding to end turn")
         XCTAssertTrue(app.staticTexts["round.word"].exists)
         app.staticTexts["Mistake"].press(forDuration: 0.8)
         XCTAssertTrue(start.waitForExistence(timeout: 5))
@@ -108,5 +111,187 @@ final class OriginalUXTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Шляпа"].waitForExistence(timeout: 5))
         app.buttons["Русский"].tap()
         XCTAssertTrue(app.staticTexts["The Hat"].waitForExistence(timeout: 5))
+    }
+}
+
+/// Exercise the real Rules pager and the secondary screens which previously
+/// retained the old design. Attachments are also the bilingual review gallery.
+final class WholeAppVisualTests: XCTestCase {
+    private func launch(_ language: String, screen: String) -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["--snapshot", "--snapshot-screen=\(screen)", "-AppleLanguages", "(\(language))", "-AppleLocale", language == "ru" ? "ru_RU" : "en_US"]
+        app.launch()
+        return app
+    }
+
+    private func capture(_ app: XCUIApplication, _ name: String) {
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
+    }
+
+    func testRulesPagesAndFinalAction() {
+        for language in ["en", "ru"] {
+            let app = launch(language, screen: "menu")
+            app.buttons["menu.rules"].tap()
+            for page in 1...7 {
+                let title = app.staticTexts["rules.title.\(page)"]
+                XCTAssertTrue(title.waitForExistence(timeout: 5))
+                XCTAssertGreaterThanOrEqual(title.frame.minX, 20, "Rule copy must stay inside the left margin")
+                XCTAssertLessThanOrEqual(title.frame.maxX, app.frame.maxX - 20, "Rule copy must stay inside the right margin")
+                capture(app, "warm-\(language)-rule-\(page)")
+                if page < 7 { app.swipeLeft() }
+            }
+            app.buttons["rules.newGame"].tap()
+            XCTAssertTrue(app.buttons["setup.done"].waitForExistence(timeout: 5))
+        }
+    }
+
+    func testPlayerNamesRemainAlignedAfterReorderAndModeChange() {
+        let app = launch("en", screen: "settings")
+        let table = app.tables["setup.players"]
+        let first = table.cells.element(boundBy: 0)
+        let third = table.cells.element(boundBy: 2)
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+        let handle = first.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5))
+        handle.press(forDuration: 0.8, thenDragTo: third.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.8)))
+        XCTAssertEqual(first.textFields.firstMatch.value as? String, "Bob")
+        app.buttons["Pairs"].tap()
+        let fields = table.textFields.matching(identifier: "setup.playerName")
+        XCTAssertEqual(fields.count, 4)
+        for cell in table.cells.allElementsBoundByIndex where cell.textFields.count > 0 {
+            XCTAssertGreaterThanOrEqual(cell.textFields.firstMatch.frame.minX - cell.frame.minX, 55)
+        }
+    }
+
+    func testNewGameOutsideTapAndHandoffNavigation() {
+        let app = launch("en", screen: "settings")
+        let names = app.tables["setup.players"].textFields.matching(identifier: "setup.playerName")
+        names.element(boundBy: 0).tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
+        names.element(boundBy: 1).tap()
+        names.element(boundBy: 1).typeText("son")
+        XCTAssertTrue((names.element(boundBy: 1).value as? String)?.contains("son") == true)
+        app.staticTexts["Players:"].tap()
+        let hidden = expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: app.keyboards.firstMatch)
+        wait(for: [hidden], timeout: 5)
+        names.element(boundBy: 0).tap()
+        app.buttons["setup.done"].tap()
+        XCTAssertTrue(app.textFields["words.field"].waitForExistence(timeout: 5))
+        for language in ["en", "ru"] {
+            let handoff = launch(language, screen: "preparation")
+            let count = handoff.staticTexts["handoff.wordsLeft"], close = handoff.buttons["handoff.menu"]
+            XCTAssertTrue(count.waitForExistence(timeout: 5)); XCTAssertTrue(close.exists)
+            XCTAssertLessThan(count.frame.maxX + 8, close.frame.minX)
+            capture(handoff, "warm-\(language)-preparation")
+            close.tap()
+            // Recent iOS presents the anchored options as a popover and
+            // dismisses it on outside tap instead of displaying Cancel.
+            XCTAssertTrue(handoff.buttons[language == "ru" ? "Завершить игру" : "Finish game"].waitForExistence(timeout: 5))
+        }
+    }
+
+    func testAllowSkipsThroughSetup() {
+        let app = launch("en", screen: "settings")
+        let toggle = app.switches["setup.allowSkips"]
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        app.buttons["setup.done"].tap()
+        app.navigationBars.buttons["Done"].tap()
+        app.staticTexts["handoff.start.label"].press(forDuration: 2)
+        XCTAssertTrue(app.buttons["round.skip"].waitForExistence(timeout: 5), app.debugDescription)
+    }
+
+    func testSkippedWordsReturnAfterTurnWithoutPenalty() {
+        let app = launch("en", screen: "round-skip")
+        let word = app.staticTexts["round.word"], skip = app.buttons["round.skip"]
+        XCTAssertTrue(skip.waitForExistence(timeout: 5))
+        let first = word.label
+        skip.tap()
+        let second = word.label
+        XCTAssertNotEqual(first, second)
+        app.buttons["round.guessed"].tap()
+        XCTAssertFalse([first, second].contains(word.label))
+        skip.tap()
+        let count = app.staticTexts["handoff.wordsLeft"]
+        XCTAssertTrue(count.waitForExistence(timeout: 5))
+        XCTAssertEqual(count.label, "2 words left")
+        app.buttons["handoff.review"].tap()
+        let rows = app.tables.cells
+        XCTAssertEqual(rows.count, 3)
+        XCTAssertEqual(rows.element(boundBy: 0).value as? String, "Back in the hat")
+        XCTAssertEqual(rows.element(boundBy: 1).value as? String, "Guessed")
+        XCTAssertEqual(rows.element(boundBy: 2).value as? String, "Back in the hat")
+    }
+
+    func testSkipDuringOvertimeEndsTurnWithoutNewDraw() {
+        let app = launch("en", screen: "round-skip-overtime")
+        let skip = app.buttons["round.skip"]
+        let changed = expectation(for: NSPredicate(format: "label == 'Not guessed'"), evaluatedWith: skip)
+        wait(for: [changed], timeout: 10)
+        capture(app, "warm-en-not-guessed")
+        skip.tap()
+        XCTAssertTrue(app.staticTexts["handoff.wordsLeft"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["handoff.wordsLeft"].label, "3 words left")
+    }
+
+    func testReviewSheetInsetsStatusChangesAndScroll() {
+        let app = launch("en", screen: "review-long")
+        app.buttons["handoff.review"].tap()
+        let table = app.tables.firstMatch
+        let first = table.cells.element(boundBy: 0)
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+        let title = first.staticTexts.firstMatch
+        XCTAssertGreaterThanOrEqual(title.frame.minX - table.frame.minX, 17)
+        XCTAssertLessThanOrEqual(first.staticTexts.element(boundBy: 1).frame.maxX, table.frame.maxX - 17)
+        XCTAssertEqual(first.value as? String, "Guessed")
+        first.tap(); XCTAssertEqual(first.value as? String, "Back in the hat")
+        first.tap(); XCTAssertEqual(first.value as? String, "Mistake")
+        table.swipeUp()
+        XCTAssertTrue(table.cells.containing(.staticText, identifier: "Long demonstration word 5").firstMatch.exists)
+        let save = app.buttons["review.save"]
+        XCTAssertGreaterThan(save.frame.minY, table.frame.maxY)
+        save.tap()
+        XCTAssertTrue(app.buttons["handoff.review"].waitForExistence(timeout: 5))
+    }
+
+    func testRosterSpacingAndCustomWordKeyboard() {
+        let app = launch("en", screen: "settings")
+        let cell = app.tables["setup.players"].cells.firstMatch
+        let name = cell.textFields["setup.playerName"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        XCTAssertGreaterThanOrEqual(name.frame.minX - cell.frame.minX, 55)
+        name.tap(); name.typeText(" Long Player Name")
+        XCTAssertGreaterThanOrEqual(name.frame.minX - cell.frame.minX, 55)
+        app.buttons["setup.done"].tap()
+        let field = app.textFields["words.field"]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap(); field.typeText("testword")
+        XCTAssertEqual(field.value as? String, "testword")
+        let addButton = app.buttons["words.add"]
+        XCTAssertLessThanOrEqual(addButton.frame.maxY, app.keyboards.firstMatch.frame.minY + 1)
+        addButton.tap()
+        XCTAssertTrue(app.staticTexts["Words in the hat: 61"].waitForExistence(timeout: 3), app.staticTexts.allElementsBoundByIndex.map { $0.label }.joined(separator: " | "))
+    }
+
+    func testAboutAndSecondaryScreens() {
+        for language in ["en", "ru"] {
+            let app = launch(language, screen: "menu")
+            app.buttons["menu.about"].tap()
+            XCTAssertTrue(app.tables["about.links"].waitForExistence(timeout: 5))
+            XCTAssertEqual(app.tables["about.links"].cells.count, 5)
+            capture(app, "warm-\(language)-about")
+            for screen in ["custom-words", "history-empty", "history", "scoreboard", "scoreboard-pairs", "settings"] {
+                let screenApp = launch(language, screen: screen)
+                switch screen {
+                case "custom-words": XCTAssertTrue(screenApp.textFields["words.field"].exists)
+                case "history-empty": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Пока нет игр" : "No games yet"].exists)
+                case "history": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Алиса" : "Alice"].exists)
+                case "scoreboard", "scoreboard-pairs": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Всего" : "Total"].exists)
+                default: XCTAssertTrue(screenApp.buttons["setup.done"].exists)
+                }
+                capture(screenApp, "warm-\(language)-\(screen)")
+            }
+        }
     }
 }

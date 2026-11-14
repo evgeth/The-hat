@@ -18,7 +18,7 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     var productRequest: SKProductsRequest!
     
     var titles = [
-        LS.localizedString(forKey: "social"),
+        LS.localizedString(forKey: "warm_about_links"),
         LS.localizedString(forKey: "developer"),
         LS.localizedString(forKey: "thanks")
     ]
@@ -39,6 +39,12 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "ABOUT"))
+        tableView.backgroundColor = AppColors.background
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 56
+        tableView.sectionFooterHeight = 4
+        tableView.tableHeaderView = WarmUI.brandHeader(title: WarmUI.text("warm_title"), subtitle: WarmUI.text("warm_tagline"), image: "WarmHat", width: tableView.bounds.width)
+        tableView.accessibilityIdentifier = "about.links"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,13 +87,8 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "About Cell") as! AboutTableViewCell
         let obj = rows[indexPath.section][indexPath.row]
-        cell.label.text = obj.0
-        if indexPath.section == 0 {
-            let imgtitle = obj.2 + ".png"
-            cell.img.image = UIImage(named: imgtitle)
-        } else if obj.1 == "tip"  {
-            cell.img.image = UIImage(named: "coffee.png")
-        }
+        let icons = [["square.and.arrow.up", "star"], ["paperplane"], ["book", "chevron.left.forwardslash.chevron.right"]]
+        cell.configure(title: obj.0, symbol: icons[indexPath.section][indexPath.row], fallback: obj.2)
         return cell
     }
     
@@ -99,6 +100,11 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
         return titles[section]
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        WarmUI.sectionHeading(titles[section], width: tableView.bounds.width)
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 40 }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return titles.count
     }

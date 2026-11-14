@@ -88,8 +88,7 @@ final class HistoryViewController: UIViewController {
 
 extension HistoryViewController {
     func set(data: [GameHistoryItem]) {
-        self.data = data
-        tableView.reloadData()
+        state = data.isEmpty ? .empty : .data(data)
     }
 }
 
@@ -112,14 +111,9 @@ extension HistoryViewController: UITableViewDataSource {
 
 extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UILabel()
-        header.backgroundColor = AppColors.background
-        header.font = UIFont(name: "Excalifont", size: 16)
-
-        header.textAlignment = .center
-        header.text = data[section].stringDate
-        return header
+        WarmUI.sectionHeading(data[section].stringDate, width: tableView.bounds.width)
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { 40 }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let item = data[section]
@@ -135,6 +129,8 @@ private extension HistoryViewController {
         tableView.delegate = self
         tableView.backgroundColor = AppColors.background
         tableView.register(cellClass: HistoryTableViewCell.self)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = true
         return tableView

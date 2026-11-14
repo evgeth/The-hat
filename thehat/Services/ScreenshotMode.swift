@@ -43,6 +43,10 @@ enum ScreenshotMode {
         game.players = defaultNames.indices.map {
             Player(name: $0 < names.count ? names[$0] : defaultNames[$0])
         }
+        // Deterministic sample names without overwriting saved players on disk.
+        var arguments = UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)
+        arguments[UserDefaultsKeys.SAVED_PLAYER_NAMES] = game.players.map { $0.name }
+        UserDefaults.standard.setVolatileDomain(arguments, forName: UserDefaults.argumentDomain)
         game.roundDuration = 30
         game.difficulty = 50
         game.wordsInTheHat = 60
@@ -81,11 +85,37 @@ enum ScreenshotMode {
         case "settings":
             let settings = storyboard.instantiateViewController(withIdentifier: "settings")
             nav.pushViewController(settings, animated: false)
+        case "custom-words":
+            nav.pushViewController(AddWordViewController(), animated: false)
+        case "history", "history-empty":
+            let history = HistoryViewController()
+            nav.pushViewController(history, animated: false)
+            history.loadViewIfNeeded()
+            primeResults()
+            history.set(data: name == "history" ? [GameHistoryItem(game: GameSingleton.gameInstance)] : [])
+        case "scoreboard", "scoreboard-pairs":
+            primeResults()
+            GameSingleton.gameInstance.type = name == "scoreboard-pairs" ? .Pairs : .EachToEach
+            nav.pushViewController(storyboard.instantiateViewController(withIdentifier: "scoreboard"), animated: false)
         case "preparation":
             let prep = storyboard.instantiateViewController(withIdentifier: "preparation")
             nav.pushViewController(prep, animated: false)
-        case "round":
+        case "review-long":
+            primeResults()
+            let game = GameSingleton.gameInstance
+            if let previous = game.getPreviousRound() {
+                previous.guessedWords += (1...24).map { Word(word: "Long demonstration word \($0)") }
+            }
+            nav.pushViewController(storyboard.instantiateViewController(withIdentifier: "preparation"), animated: false)
+        case "round", "round-skip", "round-skip-overtime":
             primeRound()
+            if name != "round" {
+                let game = GameSingleton.gameInstance
+                game.allowsSkipping = true
+                game.newWords = Set(localizedList("SCREENSHOT_SAMPLE_WORDS", fallback: ["garden", "river", "boat"]).prefix(3))
+                game.roundDuration = name == "round-skip-overtime" ? 2 : 30
+                nav.pushViewController(storyboard.instantiateViewController(withIdentifier: "preparation"), animated: false)
+            }
             let round = storyboard.instantiateViewController(withIdentifier: "RoundViewController")
             nav.pushViewController(round, animated: false)
         case "results":
@@ -136,6 +166,9 @@ enum ScreenshotMode {
         previousRound.guessedWords = sample.map { Word(word: $0) }
         for word in previousRound.guessedWords {
             word.state = State.guessed
+        }
+        if previousRound.guessedWords.count >= 2 {
+            previousRound.guessedWords[previousRound.guessedWords.count - 2].state = .new
         }
         if !previousRound.guessedWords.isEmpty {
             previousRound.guessedWords[previousRound.guessedWords.count - 1].state = State.fail

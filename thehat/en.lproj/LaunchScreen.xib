@@ -13,15 +13,15 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hat" translatesAutoresizingMaskIntoConstraints="NO" id="jrF-7f-6Rh">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WarmHat" translatesAutoresizingMaskIntoConstraints="NO" id="jrF-7f-6Rh">
                     <rect key="frame" x="90" y="140" width="300" height="300"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="300" id="hat-width-001"/>
-                        <constraint firstAttribute="height" constant="300" id="hat-height-001"/>
+                        <constraint firstAttribute="width" constant="220" id="hat-width-001"/>
+                        <constraint firstAttribute="height" constant="220" id="hat-height-001"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.953" green="0.902" blue="0.827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.972549" green="0.952941" blue="0.909804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="jrF-7f-6Rh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hat-centerX-001"/>
                 <constraint firstItem="jrF-7f-6Rh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hat-centerY-001"/>
@@ -32,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="hat" width="512" height="512"/>
+        <image name="WarmHat" width="512" height="512"/>
     </resources>
 </document>

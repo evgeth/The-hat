@@ -1,52 +1,19 @@
 import UIKit
 
 final class HistoryEmptyView: UIView, ViewReusable {
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = AppColors.textPrimary
-        label.text = LS.localizedString(forKey: "empty_history_title")
-        label.numberOfLines = 0
-        label.font = UIFont(name: "Excalifont", size: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let iconImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "empty-history")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let titleLabel = WarmUI.label(WarmUI.text("empty_history_title"), size: 17, color: AppColors.textSecondary, centered: true)
 
     init() {
         super.init(frame: .zero)
-        setUp()
+        let art = UIImageView(image: UIImage(named: "WarmRulesResults")); art.contentMode = .scaleAspectFit
+        let heading = WarmUI.label(WarmUI.text("warm_history_empty"), size: 30, serif: true, centered: true)
+        let group = UIStackView(arrangedSubviews: [art, heading, titleLabel]); group.axis = .vertical; group.spacing = 12
+        group.setCustomSpacing(24, after: art)
+        group.translatesAutoresizingMaskIntoConstraints = false; addSubview(group)
+        let width = group.widthAnchor.constraint(equalTo: widthAnchor, constant: -64); width.priority = .defaultHigh
+        NSLayoutConstraint.activate([group.centerXAnchor.constraint(equalTo: centerXAnchor), group.centerYAnchor.constraint(equalTo: centerYAnchor), width,
+            group.widthAnchor.constraint(lessThanOrEqualToConstant: 420), art.heightAnchor.constraint(equalToConstant: 176)])
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func set(title: String) {
-        titleLabel.text = title
-    }
-
-    private func setUp() {
-        addSubview(titleLabel)
-        addSubview(iconImageView)
-
-        NSLayoutConstraint.activate(
-            [
-                titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                titleLabel.bottomAnchor.constraint(equalTo: iconImageView.topAnchor, constant: -16),
-
-                iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                iconImageView.heightAnchor.constraint(equalToConstant: 44),
-                iconImageView.widthAnchor.constraint(equalToConstant: 44)
-            ]
-        )
-    }
+    required init?(coder: NSCoder) { fatalError("Use init()") }
+    func set(title: String) { titleLabel.text = title }
 }

@@ -32,6 +32,7 @@ class Game {
     var extraRoundDuration: Float = 3
     var type = GameType.EachToEach
     var wordsInTheHat = 60
+    var allowsSkipping = false
     
     var players: [Player] = []
     var previousPair: (Int, Int) = (0, 0)

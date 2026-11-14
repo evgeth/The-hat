@@ -1,0 +1,7 @@
+Use case: illustration-story
+Asset type: a production illustration for one page of the Rules tutorial in The Hat iPhone word game.
+Reference image: style reference only. Match its fine olive pencil engraving, restrained watercolor washes, tactile ivory paper, handmade warmth and dimensional object rendering. New subject as specified below; this is not a phone screenshot or a UI mockup.
+Style: sophisticated warm modern editorial illustration, welcoming adult board-game aesthetic. Dark forest olive #3E5D26, pale sage #E1E7C9, natural ivory, with a very small muted terracotta accent. Quiet, uncluttered, clear silhouette at mobile size.
+Composition: one cohesive centered vignette, square canvas, subjects fill about 80 percent, generous clear margins, completely transparent background, clean alpha outside the painted objects and subtle contact shadow. No rectangular background panel.
+Constraints: no lettering, numbers, words, UI, device frames, watermarks, logos, badges, gradients behind the subject, or additional unrelated objects. Artwork must work in English and Russian.
+Subject: A small elegant olive mechanical stopwatch next to a tidy fan of blank cream word slips and a single muted terracotta pencil. Stopwatch dial has simple tick marks and hands but absolutely no numbers. Conveys choosing the amount of words and time.

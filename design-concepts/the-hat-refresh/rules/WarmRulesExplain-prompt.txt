@@ -1,0 +1,7 @@
+Use case: illustration-story
+Asset type: a production illustration for one page of the Rules tutorial in The Hat iPhone word game.
+Reference image: style reference only. Match its fine olive pencil engraving, restrained watercolor washes, tactile ivory paper, handmade warmth and dimensional object rendering. New subject as specified below; this is not a phone screenshot or a UI mockup.
+Style: sophisticated warm modern editorial illustration, welcoming adult board-game aesthetic. Dark forest olive #3E5D26, pale sage #E1E7C9, natural ivory, with a very small muted terracotta accent. Quiet, uncluttered, clear silhouette at mobile size.
+Composition: one cohesive centered vignette, square canvas, subjects fill about 80 percent, generous clear margins, completely transparent background, clean alpha outside the painted objects and subtle contact shadow. No rectangular background panel.
+Constraints: no lettering, numbers, words, UI, device frames, watermarks, logos, badges, gradients behind the subject, or additional unrelated objects. Artwork must work in English and Russian.
+Subject: Two friendly carved wooden board-game pawns facing each other, one dark olive and one sage, with two large overlapping ivory paper speech bubbles above them. In the speaker bubble a tiny hand-drawn lighthouse pictogram; the listener bubble has three small decorative olive dots. A word slip rests beside the speaker. Conveys explaining a word to a partner. No letters or numbers.

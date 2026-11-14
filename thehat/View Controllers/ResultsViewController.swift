@@ -45,8 +45,11 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
         
-        StoreReviewHelper.incrementGameFinishedCount()
-        StoreReviewHelper.checkAndAskForReview()
+        WarmUI.scoreboard(self)
+        if !ProcessInfo.processInfo.arguments.contains("--snapshot") {
+            StoreReviewHelper.incrementGameFinishedCount()
+            StoreReviewHelper.checkAndAskForReview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +62,7 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isPairsMode() {
             if indexPath.section == 0 {
-                return tableView.dequeueReusableCell(withIdentifier: "Header Cell")! as UITableViewCell
+                return WarmUI.scoreHeader(tableView.dequeueReusableCell(withIdentifier: "Header Cell")!)
             } else {
                 let playersPair = sortedPairs[indexPath.section - 1]
                 let player = indexPath.row == 0 ? playersPair.first : playersPair.second
@@ -67,7 +70,7 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
             }
         } else {
             if indexPath.row == 0 {
-                return tableView.dequeueReusableCell(withIdentifier: "Header Cell")! as UITableViewCell
+                return WarmUI.scoreHeader(tableView.dequeueReusableCell(withIdentifier: "Header Cell")!)
             } else {
                 let player = sortedPlayers[indexPath.row - 1]
                 return playerCellForPlayer(tableView: tableView, player: player)
@@ -81,6 +84,7 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
         cell?.playerExplainedLabel.text = "\(player.explained)"
         cell?.playerGuessedLabel.text = "\(player.guessed)"
         cell?.playerSumLabel.text = "\(player.score)"
+        if let cell = cell { WarmUI.scorePlayer(cell) }
         return cell ?? PlayerResultCell()
     }
     
@@ -110,7 +114,7 @@ final class ResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isPairsMode() {
-            return "Pair \(section)"
+            return section == 0 ? nil : "\(LS.localizedString(forKey: "PAIR")) \(section)"
         } else {
             return ""
         }

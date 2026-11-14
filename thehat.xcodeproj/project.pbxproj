@@ -32,13 +32,7 @@
 		84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC327BE5C230072E0E7 /* Date + Extension.swift */; };
 		84C88BC627BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC527BE5C2C0072E0E7 /* GameHistoryItemsMapper.swift */; };
 		84C88BC827BE62B30072E0E7 /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C88BC727BE62B30072E0E7 /* UITableView + Extension.swift */; };
-		8847AFFE1C3BC266008497E2 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0001C3BC266008497E2 /* results.png */; };
-		8847B0021C3BC2BC008497E2 /* preparation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0041C3BC2BC008497E2 /* preparation.png */; };
-		8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0081C3BC35D008497E2 /* pause_or_finish.png */; };
-		8847B00A1C3BC38C008497E2 /* extra_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B00C1C3BC38C008497E2 /* extra_time.png */; };
 		8847B00F1C3EBA6C008497E2 /* countdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8847B00E1C3EBA6C008497E2 /* countdown.wav */; };
-		8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0171C3FF0D7008497E2 /* edit_players.png */; };
-		8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B01B1C3FF10B008497E2 /* edit_settings.png */; };
 		8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0351C42F497008497E2 /* InfoPlist.strings */; };
 		8847B0381C44349C008497E2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8847B0371C44349C008497E2 /* StoreKit.framework */; };
 		8847B03C1C450B87008497E2 /* AboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847B03B1C450B87008497E2 /* AboutTableViewCell.swift */; };
@@ -48,10 +42,8 @@
 		8847B0481C452075008497E2 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B0471C452075008497E2 /* coffee.png */; };
 		8847B04C1C454E1C008497E2 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8847B04B1C454E1C008497E2 /* star.png */; };
 		88545D581C3AFE8900887E24 /* edit_words.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D561C3AFE8900887E24 /* edit_words.png */; };
-		88545D5A1C3AFFD300887E24 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 88545D5C1C3AFFD300887E24 /* round.png */; };
 		887FA7741C3A95020009EA1C /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7731C3A95020009EA1C /* TutorialViewController.swift */; };
 		887FA7761C3A95CF0009EA1C /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887FA7751C3A95CF0009EA1C /* TutorialPageViewController.swift */; };
-		887FA78B1C3AF7E90009EA1C /* IPhone6.png in Resources */ = {isa = PBXBuildFile; fileRef = 887FA7801C3AF7E90009EA1C /* IPhone6.png */; };
 		889324FF1AE41C3D009B68B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889324FE1AE41C3D009B68B2 /* AppDelegate.swift */; };
 		889325041AE41C3D009B68B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889325021AE41C3D009B68B2 /* Main.storyboard */; };
 		889325061AE41C3D009B68B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889325051AE41C3D009B68B2 /* Images.xcassets */; };
@@ -616,12 +608,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8847B0151C3FF0D7008497E2 /* edit_players.png in Resources */,
 				889325041AE41C3D009B68B2 /* Main.storyboard in Resources */,
 				BE1EB3232F09A5FC00437C2F /* AppIcon.icon in Resources */,
 				BE1EB3242F09B00000437C2F /* Excalifont-Regular.ttf in Resources */,
 				8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */,
-				8847B0061C3BC35D008497E2 /* pause_or_finish.png in Resources */,
 				88DBAC281C333A9900C4EB1F /* score.wav in Resources */,
 				8847B03E1C450DAD008497E2 /* facebook.png in Resources */,
 				8847B00F1C3EBA6C008497E2 /* countdown.wav in Resources */,
@@ -630,18 +620,12 @@
 				88DBAC271C333A9900C4EB1F /* russian.words in Resources */,
 				88545D581C3AFE8900887E24 /* edit_words.png in Resources */,
 				889325091AE41C3D009B68B2 /* LaunchScreen.xib in Resources */,
-				8847B00A1C3BC38C008497E2 /* extra_time.png in Resources */,
 				88DBAC261C333A9900C4EB1F /* mistake.wav in Resources */,
 				8847B0331C42F497008497E2 /* InfoPlist.strings in Resources */,
-				88545D5A1C3AFFD300887E24 /* round.png in Resources */,
-				8847B0191C3FF10B008497E2 /* edit_settings.png in Resources */,
 				8847B0461C451230008497E2 /* share.png in Resources */,
-				887FA78B1C3AF7E90009EA1C /* IPhone6.png in Resources */,
 				88DBAC5A1C333DDA00C4EB1F /* Localizable.strings in Resources */,
 				8847B04C1C454E1C008497E2 /* star.png in Resources */,
 				88DBAC251C333A9900C4EB1F /* english.words in Resources */,
-				8847B0021C3BC2BC008497E2 /* preparation.png in Resources */,
-				8847AFFE1C3BC266008497E2 /* results.png in Resources */,
 				889325061AE41C3D009B68B2 /* Images.xcassets in Resources */,
 				834859D9245F75B100DD4772 /* telegram.png in Resources */,
 				521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */,

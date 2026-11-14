@@ -35,7 +35,7 @@ struct GameHistoryItem: Codable {
             var section = 0
             playersPair.forEach { pair in
                 section += 1
-                data.append(.pair("Pair \(section)"))
+                data.append(.pair("\(LS.localizedString(forKey: "PAIR")) \(section)"))
                 data.append(.player(pair.first))
                 data.append(.player(pair.second))
             }

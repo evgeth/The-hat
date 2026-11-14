@@ -20,6 +20,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     var sectionsCount = 2
     var isAddingSection = false
     var numberOfRowsInLastSection = 3
+    let allowsSkippingSwitch = UISwitch()
     var gameInstance = GameSingleton.gameInstance
     
     @IBOutlet weak var gameTypeLabel: UILabel! {
@@ -94,6 +95,10 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         sectionsCount = (players.count + 1) / 2
         numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
         WarmUI.settings(self)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissEditingOutsideField(_:)))
+        tap.cancelsTouchesInView = false
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -186,7 +191,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             guard let indexPath = swipedIndexPath else {
                 return
             }
-            players[indexPath.row] = RandomNames.getRandomName()
+            players[countRowNumberForIndexPath(indexPath: indexPath)] = RandomNames.getRandomName()
             playersTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
@@ -247,7 +252,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    @IBAction func tapOnPlayersTable(_ sender: UITapGestureRecognizer) {
+    @objc private func dismissEditingOutsideField(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
         hideDeleteButton()
     }
@@ -284,8 +289,8 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
                     playersTableView.deleteRows(at: [indexPath!], with: UITableView.RowAnimation.fade)
                 }
             } else {
-                let alert = UIAlertController(title: "Error", message: "You need at least 2 players for game", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                let alert = UIAlertController(title: WarmUI.text("warm_error"), message: WarmUI.text("warm_min_players"), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: WarmUI.text("warm_ok"), style: .default))
                 present(alert, animated: true)
             }
         }
@@ -293,25 +298,12 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let centerOfView = textField.superview?.superview?.center
-        if (centerOfView == nil) {
-            return false
-        }
-        let indexPathForTextField = playersTableView.indexPathForRow(at: centerOfView!)!
-        let cell = playersTableView.cellForRow(at: indexPathForTextField) as! PlayerTableViewCell
-        let indexPathToMoveFocus = nextIndexPath(tableView: playersTableView, indexPath: indexPathForTextField)
-        if indexPathToMoveFocus != nil && countRowNumberForIndexPath(indexPath: indexPathToMoveFocus!) != players.count {
-            let nextCell = playersTableView.cellForRow(at: indexPathToMoveFocus!) as! PlayerTableViewCell
-            if let textField = nextCell.playerLabel {
-                let responder: UIResponder = textField
-                responder.becomeFirstResponder()
-            }
-        } else {
-            if let textField = cell.playerLabel {
-                let responder: UIResponder = textField
-                responder.resignFirstResponder()
-            }
-        }
+        guard let cell = textField.superview?.superview as? PlayerTableViewCell,
+              let current = playersTableView.indexPath(for: cell) else { return false }
+        if let next = nextIndexPath(tableView: playersTableView, indexPath: current),
+           countRowNumberForIndexPath(indexPath: next) < players.count {
+            focusPlayer(at: next)
+        } else { textField.resignFirstResponder() }
         return false
     }
     
@@ -392,7 +384,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isPairsMode() {
-            return "\(NSLocalizedString("PAIR", comment: "pair")) \(section + 1)"
+            return "\(LS.localizedString(forKey: "PAIR")) \(section + 1)"
         } else {
             return ""
         }
@@ -401,7 +393,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if !isPairsMode() {
-            if isReadyToDeleteRow && readyToDeleteIndexPath.count == indexPath.row {
+            if isReadyToDeleteRow && readyToDeleteIndexPath == indexPath {
                 return false
             }
             if indexPath.row != players.count {
@@ -433,7 +425,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if isPairsMode() {
             return
         }
-        if isReadyToDeleteRow && sourceIndexPath.row == readyToDeleteIndexPath.count {
+        if isReadyToDeleteRow && sourceIndexPath == readyToDeleteIndexPath {
             readyToDeleteIndexPath = destinationIndexPath
         }
         let previousString = players[sourceIndexPath.row]
@@ -456,28 +448,31 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
 
+    private func focusPlayer(at path: IndexPath) {
+        if playersTableView.cellForRow(at: path) == nil {
+            playersTableView.scrollToRow(at: path, at: .middle, animated: false)
+            playersTableView.layoutIfNeeded()
+        }
+        (playersTableView.cellForRow(at: path) as? PlayerTableViewCell)?.playerLabel.becomeFirstResponder()
+    }
+
     private func shouldStartGame() -> Bool {
         for (index, player) in players.enumerated() {
             if player == "" {
-                var cell: PlayerTableViewCell!
-                if isPairsMode() {
-                    cell = playersTableView.cellForRow(at: IndexPath(row: index % 2, section: index / 2) as IndexPath) as! PlayerTableViewCell
-                } else {
-                    cell = playersTableView.cellForRow(at: IndexPath(row: index, section: 0) as IndexPath) as! PlayerTableViewCell
-                }
-                cell.playerLabel.becomeFirstResponder()
+                let path = isPairsMode() ? IndexPath(row: index % 2, section: index / 2) : IndexPath(row: index, section: 0)
+                focusPlayer(at: path)
                 return false
             }
         }
         if isPairsMode() && players.count % 2 == 1 {
-            let alert = UIAlertController(title: "Error", message: NSLocalizedString("NOT_ENOUGH_PLAYERS_IN_PAIR", comment: "not enough players in pair"), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            let alert = UIAlertController(title: WarmUI.text("warm_error"), message: WarmUI.text("NOT_ENOUGH_PLAYERS_IN_PAIR"), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: WarmUI.text("warm_ok"), style: .default))
             present(alert, animated: true)
             return false
         }
         if gameInstance.didWordsLoad == false {
             let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
-            NotificationCenter.default.addObserver(self, selector: Selector(("wordsLoadedNotificationArrived:")), name: NSNotification.Name(rawValue: loadedWordsNotificationKey), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(wordsLoadedNotificationArrived(notification:)), name: NSNotification.Name(rawValue: loadedWordsNotificationKey), object: nil)
             activityIndicator.center = view.center
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
@@ -509,6 +504,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
             playersList.append(Player(name: playerName))
             Analytics.logEvent("player", parameters: ["name": playerName.lowercased().capitalized])
         }
+        gameInstance.allowsSkipping = allowsSkippingSwitch.isOn
         gameInstance.players = playersList
         gameInstance.roundDuration = Float(Int(roundLengthStepper.value))
         gameInstance.wordsInTheHat = Int(wordsInTheHatStepper.value)
@@ -551,3 +547,17 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
 
 }
 
+
+// Let the text field handle cursor placement and direct focus changes. A tap
+// anywhere else dismisses the keyboard without consuming a control's action.
+extension GameSettingsViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        var target = touch.view
+        while let current = target {
+            if current is UITextField { return false }
+            target = current.superview
+        }
+        return true
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool { true }
+}

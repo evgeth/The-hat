@@ -32,6 +32,7 @@ final class HistoryTableViewCell: UITableViewCell, ViewReusable {
     }
 
     private func setupStackView(with model: GameHistoryItem) {
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         model.playersData.forEach { item in
             switch item {
             case .player(let player):
@@ -47,16 +48,21 @@ final class HistoryTableViewCell: UITableViewCell, ViewReusable {
     }
 
     private func addSubviews() {
-        [stackView].forEach { contentView.addSubview($0) }
+        stackView.layer.cornerRadius = 16
+        stackView.layer.borderColor = AppColors.separator.cgColor
+        stackView.layer.borderWidth = 1
+        stackView.clipsToBounds = true
+        contentView.addSubview(stackView)
     }
 
     private func makeConstraints() {
+        let width = stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40); width.priority = .defaultHigh
         NSLayoutConstraint.activate(
             [
                 stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+                stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor), width,
+                stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 520),
+                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
             ]
         )
     }
