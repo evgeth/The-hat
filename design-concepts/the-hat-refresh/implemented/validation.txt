@@ -1,0 +1,17 @@
+Warm Modern — presentation-only correction
+
+Original UX restored.
+
+Verified by 2 passing iPhone UI tests:
+- A tap on Start does not begin a turn; the original hold duration still does.
+- Tapping Mistake does not end the turn; the original hold still does.
+- No pause action on Play.
+- End of turn returns directly to handoff; review is opened manually and Save dismisses it.
+- Setup retains the original difficulty picker and top confirmation action, with no new Edit mode or Continue button.
+
+Source integrity check: all five original controllers match HEAD exactly after removing WarmUI presentation calls. Both storyboards, ColorChangingView, the game model and the custom-word controller match HEAD byte for byte.
+
+Image asset: thehat/Images.xcassets/WarmHat.imageset/hat.png
+Created with the built-in imagegen tool; exact prompt: ../03-hat-illustration-prompt.txt
+
+Build validation uses IPHONEOS_DEPLOYMENT_TARGET=15.0 as a command-line override because the installed Xcode does not accept the existing iOS 12 deployment target. Project deployment settings are unchanged.

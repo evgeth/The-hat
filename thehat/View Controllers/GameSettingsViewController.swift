@@ -93,6 +93,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         difficultyPicker.selectRow((gameInstance.difficulty - 10) / 20, inComponent: 0, animated: false)
         sectionsCount = (players.count + 1) / 2
         numberOfRowsInLastSection = players.count % 2 == 0 ? 3 : 2
+        WarmUI.settings(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -318,6 +319,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if countRowNumberForIndexPath(indexPath: indexPath) == players.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Add Player")! as UITableViewCell
             cell.showsReorderControl = false
+            WarmUI.addPlayerCell(cell)
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "Player") as! PlayerTableViewCell
@@ -344,6 +346,7 @@ class GameSettingsViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         
+        WarmUI.playerCell(cell)
         return cell
     }
     

@@ -89,3 +89,12 @@ empty_history_title = "The history of played games will be displayed here";
 SCREENSHOT_PLAYERS = "Alice,Bob,Carol,David";
 SCREENSHOT_SAMPLE_WORDS = "river,thunder,garden,library,mountain,harbor,candle";
 SCREENSHOT_ROUND_WORD = "lighthouse";
+
+/* Warm Modern presentation */
+warm_title = "The Hat";
+warm_tagline = "Good words. Great company.";
+warm_settings = "Game settings";
+warm_difficulty = "Difficulty";
+warm_your_turn = "Your turn";
+warm_explains = "Explains";
+warm_guesses = "Guesses";

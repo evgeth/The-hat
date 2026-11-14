@@ -38,6 +38,7 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
             word.state = wordString.state
             wordList.append(word)
         }
+        WarmUI.review(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,6 +72,7 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
             cell.wordStatus.textColor = AppColors.fail
             cell.wordLabel.textColor = AppColors.fail
         }
+        WarmUI.reviewCell(cell, at: indexPath)
         return cell
     }
     

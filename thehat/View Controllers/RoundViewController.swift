@@ -70,6 +70,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
         
         navigationController?.setNavigationBarHidden(true, animated: true)
+        WarmUI.round(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {

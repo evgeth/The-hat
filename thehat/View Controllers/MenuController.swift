@@ -58,6 +58,7 @@ final class MenuController: UIViewController {
         setupView()
         setupLanguageButton()
         initNewGameButton()
+        WarmUI.menu(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {

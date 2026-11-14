@@ -89,3 +89,12 @@ empty_history_title = "Здесь будет отображаться истор
 SCREENSHOT_PLAYERS = "Алиса,Боб,Вера,Дмитрий";
 SCREENSHOT_SAMPLE_WORDS = "река,гроза,сад,библиотека,гора,гавань,свеча";
 SCREENSHOT_ROUND_WORD = "маяк";
+
+/* Warm Modern presentation */
+warm_title = "Шляпа";
+warm_tagline = "Хорошие слова. Отличная компания.";
+warm_settings = "Настройки";
+warm_difficulty = "Сложность";
+warm_your_turn = "Ваш ход";
+warm_explains = "Объясняет";
+warm_guesses = "Угадывает";

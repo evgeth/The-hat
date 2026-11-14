@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0DE20261114000100000001 /* WarmUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE20261114000100000002 /* WarmUI.swift */; };
 		521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */; };
 		6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713D772386750B5F7713E91 /* ScreenshotMode.swift */; };
 		7184F8408D0E917DA75F289A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */; };
@@ -109,6 +110,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C0DE20261114000100000002 /* WarmUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUI.swift; sourceTree = "<group>"; };
 		2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DF9907B75648E0BE2D411E /* Pods_thehat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A5297DA08739418BB994BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -361,6 +363,7 @@
 				88DBAC431C333ACC00C4EB1F /* Extensions */,
 				889324FE1AE41C3D009B68B2 /* AppDelegate.swift */,
 				BE1EB3272F09C00000437C2F /* Colors.swift */,
+				C0DE20261114000100000002 /* WarmUI.swift */,
 				889325051AE41C3D009B68B2 /* Images.xcassets */,
 				BE1EB3222F09A5FC00437C2F /* AppIcon.icon */,
 				BE1EB3252F09B00000437C2F /* Excalifont-Regular.ttf */,
@@ -826,6 +829,7 @@
 				88DBAC1B1C333A7E00C4EB1F /* Game.swift in Sources */,
 				88DBAC4A1C333ACC00C4EB1F /* Extensions.swift in Sources */,
 				BE1EB3262F09C00000437C2F /* Colors.swift in Sources */,
+				C0DE20261114000100000001 /* WarmUI.swift in Sources */,
 				88DBAC311C333AB300C4EB1F /* EditWordsGuessedViewController.swift in Sources */,
 				88DBAC401C333AC500C4EB1F /* PlayerResultCell.swift in Sources */,
 				84BF04A227BEDB79007C1794 /* AddWordTextField.swift in Sources */,

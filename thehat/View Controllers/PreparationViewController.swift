@@ -57,6 +57,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
         self.startButtonView.insertSubview(self.loadingView, at: 0)
         self.loadingView.backgroundColor = AppColors.primary
+        WarmUI.preparation(self)
     }
 
     func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
@@ -122,6 +123,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         label.font = UIFont(name: "Excalifont", size: 18)
         label.textAlignment = NSTextAlignment.right
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: #selector(self.closeButtonPressed)), UIBarButtonItem(customView: label)]
+        WarmUI.preparationNavigation(self)
     }
     
     @objc func closeButtonPressed() {
