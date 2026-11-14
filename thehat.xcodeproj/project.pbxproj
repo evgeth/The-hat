@@ -58,6 +58,7 @@
 		88DBAC261C333A9900C4EB1F /* mistake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC221C333A9900C4EB1F /* mistake.wav */; };
 		88DBAC271C333A9900C4EB1F /* russian.words in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC231C333A9900C4EB1F /* russian.words */; };
 		88DBAC281C333A9900C4EB1F /* score.wav in Resources */ = {isa = PBXBuildFile; fileRef = 88DBAC241C333A9900C4EB1F /* score.wav */; };
+		2ECD1769FBC74B42AE250C37 /* skip.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6BE8D75E47D844E5B71A9FC5 /* skip.wav */; };
 		88DBAC311C333AB300C4EB1F /* EditWordsGuessedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2A1C333AB300C4EB1F /* EditWordsGuessedViewController.swift */; };
 		88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2B1C333AB300C4EB1F /* GameSettingsViewController.swift */; };
 		88DBAC331C333AB300C4EB1F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2C1C333AB300C4EB1F /* MenuController.swift */; };
@@ -177,6 +178,7 @@
 		88DBAC221C333A9900C4EB1F /* mistake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mistake.wav; sourceTree = "<group>"; };
 		88DBAC231C333A9900C4EB1F /* russian.words */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = russian.words; sourceTree = "<group>"; };
 		88DBAC241C333A9900C4EB1F /* score.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = score.wav; sourceTree = "<group>"; };
+		6BE8D75E47D844E5B71A9FC5 /* skip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = skip.wav; sourceTree = "<group>"; };
 		88DBAC2A1C333AB300C4EB1F /* EditWordsGuessedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWordsGuessedViewController.swift; sourceTree = "<group>"; };
 		88DBAC2B1C333AB300C4EB1F /* GameSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsViewController.swift; sourceTree = "<group>"; };
 		88DBAC2C1C333AB300C4EB1F /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				88DBAC231C333A9900C4EB1F /* russian.words */,
 				8847B00E1C3EBA6C008497E2 /* countdown.wav */,
 				88DBAC241C333A9900C4EB1F /* score.wav */,
+				6BE8D75E47D844E5B71A9FC5 /* skip.wav */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				BE1EB3242F09B00000437C2F /* Excalifont-Regular.ttf in Resources */,
 				8346E1EB238CBB0700A56FEB /* GoogleService-Info.plist in Resources */,
 				88DBAC281C333A9900C4EB1F /* score.wav in Resources */,
+				2ECD1769FBC74B42AE250C37 /* skip.wav in Resources */,
 				8847B03E1C450DAD008497E2 /* facebook.png in Resources */,
 				8847B00F1C3EBA6C008497E2 /* countdown.wav in Resources */,
 				8847B0481C452075008497E2 /* coffee.png in Resources */,

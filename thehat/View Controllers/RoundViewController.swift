@@ -54,6 +54,9 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     var scoreSound: AVAudioPlayer?
     var failSound: AVAudioPlayer?
+    // Keep the card slide playing through the handoff if the last word is skipped.
+    // Kenney, Casino Audio (CC0), card-slide-4: https://kenney.nl/assets/casino-audio
+    private static let skipSound = setupAudioPlayerWithFile(file: "skip", type: "wav")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,12 +73,13 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         
         redErrorView.initializer(startColor: inactiveColor, finishColor: AppColors.fail, requiredTouchDuration: 0.6, delegate: self)
         
-        self.scoreSound = self.setupAudioPlayerWithFile(file: "score", type:"wav")
-        self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
+        scoreSound = Self.setupAudioPlayerWithFile(file: "score", type: "wav")
+        failSound = Self.setupAudioPlayerWithFile(file: "mistake", type: "wav")
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         WarmUI.round(self)
         if gameInstance.allowsSkipping {
+            Self.skipSound?.prepareToPlay()
             skipButton.accessibilityIdentifier = "round.skip"
             skipButton.addTarget(self, action: #selector(skipWord), for: .touchUpInside)
             redErrorView.addSubview(skipButton)
@@ -100,6 +104,10 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
 
     @objc private func skipWord() {
         guard gameInstance.allowsSkipping, !isRoundVCDismissed else { return }
+        if !isBasicTimeEnded, let sound = Self.skipSound {
+            sound.currentTime = 0
+            sound.play()
+        }
         // A .new entry returns to the hat when the turn is committed. It
         // cannot be redrawn during this turn, even if it was the last word.
         wordsGuessed.append(Word(word: currentWord))
@@ -117,7 +125,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         )
     }
 
-    func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
+    private static func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
         guard let path = Bundle.main.path(forResource: file, ofType: type) else {
             print("Audio file not found: \(file).\(type)")
             return nil
