@@ -15,8 +15,7 @@ import FirebaseAnalytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
+    // The window is owned by SceneDelegate (UIScene lifecycle).
 
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
@@ -35,21 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = AppColors.primaryDark
         UIBarButtonItem.appearance().tintColor = AppColors.primaryDark
 
-        // Set global tint color
-        if let window = window {
-            window.tintColor = AppColors.primaryDark
-        }
+        // The global window tint is set in SceneDelegate, which owns the window.
 
         ScreenshotMode.applyIfRequested()
 
         return true
-    }
-
-    func initRootView(){
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let rootController: UINavigationController? = storyboard.instantiateViewController(withIdentifier: "appNavigationController") as? UINavigationController
-
-        window?.rootViewController = rootController
     }
 }
 

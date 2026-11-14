@@ -1,6 +1,9 @@
 import UIKit
 
 enum ScreenshotMode {
+    /// Called from application(_:didFinishLaunchingWithOptions:). Primes game
+    /// state; the window doesn't exist yet at this point under the UIScene
+    /// lifecycle, so presenting a screen happens in presentRequestedScreen(in:).
     static func applyIfRequested() {
         let args = ProcessInfo.processInfo.arguments
         guard args.contains("--snapshot") else { return }
@@ -8,10 +11,13 @@ enum ScreenshotMode {
         UIView.setAnimationsEnabled(false)
 
         primeGameForScreenshots()
+    }
 
-        guard let screen = screenName(from: args) else { return }
-
-        DispatchQueue.main.async { presentScreen(screen) }
+    /// Called from SceneDelegate once the scene's window exists.
+    static func presentRequestedScreen(in window: UIWindow) {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--snapshot"), let screen = screenName(from: args) else { return }
+        presentScreen(screen, in: window)
     }
 
     private static func screenName(from args: [String]) -> String? {
@@ -69,7 +75,7 @@ enum ScreenshotMode {
         game.updatePool()
     }
 
-    private static func presentScreen(_ name: String) {
+    private static func presentScreen(_ name: String, in window: UIWindow) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let nav = storyboard.instantiateViewController(withIdentifier: "appNavigationController") as! UINavigationController
         let menu = storyboard.instantiateViewController(withIdentifier: "Menu Controller")
@@ -96,7 +102,6 @@ enum ScreenshotMode {
             break
         }
 
-        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return }
         window.rootViewController = nav
         window.makeKeyAndVisible()
     }

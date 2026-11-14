@@ -26,10 +26,7 @@ final class LanguageChanger {
         }
 
         DispatchQueue.main.async {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            appDelegate.initRootView()
+            SceneDelegate.current?.reloadRootView()
         }
     }
 }

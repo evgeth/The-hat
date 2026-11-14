@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4091F2BF261F3106E501D8CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C531650477AD57B3D91950A /* SceneDelegate.swift */; };
 		521D6A0E270148593FE916B5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */; };
 		6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713D772386750B5F7713E91 /* ScreenshotMode.swift */; };
 		7184F8408D0E917DA75F289A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4BD5E91BDA8BFBBA7C47C /* SnapshotHelper.swift */; };
@@ -109,6 +110,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C531650477AD57B3D91950A /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2E3D84FAF6E7C1024C5364CE /* Pods_thehatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DF9907B75648E0BE2D411E /* Pods_thehat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thehat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A5297DA08739418BB994BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -372,6 +374,7 @@
 				881697C21AE7FFB2006BD0C2 /* thehat-Bridging-Header.h */,
 				8847B0371C44349C008497E2 /* StoreKit.framework */,
 				F425731D632A41AB28D61207 /* PrivacyInfo.xcprivacy */,
+				2C531650477AD57B3D91950A /* SceneDelegate.swift */,
 			);
 			path = thehat;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				88DBAC3F1C333AC500C4EB1F /* GuessedWordCell.swift in Sources */,
 				84C88BC227BE54380072E0E7 /* ViewReusable.swift in Sources */,
 				6E2E82E5854DAD8CE6FD3C8D /* ScreenshotMode.swift in Sources */,
+				4091F2BF261F3106E501D8CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
