@@ -324,10 +324,21 @@ final class WholeAppVisualTests: XCTestCase {
             for screen in ["custom-words", "history-empty", "history", "scoreboard", "scoreboard-pairs", "settings"] {
                 let screenApp = launch(language, screen: screen)
                 switch screen {
-                case "custom-words": XCTAssertTrue(screenApp.textFields["words.field"].exists)
+                case "custom-words":
+                    let title = language == "ru" ? "Свои слова" : "Add words"
+                    XCTAssertEqual(screenApp.staticTexts.matching(identifier: title).count, 1)
+                    XCTAssertFalse(screenApp.staticTexts["Your own words"].exists)
+                    let field = screenApp.textFields["words.field"]
+                    XCTAssertTrue(field.exists)
+                    XCTAssertGreaterThanOrEqual(field.frame.minX, 20)
+                    XCTAssertLessThanOrEqual(field.frame.maxX, screenApp.frame.maxX - 20)
                 case "history-empty": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Пока нет игр" : "No games yet"].exists)
                 case "history": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Алиса" : "Alice"].exists)
-                case "scoreboard", "scoreboard-pairs": XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Всего" : "Total"].exists)
+                case "scoreboard", "scoreboard-pairs":
+                    let bar = screenApp.navigationBars.firstMatch
+                    XCTAssertTrue(bar.staticTexts[language == "ru" ? "Результаты" : "Results"].exists)
+                    XCTAssertFalse(screenApp.staticTexts[language == "ru" ? "Итоги партии" : "Scorecard"].exists)
+                    XCTAssertTrue(screenApp.staticTexts[language == "ru" ? "Всего" : "Total"].exists)
                 default: XCTAssertTrue(screenApp.buttons["setup.done"].exists)
                 }
                 capture(screenApp, "warm-\(language)-\(screen)")

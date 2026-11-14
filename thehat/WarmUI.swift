@@ -509,7 +509,18 @@ extension WarmUI {
         table.separatorInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
         table.tableFooterView = UIView()
         if #available(iOS 15.0, *) { table.sectionHeaderTopPadding = 0 }
-        let header = brandHeader(title: text("warm_scorecard"), image: "WarmRulesResults", width: table.bounds.width)
+        let artwork = UIImageView(image: UIImage(named: "WarmRulesResults"))
+        artwork.contentMode = .scaleAspectFit
+        artwork.isAccessibilityElement = false
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: table.bounds.width, height: 142))
+        header.addSubview(artwork)
+        artwork.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            artwork.topAnchor.constraint(equalTo: header.topAnchor, constant: 2),
+            artwork.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: -12),
+            artwork.leadingAnchor.constraint(equalTo: header.leadingAnchor),
+            artwork.trailingAnchor.constraint(equalTo: header.trailingAnchor)
+        ])
         table.tableHeaderView = header
         canvas.arrange = { host in table.frame = host.contentRect }
     }

@@ -77,7 +77,7 @@ final class AddWordViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = AppColors.background
-        addSubviews()
+        view.addSubview(addWordButton)
         makeConstraints()
 
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "add_words"))
@@ -151,31 +151,30 @@ final class AddWordViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
 
-    private func addSubviews() {
-        view.addSubview(descriptionLabel)
-        view.addSubview(wordsInTheHatLabel)
-        view.addSubview(searchTextField)
-        view.addSubview(addWordButton)
-    }
-
     private func makeConstraints() {
         let safe = view.safeAreaLayoutGuide
-        let header = WarmUI.brandHeader(title: WarmUI.text("warm_words_heading"), image: "WarmHat", width: view.bounds.width)
-        header.translatesAutoresizingMaskIntoConstraints = false
         let scroll = UIScrollView(); scroll.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(scroll, at: 0)
-        let stack = UIStackView(arrangedSubviews: [descriptionLabel, searchTextField, wordsInTheHatLabel])
+        let hat = UIImageView(image: UIImage(named: "WarmHat"))
+        hat.contentMode = .scaleAspectFit
+        hat.isAccessibilityElement = false
+        hat.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        let introduction = UIStackView(arrangedSubviews: [descriptionLabel, hat])
+        introduction.alignment = .center
+        introduction.spacing = 16
+        let stack = UIStackView(arrangedSubviews: [introduction, searchTextField, wordsInTheHatLabel])
         stack.axis = .vertical; stack.spacing = 16; stack.translatesAutoresizingMaskIntoConstraints = false
-        scroll.addSubview(header); scroll.addSubview(stack)
-        let width = stack.widthAnchor.constraint(equalTo: safe.widthAnchor, constant: -48); width.priority = .defaultHigh
+        scroll.addSubview(stack)
+        let width = stack.widthAnchor.constraint(equalTo: safe.widthAnchor, constant: -48)
+        width.priority = UILayoutPriority(999)
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: safe.topAnchor), scroll.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: safe.trailingAnchor), scroll.bottomAnchor.constraint(equalTo: addWordButton.topAnchor, constant: -8),
             scroll.contentLayoutGuide.widthAnchor.constraint(equalTo: scroll.frameLayoutGuide.widthAnchor),
-            header.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor), header.heightAnchor.constraint(equalToConstant: 142),
-            header.widthAnchor.constraint(equalTo: scroll.frameLayoutGuide.widthAnchor), header.centerXAnchor.constraint(equalTo: scroll.frameLayoutGuide.centerXAnchor),
-            stack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20), stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -16),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 20), stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -16),
             stack.centerXAnchor.constraint(equalTo: safe.centerXAnchor), width, stack.widthAnchor.constraint(lessThanOrEqualToConstant: 520),
+            hat.widthAnchor.constraint(equalTo: stack.widthAnchor, multiplier: 0.30),
+            hat.heightAnchor.constraint(equalTo: hat.widthAnchor, multiplier: 0.84),
             searchTextField.heightAnchor.constraint(equalToConstant: 54),
             addWordButton.centerXAnchor.constraint(equalTo: safe.centerXAnchor), addWordButton.widthAnchor.constraint(equalTo: stack.widthAnchor),
             addWordButton.heightAnchor.constraint(equalToConstant: 62)
