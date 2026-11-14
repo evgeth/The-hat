@@ -5,7 +5,7 @@ enum ScreenshotMode {
         let args = ProcessInfo.processInfo.arguments
         guard args.contains("--snapshot") else { return }
 
-        UIView.setAnimationsEnabled(false)
+        UIView.setAnimationsEnabled(args.contains("--snapshot-motion"))
 
         primeGameForScreenshots()
 

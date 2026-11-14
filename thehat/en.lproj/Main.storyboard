@@ -341,15 +341,9 @@
                                             <constraint firstAttribute="centerX" secondItem="4YZ-aY-kIz" secondAttribute="centerX" id="XOf-0K-4Nb"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="BCx-Ef-QqN">
+                                    <view opaque="NO" userInteractionEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCx-Ef-QqN" customClass="NotebookWordView" customModule="thehat" customModuleProvider="target">
                                         <rect key="frame" x="20" y="190" width="374" height="50.5"/>
-                                        <fontDescription key="fontDescription" name="Excalifont-Regular" family="Excalifont" pointSize="40"/>
-                                        <color key="textColor" name="TextPrimary"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Excalifont-Regular" family="Excalifont" pointSize="56"/>
-                                        </variation>
-                                    </label>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -386,7 +380,7 @@
                         <outlet property="timerLabel" destination="hKB-74-K8C" id="1oI-aE-lWb"/>
                         <outlet property="timerView" destination="4YZ-aY-kIz" id="QG6-w8-9qw"/>
                         <outlet property="timerViewHeightContraint" destination="ptO-Kb-9CG" id="kxq-nz-ay3"/>
-                        <outlet property="wordLabel" destination="BCx-Ef-QqN" id="IKa-jW-Zgb"/>
+                        <outlet property="wordPaper" destination="BCx-Ef-QqN" id="IKa-jW-Zgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgb-91-sqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

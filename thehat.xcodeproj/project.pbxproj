@@ -67,6 +67,7 @@
 		88DBAC361C333AB300C4EB1F /* RoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC2F1C333AB300C4EB1F /* RoundViewController.swift */; };
 		88DBAC371C333AB300C4EB1F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC301C333AB300C4EB1F /* AboutViewController.swift */; };
 		88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */; };
+		AE5629BD3301000000000001 /* NotebookWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5629BD3301000000000002 /* NotebookWordView.swift */; };
 		88DBAC3F1C333AC500C4EB1F /* GuessedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */; };
 		88DBAC401C333AC500C4EB1F /* PlayerResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC3B1C333AC500C4EB1F /* PlayerResultCell.swift */; };
 		88DBAC411C333AC500C4EB1F /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DBAC3C1C333AC500C4EB1F /* PlayerTableViewCell.swift */; };
@@ -187,6 +188,7 @@
 		88DBAC2F1C333AB300C4EB1F /* RoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewController.swift; sourceTree = "<group>"; };
 		88DBAC301C333AB300C4EB1F /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorChangingView.swift; sourceTree = "<group>"; };
+		AE5629BD3301000000000002 /* NotebookWordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebookWordView.swift; sourceTree = "<group>"; };
 		88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessedWordCell.swift; sourceTree = "<group>"; };
 		88DBAC3B1C333AC500C4EB1F /* PlayerResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerResultCell.swift; sourceTree = "<group>"; };
 		88DBAC3C1C333AC500C4EB1F /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 			children = (
 				8847B03B1C450B87008497E2 /* AboutTableViewCell.swift */,
 				88DBAC391C333AC500C4EB1F /* ColorChangingView.swift */,
+				AE5629BD3301000000000002 /* NotebookWordView.swift */,
 				88DBAC3A1C333AC500C4EB1F /* GuessedWordCell.swift */,
 				841AA20727B3F9E600243084 /* Player */,
 				841AA20827B3F9F600243084 /* Timer */,
@@ -791,6 +794,7 @@
 				8346E1ED238CCA8B00A56FEB /* StoreReviewHelper.swift in Sources */,
 				84BF04A027BEDB46007C1794 /* AddWordViewController.swift in Sources */,
 				88DBAC3E1C333AC500C4EB1F /* ColorChangingView.swift in Sources */,
+				AE5629BD3301000000000001 /* NotebookWordView.swift in Sources */,
 				88DBAC1C1C333A7E00C4EB1F /* Player.swift in Sources */,
 				88DBAC321C333AB300C4EB1F /* GameSettingsViewController.swift in Sources */,
 				84C88BC427BE5C230072E0E7 /* Date + Extension.swift in Sources */,

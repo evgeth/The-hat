@@ -31,7 +31,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var isBasicTimeAlmostEnded = false
     var isExtraTimeEnded = false
     
-    @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var wordPaper: NotebookWordView!
     @IBOutlet weak var errorLabel: UILabel! {
         didSet {
             errorLabel.text = LS.localizedString(forKey: "mistake")
@@ -103,7 +103,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
 
     @objc private func skipWord() {
-        guard gameInstance.allowsSkipping, !isRoundVCDismissed else { return }
+        guard gameInstance.allowsSkipping, !isRoundVCDismissed, !wordPaper.isChangingWord else { return }
         if !isBasicTimeEnded, let sound = Self.skipSound {
             sound.currentTime = 0
             sound.play()
@@ -202,16 +202,11 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
             endRound()
             return
         }
-        let transitionOptions = UIView.AnimationOptions.transitionFlipFromBottom
-        UIView.transition(with: wordLabel, duration: 0.3, options: transitionOptions, animations: {
-            self.wordLabel.text = self.currentWord
-            },
-            completion: nil)
-        
+        wordPaper.show(currentWord)
     }
 
     @IBAction func guessed(_ sender: AnyObject) {
-        guard !isRoundVCDismissed else { return }
+        guard !isRoundVCDismissed, !wordPaper.isChangingWord else { return }
         let word = Word(word: currentWord)
         word.state = .guessed
         wordsGuessed.append(word)

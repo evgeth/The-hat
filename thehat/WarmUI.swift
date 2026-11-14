@@ -329,7 +329,7 @@ enum WarmUI {
 
     static func round(_ vc: RoundViewController) {
         guard let guessed = vc.gotItLabel.superview else { return }
-        let canvas = install(on: vc, keeping: [vc.timerView, vc.wordLabel, vc.redErrorView, guessed])
+        let canvas = install(on: vc, keeping: [vc.timerView, vc.wordPaper, vc.redErrorView, guessed])
         prepareContainer(vc.timerView)
         prepareContainer(vc.redErrorView)
         prepareContainer(guessed)
@@ -338,9 +338,6 @@ enum WarmUI {
         vc.timerView.clipsToBounds = false
         styleLabel(vc.timerLabel, size: 45, serif: true)
         vc.timerLabel.textAlignment = .center
-        styleLabel(vc.wordLabel, size: 45, serif: true)
-        vc.wordLabel.textAlignment = .center
-        vc.wordLabel.numberOfLines = 3
         styleLabel(vc.errorLabel, size: 26, serif: true, color: AppColors.surface)
         styleLabel(vc.gotItLabel, size: 26, serif: true, color: AppColors.surface)
         let skipping = vc.gameInstance.allowsSkipping
@@ -353,12 +350,6 @@ enum WarmUI {
         vc.actionHint.textAlignment = .center
         vc.actionHint.accessibilityIdentifier = "round.actionHint"
         vc.redErrorView.addSubview(vc.actionHint)
-        let wordCard = card()
-        wordCard.layer.shadowColor = AppColors.textPrimary.cgColor
-        wordCard.layer.shadowOffset = CGSize(width: 0, height: 5)
-        wordCard.layer.shadowOpacity = 0.04
-        wordCard.layer.shadowRadius = 14
-        canvas.insertSubview(wordCard, at: 0)
         let cross = vc.actionSymbol
         styleLabel(cross, size: 32, color: AppColors.surface)
         cross.textAlignment = .center
@@ -368,22 +359,24 @@ enum WarmUI {
         guessed.addSubview(check)
         if !skipping { vc.redErrorView.accessibilityIdentifier = "round.mistake" }
         vc.timerLabel.accessibilityIdentifier = "round.timer"
-        vc.wordLabel.accessibilityIdentifier = "round.word"
         guessed.subviews.compactMap { $0 as? UIButton }.first?.accessibilityIdentifier = "round.guessed"
         canvas.arrange = { [weak vc] c in
             guard let vc = vc else { return }
             let r = c.contentRect
             let unit = r.height / 840
-            // Storyboard size-class font overrides can be reapplied after load.
-            vc.wordLabel.font = displayFont(45)
             let diameter: CGFloat = 184 * min(1, unit)
             vc.timerView.frame = CGRect(x: r.midX - diameter / 2, y: r.minY + 90 * unit, width: diameter, height: diameter)
             vc.timerLabel.frame = vc.timerView.bounds.insetBy(dx: 10, dy: 10)
-            wordCard.frame = CGRect(x: r.minX, y: r.minY + 355 * unit, width: r.width, height: 210 * unit)
-            vc.wordLabel.frame = wordCard.frame.insetBy(dx: 16, dy: 16)
             let width = (r.width - 14) / 2
             vc.redErrorView.frame = CGRect(x: r.minX, y: r.maxY - 124, width: width, height: 112)
             guessed.frame = CGRect(x: r.minX + width + 14, y: r.maxY - 124, width: width, height: 112)
+            let top = vc.timerView.frame.maxY + 8
+            let bottom = guessed.frame.minY - 12
+            let paperWidth = min(c.bounds.width * 0.88, 520, max(0, bottom - top) / NotebookWordView.heightToWidth)
+            let paperHeight = paperWidth * NotebookWordView.heightToWidth
+            vc.wordPaper.bounds.size = CGSize(width: paperWidth, height: paperHeight)
+            let centerY = c.bounds.height * 0.59 - paperHeight * 0.02
+            vc.wordPaper.center = CGPoint(x: r.midX, y: min(bottom - paperHeight / 2, max(top + paperHeight / 2, centerY)))
             layoutAction(vc.redErrorView, label: vc.errorLabel, symbol: cross)
             cross.frame = CGRect(x: 8, y: 6, width: width - 16, height: 29)
             vc.errorLabel.frame = CGRect(x: 6, y: 35, width: width - 12, height: 38)

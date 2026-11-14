@@ -117,9 +117,10 @@ final class OriginalUXTests: XCTestCase {
 /// Exercise the real Rules pager and the secondary screens which previously
 /// retained the old design. Attachments are also the bilingual review gallery.
 final class WholeAppVisualTests: XCTestCase {
-    private func launch(_ language: String, screen: String) -> XCUIApplication {
+    private func launch(_ language: String, screen: String, motion: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["--snapshot", "--snapshot-screen=\(screen)", "-AppleLanguages", "(\(language))", "-AppleLocale", language == "ru" ? "ru_RU" : "en_US"]
+        if motion { app.launchArguments.append("--snapshot-motion") }
         app.launch()
         return app
     }
@@ -203,11 +204,12 @@ final class WholeAppVisualTests: XCTestCase {
     }
 
     func testSkippedWordsReturnAfterTurnWithoutPenalty() {
-        let app = launch("en", screen: "round-skip")
+        let app = launch("en", screen: "round-skip", motion: true)
         let word = app.staticTexts["round.word"], skip = app.buttons["round.skip"]
         XCTAssertTrue(skip.waitForExistence(timeout: 5))
         let first = word.label
-        skip.tap()
+        // A second tap during the fold must not skip an unseen word.
+        skip.doubleTap()
         let second = word.label
         XCTAssertNotEqual(first, second)
         app.buttons["round.guessed"].tap()
