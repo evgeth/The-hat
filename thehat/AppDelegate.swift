@@ -40,7 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.tintColor = AppColors.primaryDark
         }
 
-        ScreenshotMode.applyIfRequested()
+        if #available(iOS 13.0, *) {
+            // The scene owns the window and applies screenshot setup once it connects.
+        } else {
+            ScreenshotMode.applyIfRequested()
+        }
 
         return true
     }
@@ -50,6 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootController: UINavigationController? = storyboard.instantiateViewController(withIdentifier: "appNavigationController") as? UINavigationController
 
         window?.rootViewController = rootController
+    }
+}
+
+@available(iOS 13.0, *)
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard scene is UIWindowScene, let window = window else { return }
+        window.tintColor = AppColors.primaryDark
+        // Keep the existing language switch and screenshot paths on the same window.
+        (UIApplication.shared.delegate as? AppDelegate)?.window = window
+        ScreenshotMode.applyIfRequested()
     }
 }
 

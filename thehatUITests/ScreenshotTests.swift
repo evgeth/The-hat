@@ -99,4 +99,14 @@ final class OriginalUXTests: XCTestCase {
         app.buttons["setup.done"].tap()
         XCTAssertTrue(app.staticTexts["You can add your words in the hat"].waitForExistence(timeout: 5))
     }
+
+    func testNormalLaunchAndLanguageSwitchUseTheVisibleWindow() {
+        app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["The Hat"].waitForExistence(timeout: 10))
+        app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["Шляпа"].waitForExistence(timeout: 5))
+        app.buttons["Русский"].tap()
+        XCTAssertTrue(app.staticTexts["The Hat"].waitForExistence(timeout: 5))
+    }
 }

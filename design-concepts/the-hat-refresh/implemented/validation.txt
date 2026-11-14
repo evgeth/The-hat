@@ -2,14 +2,17 @@ Warm Modern — presentation-only correction
 
 Original UX restored.
 
-Verified by 2 passing iPhone UI tests:
+Verified by 3 passing iPhone UI tests on iOS 27:
 - A tap on Start does not begin a turn; the original hold duration still does.
 - Tapping Mistake does not end the turn; the original hold still does.
 - No pause action on Play.
 - End of turn returns directly to handoff; review is opened manually and Save dismisses it.
 - Setup retains the original difficulty picker and top confirmation action, with no new Edit mode or Continue button.
+- A normal launch displays the menu, and switching English to Russian and back updates the visible window.
 
-Source integrity check: all five original controllers match HEAD exactly after removing WarmUI presentation calls. Both storyboards, ColorChangingView, the game model and the custom-word controller match HEAD byte for byte.
+Source integrity check: all five original controllers match the pre-redesign revision b34e6b2 exactly after removing WarmUI presentation calls. Both storyboards, ColorChangingView, the game model and the custom-word controller match that revision byte for byte.
+
+iOS 27 compatibility: added a single-window scene manifest and scene delegate. UIKit loads the same Main storyboard; the existing language switch and screenshot paths retain access to that window. This fixes the launch trap in UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption without adding game lifecycle actions.
 
 Image asset: thehat/Images.xcassets/WarmHat.imageset/hat.png
 Created with the built-in imagegen tool; exact prompt: ../03-hat-illustration-prompt.txt
