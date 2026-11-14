@@ -48,6 +48,8 @@ final class AboutViewController: UITableViewController { //, SKProductsRequestDe
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
     }
     

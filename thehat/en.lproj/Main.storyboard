@@ -210,9 +210,7 @@
                             <constraint firstItem="czO-e0-sDd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yag-R3-T2a"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="The Hat" largeTitleDisplayMode="always" id="up1-2g-wy8">
-                        <barButtonItem key="backBarButtonItem" title=" " id="Shs-mB-PPh"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="The Hat" largeTitleDisplayMode="always" id="up1-2g-wy8"/>
                     <connections>
                         <outlet property="aboutLabel" destination="8Dz-Qq-S6c" id="Y5B-Xa-LvX"/>
                         <outlet property="historyButton" destination="tyV-7c-Dsa" id="ez1-2f-Vh6"/>

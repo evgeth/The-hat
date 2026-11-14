@@ -31,9 +31,12 @@ final class HistoryViewController: UIViewController {
         addSubviews()
         makeConstraints()
         setupData()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "HISTORY"))
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     private func addSubviews() {

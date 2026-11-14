@@ -24,12 +24,22 @@ final class TutorialViewController: UIViewController, UIPageViewControllerDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = AppColors.background
+        let heading = WarmUI.label(WarmUI.text("RULES"), size: 23, serif: true, centered: true)
+        heading.accessibilityIdentifier = "rules.heading"
+        heading.accessibilityTraits.insert(.header)
+        heading.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(heading)
+
         pager.dataSource = self
         addChild(pager)
         view.addSubview(pager.view)
         pager.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pager.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            heading.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            heading.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            heading.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            heading.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            pager.view.topAnchor.constraint(equalTo: heading.bottomAnchor),
             pager.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             pager.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pager.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -59,5 +69,13 @@ final class TutorialViewController: UIViewController, UIPageViewControllerDataSo
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let visible = viewController as? TutorialPageViewController else { return nil }
         return page(at: visible.pageIndex - 1)
+    }
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        RulePage.all.count
+    }
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        (pageViewController.viewControllers?.first as? TutorialPageViewController)?.pageIndex ?? 0
     }
 }

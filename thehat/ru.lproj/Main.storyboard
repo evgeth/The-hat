@@ -174,9 +174,7 @@
                             <constraint firstAttribute="trailing" secondItem="Vb7-d3-IHw" secondAttribute="trailing" id="zWB-XO-qGa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="The Hat" largeTitleDisplayMode="always" id="up1-2g-wy8">
-                        <barButtonItem key="backBarButtonItem" title=" " id="Shs-mB-PPh"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="The Hat" largeTitleDisplayMode="always" id="up1-2g-wy8"/>
                     <connections>
                         <outlet property="holdToStartNewGameLabel" destination="Dah-f2-xeo" id="d9l-Nb-9Zl"/>
                         <outlet property="newGameLabel" destination="2zt-I8-SZ0" id="AEK-oe-crA"/>

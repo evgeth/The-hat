@@ -134,9 +134,27 @@ final class WholeAppVisualTests: XCTestCase {
         for language in ["en", "ru"] {
             let app = launch(language, screen: "menu")
             app.buttons["menu.rules"].tap()
+            let heading = app.staticTexts["rules.heading"]
+            XCTAssertTrue(heading.waitForExistence(timeout: 5))
+            XCTAssertEqual(heading.label, language == "ru" ? "Правила" : "Rules")
+            let headerFrame = heading.frame
+            let dots = app.pageIndicators.firstMatch
+            XCTAssertTrue(dots.exists)
+            let firstPageValue = dots.value as? String
             for page in 1...7 {
                 let title = app.staticTexts["rules.title.\(page)"]
                 XCTAssertTrue(title.waitForExistence(timeout: 5))
+                XCTAssertEqual(heading.frame, headerFrame)
+                XCTAssertLessThan(headerFrame.maxY, title.frame.minY)
+                XCTAssertGreaterThan(dots.frame.minY, title.frame.maxY)
+                if page == 2 {
+                    XCTAssertNotEqual(dots.value as? String, firstPageValue)
+                    app.swipeRight()
+                    XCTAssertTrue(app.staticTexts["rules.title.1"].waitForExistence(timeout: 5))
+                    XCTAssertEqual(dots.value as? String, firstPageValue)
+                    app.swipeLeft()
+                    XCTAssertTrue(title.waitForExistence(timeout: 5))
+                }
                 XCTAssertGreaterThanOrEqual(title.frame.minX, 20, "Rule copy must stay inside the left margin")
                 XCTAssertLessThanOrEqual(title.frame.maxX, app.frame.maxX - 20, "Rule copy must stay inside the right margin")
                 capture(app, "warm-\(language)-rule-\(page)")
@@ -144,6 +162,26 @@ final class WholeAppVisualTests: XCTestCase {
             }
             app.buttons["rules.newGame"].tap()
             XCTAssertTrue(app.buttons["setup.done"].waitForExistence(timeout: 5))
+        }
+    }
+
+    func testHistoryOpensAndReturnsToMenu() {
+        let app = launch("en", screen: "menu", motion: true)
+        let history = app.buttons["menu.history"]
+        for useEdgeSwipe in [false, true] {
+            history.tap()
+            let bar = app.navigationBars.firstMatch
+            let back = bar.buttons.firstMatch
+            XCTAssertTrue(back.waitForExistence(timeout: 5))
+            XCTAssertTrue(bar.staticTexts["History"].exists)
+            if useEdgeSwipe {
+                let edge = app.coordinate(withNormalizedOffset: CGVector(dx: 0.005, dy: 0.5))
+                edge.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)))
+            } else {
+                capture(app, "history-navigation")
+                back.tap()
+            }
+            XCTAssertTrue(history.waitForExistence(timeout: 5))
         }
     }
 

@@ -35,11 +35,6 @@ final class TutorialPageViewController: UIViewController {
         let body = WarmUI.label(WarmUI.text(page.bodyKey), size: 18, color: AppColors.textPrimary)
         body.font = UIFont.preferredFont(forTextStyle: .body)
         body.adjustsFontForContentSizeCategory = true
-        let kicker = WarmUI.label(WarmUI.text("RULES").uppercased(), size: 13, color: AppColors.primaryDark)
-        kicker.font = .systemFont(ofSize: 13, weight: .bold)
-        let number = WarmUI.label(String(format: "%02d / %02d", pageIndex + 1, RulePage.all.count), size: 14, color: AppColors.primaryDark)
-        number.font = .monospacedDigitSystemFont(ofSize: 14, weight: .medium)
-        let folio = UIStackView(arrangedSubviews: [kicker, UIView(), number])
         let plate = WarmUI.card()
         let art = UIImageView(image: UIImage(named: page.artwork))
         art.contentMode = .scaleAspectFit
@@ -47,7 +42,7 @@ final class TutorialPageViewController: UIViewController {
         art.translatesAutoresizingMaskIntoConstraints = false
         plate.addSubview(art)
 
-        let stack = UIStackView(arrangedSubviews: [folio, plate, title, body])
+        let stack = UIStackView(arrangedSubviews: [plate, title, body])
         stack.axis = .vertical
         stack.spacing = 14
         stack.setCustomSpacing(24, after: plate)
@@ -62,7 +57,7 @@ final class TutorialPageViewController: UIViewController {
             scroll.topAnchor.constraint(equalTo: view.topAnchor), scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor), scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scroll.contentLayoutGuide.widthAnchor.constraint(equalTo: scroll.frameLayoutGuide.widthAnchor),
-            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 24),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 12),
             stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -28),
             stack.centerXAnchor.constraint(equalTo: scroll.frameLayoutGuide.centerXAnchor), width,
             stack.widthAnchor.constraint(lessThanOrEqualToConstant: 520), artHeight,
