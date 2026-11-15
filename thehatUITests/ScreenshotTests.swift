@@ -149,16 +149,17 @@ final class WholeAppVisualTests: XCTestCase {
                 XCTAssertGreaterThan(dots.frame.minY, title.frame.maxY)
                 if page == 2 {
                     XCTAssertNotEqual(dots.value as? String, firstPageValue)
-                    app.swipeRight()
-                    XCTAssertTrue(app.staticTexts["rules.title.1"].waitForExistence(timeout: 5))
+                    title.swipeRight()
+                    let firstTitle = app.staticTexts["rules.title.1"]
+                    XCTAssertTrue(firstTitle.waitForExistence(timeout: 5))
                     XCTAssertEqual(dots.value as? String, firstPageValue)
-                    app.swipeLeft()
+                    firstTitle.swipeLeft()
                     XCTAssertTrue(title.waitForExistence(timeout: 5))
                 }
                 XCTAssertGreaterThanOrEqual(title.frame.minX, 20, "Rule copy must stay inside the left margin")
                 XCTAssertLessThanOrEqual(title.frame.maxX, app.frame.maxX - 20, "Rule copy must stay inside the right margin")
                 capture(app, "warm-\(language)-rule-\(page)")
-                if page < 7 { app.swipeLeft() }
+                if page < 7 { title.swipeLeft() }
             }
             app.buttons["rules.newGame"].tap()
             XCTAssertTrue(app.buttons["setup.done"].waitForExistence(timeout: 5))
