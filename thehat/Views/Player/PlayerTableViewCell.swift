@@ -75,7 +75,6 @@ class PlayerTableViewCell: UITableViewCell {
     }
 
     @IBAction func deleteButtonPressed(_ sender: UIButton) {
-        let indexPath = delegate?.indexPathForCell(cell: self)
-        delegate?.deleteButtonPressed(indexPath!)
+        delegate?.deletePlayer(in: self)
     }
 }

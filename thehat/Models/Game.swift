@@ -210,12 +210,12 @@ class Game {
     
     func reinitialize(isPoolShouldBeUpdated: Bool = true) {
         isGameInProgress = false
-        initFirstRound()
-        self.isPoolShouldBeUpdated = isPoolShouldBeUpdated
-        updatePool()
         roundNumber = 0
         previousPair = (0, 0)
         playingPair = (0, 1)
+        initFirstRound()
+        self.isPoolShouldBeUpdated = isPoolShouldBeUpdated
+        updatePool()
     }
 }
 class GameSingleton {

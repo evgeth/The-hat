@@ -229,6 +229,84 @@ final class WholeAppVisualTests: XCTestCase {
         }
     }
 
+    func testDeletingPlayersInPairsAndStartingWithRemainingPair() {
+        continueAfterFailure = false
+        let app = launch("en", screen: "settings", motion: true)
+        let table = app.tables["setup.players"]
+        app.buttons["Pairs"].tap()
+
+        func deletePlayer(at row: Int, named name: String) {
+            let cell = table.cells.element(boundBy: row)
+            let field = cell.textFields["setup.playerName"]
+            XCTAssertTrue(field.waitForExistence(timeout: 5))
+            XCTAssertEqual(field.value as? String, name)
+            cell.swipeLeft()
+            let button = cell.buttons["Delete"]
+            XCTAssertTrue(button.waitForExistence(timeout: 3), table.debugDescription)
+            button.tap()
+        }
+
+        deletePlayer(at: 2, named: "Carol")
+        XCTAssertEqual(table.textFields.allElementsBoundByIndex.compactMap { $0.value as? String }, ["Alice", "Bob", "David"])
+        app.buttons["setup.done"].tap()
+        XCTAssertTrue(app.alerts.staticTexts["Each pair should have exactly 2 players"].exists)
+        app.alerts.buttons.firstMatch.tap()
+        deletePlayer(at: 2, named: "David")
+        XCTAssertEqual(table.textFields.allElementsBoundByIndex.compactMap { $0.value as? String }, ["Alice", "Bob"])
+        deletePlayer(at: 1, named: "Bob")
+        XCTAssertTrue(app.alerts.staticTexts["You need at least two players."].exists)
+        app.alerts.buttons.firstMatch.tap()
+        app.buttons["setup.done"].tap()
+        app.navigationBars.buttons["Done"].tap()
+        XCTAssertTrue(app.staticTexts["handoff.start.label"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Alice"].exists)
+        XCTAssertTrue(app.staticTexts["Bob"].exists)
+        app.staticTexts["handoff.start.label"].press(forDuration: 2)
+        app.buttons["round.guessed"].tap()
+        app.staticTexts["Mistake"].press(forDuration: 0.8)
+        app.buttons["handoff.review"].tap()
+        XCTAssertTrue(app.tables.cells.firstMatch.waitForExistence(timeout: 5))
+        app.buttons["review.save"].tap()
+        app.buttons["handoff.menu"].tap()
+        app.buttons["Finish game"].tap()
+        XCTAssertTrue(app.navigationBars.staticTexts["Results"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tables.staticTexts["Alice"].exists)
+        XCTAssertTrue(app.tables.staticTexts["Bob"].exists)
+        app.navigationBars.buttons["Done"].tap()
+        app.buttons["menu.history"].tap()
+        let latest = app.tables.cells.firstMatch
+        XCTAssertTrue(latest.staticTexts["Alice"].waitForExistence(timeout: 5))
+        XCTAssertTrue(latest.staticTexts["Bob"].exists)
+    }
+
+    func testAddingPairsAndSwitchingModesWithDeleteRevealed() {
+        continueAfterFailure = false
+        let app = launch("en", screen: "settings")
+        let table = app.tables["setup.players"]
+        let add = table.buttons["setup.addPlayer"]
+        app.buttons["Pairs"].tap()
+        add.tap()
+        add.tap()
+        let sixth = table.cells.element(boundBy: 5)
+        sixth.textFields.firstMatch.tap()
+        sixth.textFields.firstMatch.typeText("Eve")
+        app.staticTexts["Players:"].tap()
+        sixth.swipeLeft()
+        XCTAssertTrue(sixth.buttons["Delete"].isHittable)
+        app.buttons["Singles"].tap()
+        XCTAssertFalse(table.buttons["Delete"].exists)
+        XCTAssertEqual(sixth.textFields.firstMatch.value as? String, "Eve")
+        sixth.swipeLeft()
+        sixth.buttons["Delete"].tap()
+        XCTAssertFalse(table.textFields.matching(NSPredicate(format: "value == 'Eve'")).firstMatch.exists)
+        app.buttons["Pairs"].tap()
+        let fifth = table.cells.element(boundBy: 4)
+        fifth.swipeLeft()
+        fifth.buttons["Delete"].tap()
+        app.buttons["setup.done"].tap()
+        XCTAssertTrue(app.textFields["words.field"].waitForExistence(timeout: 5))
+    }
+
     func testAllowSkipsThroughSetup() {
         let app = launch("en", screen: "settings")
         let toggle = app.switches["setup.allowSkips"]
@@ -242,12 +320,11 @@ final class WholeAppVisualTests: XCTestCase {
     }
 
     func testSkippedWordsReturnAfterTurnWithoutPenalty() {
-        let app = launch("en", screen: "round-skip", motion: true)
+        let app = launch("en", screen: "round-skip")
         let word = app.staticTexts["round.word"], skip = app.buttons["round.skip"]
         XCTAssertTrue(skip.waitForExistence(timeout: 5))
         let first = word.label
-        // A second tap during the fold must not skip an unseen word.
-        skip.doubleTap()
+        skip.tap()
         let second = word.label
         XCTAssertNotEqual(first, second)
         app.buttons["round.guessed"].tap()
@@ -262,6 +339,23 @@ final class WholeAppVisualTests: XCTestCase {
         XCTAssertEqual(rows.element(boundBy: 0).value as? String, "Back in the hat")
         XCTAssertEqual(rows.element(boundBy: 1).value as? String, "Guessed")
         XCTAssertEqual(rows.element(boundBy: 2).value as? String, "Back in the hat")
+    }
+
+    func testDoubleTapDuringFoldSkipsOnlyOneWord() {
+        let app = launch("en", screen: "round-skip", motion: true)
+        let skip = app.buttons["round.skip"]
+        XCTAssertTrue(skip.waitForExistence(timeout: 5))
+        skip.doubleTap()
+        // End the turn at overtime so its review records exactly how many
+        // words those taps consumed, independently of animation timing.
+        let overtime = expectation(for: NSPredicate(format: "label == 'Not guessed'"), evaluatedWith: skip)
+        wait(for: [overtime], timeout: 45)
+        skip.tap()
+        app.buttons["handoff.review"].tap()
+        let rows = app.tables.cells
+        XCTAssertEqual(rows.count, 2)
+        XCTAssertEqual(rows.element(boundBy: 0).value as? String, "Back in the hat")
+        XCTAssertEqual(rows.element(boundBy: 1).value as? String, "Back in the hat")
     }
 
     func testSkipDuringOvertimeEndsTurnWithoutNewDraw() {
