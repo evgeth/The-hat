@@ -58,18 +58,14 @@ final class MenuController: UIViewController {
         setupView()
         setupLanguageButton()
         initNewGameButton()
+        WarmUI.menu(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Analytics.logEvent("open_screen", parameters: ["screen_name": "Main Menu"])
         initNewGameButton()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     private func initNewGameButton() {
@@ -115,7 +111,7 @@ final class MenuController: UIViewController {
 
     @IBAction func onHistoryButtonTap(_ sender: Any) {
         let viewController = HistoryViewController()
-        navigationController?.pushViewController(viewController, animated: false)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func touchEnded() {

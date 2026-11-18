@@ -19,6 +19,10 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var timer: Timer?
     var timerRate: Float = 0.01
     
+    let actionHint = UILabel()
+    let actionSymbol = UILabel()
+    private let skipButton = UIButton(type: .custom)
+
     var currentWord: String!
     var wordsGuessed = [Word]()
     
@@ -27,7 +31,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var isBasicTimeAlmostEnded = false
     var isExtraTimeEnded = false
     
-    @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var wordPaper: NotebookWordView!
     @IBOutlet weak var errorLabel: UILabel! {
         didSet {
             errorLabel.text = LS.localizedString(forKey: "mistake")
@@ -50,6 +54,9 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     var scoreSound: AVAudioPlayer?
     var failSound: AVAudioPlayer?
+    // Keep the card slide playing through the handoff if the last word is skipped.
+    // Kenney, Casino Audio (CC0), card-slide-4: https://kenney.nl/assets/casino-audio
+    private static let skipSound = setupAudioPlayerWithFile(file: "skip", type: "wav")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,10 +73,46 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         
         redErrorView.initializer(startColor: inactiveColor, finishColor: AppColors.fail, requiredTouchDuration: 0.6, delegate: self)
         
-        self.scoreSound = self.setupAudioPlayerWithFile(file: "score", type:"wav")
-        self.failSound = self.setupAudioPlayerWithFile(file: "mistake", type:"wav")
+        scoreSound = Self.setupAudioPlayerWithFile(file: "score", type: "wav")
+        failSound = Self.setupAudioPlayerWithFile(file: "mistake", type: "wav")
         
         navigationController?.setNavigationBarHidden(true, animated: true)
+        WarmUI.round(self)
+        if gameInstance.allowsSkipping {
+            Self.skipSound?.prepareToPlay()
+            skipButton.accessibilityIdentifier = "round.skip"
+            skipButton.addTarget(self, action: #selector(skipWord), for: .touchUpInside)
+            redErrorView.addSubview(skipButton)
+        }
+        updateSecondaryAction()
+    }
+
+    private func updateSecondaryAction() {
+        let skipping = gameInstance.allowsSkipping
+        let title = isBasicTimeEnded ? "round_not_guessed" : skipping ? "skip_word" : "mistake"
+        let hint = isBasicTimeEnded ? (skipping ? "tap_to_return" : "overtime_actions") : skipping ? "skip_no_penalty" : "hold_to_end"
+        actionSymbol.text = isBasicTimeEnded ? "↶" : skipping ? "→" : "×"
+        if isBasicTimeEnded {
+            redErrorView.startColor = AppColors.returnedWord
+            redErrorView.backgroundColor = AppColors.returnedWord
+        }
+        errorLabel.text = LS.localizedString(forKey: title)
+        actionHint.text = LS.localizedString(forKey: hint)
+        skipButton.accessibilityLabel = errorLabel.text
+        skipButton.accessibilityHint = actionHint.text
+    }
+
+    @objc private func skipWord() {
+        guard gameInstance.allowsSkipping, !isRoundVCDismissed, !wordPaper.isChangingWord else { return }
+        if !isBasicTimeEnded, let sound = Self.skipSound {
+            sound.currentTime = 0
+            sound.play()
+        }
+        // A .new entry returns to the hat when the turn is committed. It
+        // cannot be redrawn during this turn, even if it was the last word.
+        wordsGuessed.append(Word(word: currentWord))
+        if isBasicTimeEnded || gameInstance.isNoMoreWords { endRound() }
+        else { reloadWord() }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,7 +125,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         )
     }
 
-    func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
+    private static func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
         guard let path = Bundle.main.path(forResource: file, ofType: type) else {
             print("Audio file not found: \(file).\(type)")
             return nil
@@ -118,12 +161,9 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
             if secondsLeft < 0 {
                 if !isBasicTimeEnded {
                     failSound?.play()
-                    UIView.animate(withDuration: 0.3) {
-                        self.redErrorView.backgroundColor = AppColors.fail
-                        self.errorLabel.text = LS.localizedString(forKey: "NO_WAY")
-                    }
+                    isBasicTimeEnded = true
+                    updateSecondaryAction()
                 }
-                isBasicTimeEnded = true
                 timerView.percent = CGFloat(secondsLeft / extraRoundDuration)
                 timerLabel.text = "\(Int(secondsLeft))"
                 
@@ -148,10 +188,11 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     
     func endRound() {
         if !isRoundVCDismissed {
+            isRoundVCDismissed = true
+            setRoundEndedState()
             gameInstance.nextRound()
             gameInstance.setGuessedWordsForRound(guessedWords: self.wordsGuessed)
             navigationController?.popViewController(animated: true)
-            isRoundVCDismissed = true
         }
     }
     
@@ -161,15 +202,11 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
             endRound()
             return
         }
-        let transitionOptions = UIView.AnimationOptions.transitionFlipFromBottom
-        UIView.transition(with: wordLabel, duration: 0.3, options: transitionOptions, animations: {
-            self.wordLabel.text = self.currentWord
-            },
-            completion: nil)
-        
+        wordPaper.show(currentWord)
     }
 
     @IBAction func guessed(_ sender: AnyObject) {
+        guard !isRoundVCDismissed, !wordPaper.isChangingWord else { return }
         let word = Word(word: currentWord)
         word.state = .guessed
         wordsGuessed.append(word)
@@ -183,11 +220,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         } else {
             scoreSound?.play()
         }
-        if isBasicTimeEnded {
-            setRoundEndedState()
-            endRound()
-        }
-        if isRoundEnded {
+        if isBasicTimeEnded || isRoundEnded {
             endRound()
         } else {
             reloadWord()
@@ -195,6 +228,7 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
     
     func requiredTouchDurationReached() {
+        guard !gameInstance.allowsSkipping, !isRoundVCDismissed else { return }
         let word = Word(word: currentWord)
         word.state = .fail
         wordsGuessed.append(word)
@@ -202,11 +236,13 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     }
 
     func touchEnded() {
-        if isBasicTimeEnded {
-            let word = Word(word: currentWord)
-            word.state = .new
-            wordsGuessed.append(word)
-            endRound()
+        guard !gameInstance.allowsSkipping, !isRoundVCDismissed else { return }
+        if !isBasicTimeEnded {
+            actionHint.text = LS.localizedString(forKey: "keep_holding")
+            UISelectionFeedbackGenerator().selectionChanged()
+            return
         }
+        wordsGuessed.append(Word(word: currentWord))
+        endRound()
     }
 }

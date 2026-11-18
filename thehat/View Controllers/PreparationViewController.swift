@@ -28,14 +28,13 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
     }
     @IBOutlet weak var startLabel: UILabel! {
         didSet {
-            startLabel.text = LS.localizedString(forKey: "start")
+            startLabel.text = LS.localizedString(forKey: "hold_to_start")
         }
     }
     @IBOutlet weak var loadingViewWidth: NSLayoutConstraint!
 
     var loadingView: UIView!
     
-    var notUndestandingHowToStartCounter = 0
     
     var isProceedingToResults: Bool = false
     
@@ -57,6 +56,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         self.loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.startButtonView.frame.height))
         self.startButtonView.insertSubview(self.loadingView, at: 0)
         self.loadingView.backgroundColor = AppColors.primary
+        WarmUI.preparation(self)
     }
 
     func setupAudioPlayerWithFile(file: String, type: String) -> AVAudioPlayer? {
@@ -89,13 +89,10 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
             listener.numberOfLines = 1
         }
 
-        if gameInstance.isNoMoreWords {
-            startLabel.text = LS.localizedString(forKey: "FINISH")
-        }
+        startLabel.text = LS.localizedString(forKey: gameInstance.isNoMoreWords ? "FINISH" : "hold_to_start")
         updateWordsLeft()
         
         
-        notUndestandingHowToStartCounter = 0
         holdToStartLabel.isHidden = true
         
         self.loadingViewWidth.constant = 0
@@ -109,19 +106,33 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         self.navigationItem.title = ""
         if roundNumber != 0 {
             self.navigationItem.setHidesBackButton(true, animated: false)
-            let editWordsImage = UIImage(named: "Edit words")
+            let editWordsImage: UIImage?
+            if #available(iOS 13.0, *) { editWordsImage = UIImage(systemName: "checklist") ?? UIImage(systemName: "list.bullet") }
+            else { editWordsImage = UIImage(named: "Edit words") }
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: editWordsImage, style: .plain, target: self, action: #selector(self.editGuessedWords))
         } else {
-            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Excalifont", size: 18)!, NSAttributedString.Key.foregroundColor : UIColor.red], for: UIControl.State.normal)
+            navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .medium), NSAttributedString.Key.foregroundColor : AppColors.primaryDark], for: UIControl.State.normal)
         }
-        var size = UIFont.systemFont(ofSize: 18).sizeOfString(string: "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT")), constrainedToWidth: 200)
-        size.width += 10
-        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-        label.text = "\(gameInstance.newWords.count) " + String(LS.localizedString(forKey: "WORDS_LEFT"))
-        label.textColor = AppColors.primaryDark
-        label.font = UIFont(name: "Excalifont", size: 18)
-        label.textAlignment = NSTextAlignment.right
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: #selector(self.closeButtonPressed)), UIBarButtonItem(customView: label)]
+        // Status belongs to the navigation title. A custom bar-button label
+        // would be grouped into the close button's glass background on iOS 27.
+        let count = UILabel()
+        count.font = .monospacedDigitSystemFont(ofSize: 16, weight: .semibold)
+        count.textColor = AppColors.primaryDark
+        count.text = "\(gameInstance.newWords.count) \(LS.localizedString(forKey: "WORDS_LEFT"))"
+        count.numberOfLines = 1; count.adjustsFontSizeToFitWidth = true; count.minimumScaleFactor = 0.75
+        count.textAlignment = .center; count.accessibilityIdentifier = "handoff.wordsLeft"
+        count.sizeToFit()
+        navigationItem.titleView = count
+        let menu: UIBarButtonItem
+        if #available(iOS 13.0, *) {
+            menu = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeButtonPressed))
+        } else {
+            menu = UIBarButtonItem(title: "×", style: .plain, target: self, action: #selector(closeButtonPressed))
+        }
+        menu.tintColor = AppColors.primaryDark
+        menu.accessibilityLabel = LS.localizedString(forKey: "warm_game_menu")
+        navigationItem.rightBarButtonItems = [menu]
+        WarmUI.preparationNavigation(self)
     }
     
     @objc func closeButtonPressed() {
@@ -148,7 +159,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         let popoverPC = editWordsViewController.popoverPresentationController
         popoverPC!.delegate = self
         popoverPC!.barButtonItem = self.navigationItem.leftBarButtonItem
-        popoverPC!.backgroundColor = UIColor.white
+        popoverPC!.backgroundColor = AppColors.background
         popoverPC?.delegate = self
 
         self.present(editWordsViewController, animated: true, completion: nil)
@@ -182,12 +193,7 @@ final class PreparationViewController: UIViewController, UIPopoverPresentationCo
         }
         self.loadingViewWidth.constant = 0
         self.startButtonView.layoutIfNeeded()
-        notUndestandingHowToStartCounter += 1
-        if notUndestandingHowToStartCounter == 1 {
-            UIView.animate(withDuration: 0.2, animations: { () -> Void in
-                self.holdToStartLabel.isHidden = false
-            })
-        }
+
     }
     
     func sendWordsAnalytics() {

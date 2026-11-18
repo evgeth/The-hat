@@ -11,11 +11,16 @@ import UIKit
 
 extension UIViewController {
     func setNavigationBarTitleWithCustomFont(title: String) {
-        let size = UIFont(name: "Excalifont", size: 18)?.sizeOfString(string: title, constrainedToWidth: 200)
-        let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size!))
+        let label = UILabel()
         label.text = title
-        label.font = UIFont(name: "Excalifont", size: 18)
+        label.font = WarmUI.displayFont(23)
+        label.textColor = AppColors.textPrimary
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.sizeToFit()
         self.navigationItem.titleView = label
+        WarmUI.navigation(self)
     }
 }
 

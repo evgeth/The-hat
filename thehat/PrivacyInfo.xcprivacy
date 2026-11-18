@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The app does no tracking as Apple defines it: no data is linked with
+	     third-party data for advertising, and no ad network SDKs are linked.
+	     FirebaseAnalytics is used without AdId support, so there is no IDFA
+	     access and no AppTrackingTransparency prompt. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<!-- Intentionally empty. This binary collects nothing on its own; the data
+	     Firebase Analytics and Crashlytics collect is declared by those SDKs'
+	     own manifests, which Apple aggregates into the privacy report. The
+	     App Store Connect privacy questionnaire must still cover them. -->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<!-- DefaultsService, UsedWordsService, StoreReviewHelper and
+			     GameSettingsViewController read and write game state via
+			     UserDefaults. CA92.1 = accessed only to read/write information
+			     belonging to this app itself. -->
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

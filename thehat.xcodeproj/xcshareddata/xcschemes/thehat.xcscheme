@@ -38,6 +38,16 @@
                ReferencedContainer = "container:thehat.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "546F6052F026CB7549AB6002"
+               BuildableName = "thehatUITests.xctest"
+               BlueprintName = "thehatUITests"
+               ReferencedContainer = "container:thehat.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

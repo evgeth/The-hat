@@ -50,9 +50,6 @@
 /* Class = "UILabel"; text = "150"; ObjectID = "QsY-1S-vss"; */
 "QsY-1S-vss.text" = "150";
 
-/* Class = "UIBarButtonItem"; title = " "; ObjectID = "Shs-mB-PPh"; */
-"Shs-mB-PPh.title" = " ";
-
 /* Class = "UILabel"; text = "Round Length"; ObjectID = "VjE-2T-Kyx"; */
 "VjE-2T-Kyx.text" = "Длительность раунда";
 

@@ -1,9 +1,9 @@
 import UIKit
 
-final class AddWordViewController: UIViewController {
+final class AddWordViewController: UIViewController, UIGestureRecognizerDelegate {
     private var game = GameSingleton.gameInstance
 
-    var initinalY: CGFloat = 0
+    private var legacyButtonBottom: NSLayoutConstraint?
     var words: [String] = []
     var wordsCount: Int = 0
     private let descriptionLabel: UILabel = {
@@ -11,8 +11,8 @@ final class AddWordViewController: UIViewController {
         label.text = LS.localizedString(forKey: "own_words")
         label.textColor = AppColors.textPrimary
         label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = UIFont(name: "Excalifont", size: 20)
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -21,8 +21,8 @@ final class AddWordViewController: UIViewController {
         let label = UILabel()
         label.textColor = AppColors.textPrimary
         label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = UIFont(name: "Excalifont", size: 20)
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,9 +30,10 @@ final class AddWordViewController: UIViewController {
     private lazy var addWordButton: UIButton = {
         let button = UIButton()
         button.setTitle("\(LS.localizedString(forKey: "add_word"))", for: .normal)
-        button.setTitleColor(AppColors.textPrimary, for: .normal)
-        button.titleLabel?.textColor = AppColors.textPrimary
-        button.titleLabel?.font = UIFont(name: "Excalifont", size: 36)
+        button.setTitleColor(AppColors.surface, for: .normal)
+        button.layer.cornerRadius = 18
+        button.accessibilityIdentifier = "words.add"
+        button.titleLabel?.font = WarmUI.displayFont(24)
         button.backgroundColor = AppColors.primary
         button.addTarget(self, action: #selector(addWord), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +77,7 @@ final class AddWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = AppColors.background
-        addSubviews()
+        view.addSubview(addWordButton)
         makeConstraints()
 
         setNavigationBarTitleWithCustomFont(title: LS.localizedString(forKey: "add_words"))
@@ -88,14 +89,26 @@ final class AddWordViewController: UIViewController {
             target: self,
             action: #selector(self.goToGame)
         )
-        setupNotifications()
+        if #available(iOS 15.0, *) {} else { setupNotifications() }
         addKeyboardHideHandler()
     }
 
     private func addKeyboardHideHandler() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGestureRecognizer.cancelsTouchesInView = false
+        tapGestureRecognizer.delegate = self
         self.view.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Keep a tap on Add in the button's control path. Dismissing the
+        // keyboard first moves the button away before touchUpInside fires.
+        var view = touch.view
+        while let current = view {
+            if current is UIControl { return false }
+            view = current.superview
+        }
+        return true
     }
 
     @objc func dismissKeyboard() {
@@ -119,7 +132,8 @@ final class AddWordViewController: UIViewController {
 
     @objc
     private func keyboardWillHide(notification: NSNotification) {
-        addWordButton.frame.origin.y = initinalY
+        legacyButtonBottom?.constant = -16
+        view.layoutIfNeeded()
     }
 
     @objc
@@ -130,71 +144,46 @@ final class AddWordViewController: UIViewController {
         else {
             return
         }
-        initinalY = addWordButton.frame.origin.y
-        addWordButton.frame.origin.y -= keyboardFrame.cgRectValue.height
+        let rect = view.convert(keyboardFrame.cgRectValue, from: nil)
+        let overlap = view.bounds.intersection(rect).height
+        legacyButtonBottom?.constant = -max(16, overlap - view.safeAreaInsets.bottom + 12)
+        view.layoutIfNeeded()
     }
 
-
-    private func addSubviews() {
-        view.addSubview(descriptionLabel)
-        view.addSubview(wordsInTheHatLabel)
-        view.addSubview(searchTextField)
-        view.addSubview(addWordButton)
-    }
 
     private func makeConstraints() {
-        if #available(iOS 11.0, *) {
-            NSLayoutConstraint.activate(
-                [
-                    descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-                    addWordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
-                ])
+        let safe = view.safeAreaLayoutGuide
+        let scroll = UIScrollView(); scroll.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(scroll, at: 0)
+        let hat = UIImageView(image: UIImage(named: "WarmHat"))
+        hat.contentMode = .scaleAspectFit
+        hat.isAccessibilityElement = false
+        hat.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        let introduction = UIStackView(arrangedSubviews: [descriptionLabel, hat])
+        introduction.alignment = .center
+        introduction.spacing = 16
+        let stack = UIStackView(arrangedSubviews: [introduction, searchTextField, wordsInTheHatLabel])
+        stack.axis = .vertical; stack.spacing = 16; stack.translatesAutoresizingMaskIntoConstraints = false
+        scroll.addSubview(stack)
+        let width = stack.widthAnchor.constraint(equalTo: safe.widthAnchor, constant: -48)
+        width.priority = UILayoutPriority(999)
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: safe.topAnchor), scroll.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: safe.trailingAnchor), scroll.bottomAnchor.constraint(equalTo: addWordButton.topAnchor, constant: -8),
+            scroll.contentLayoutGuide.widthAnchor.constraint(equalTo: scroll.frameLayoutGuide.widthAnchor),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 20), stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -16),
+            stack.centerXAnchor.constraint(equalTo: safe.centerXAnchor), width, stack.widthAnchor.constraint(lessThanOrEqualToConstant: 520),
+            hat.widthAnchor.constraint(equalTo: stack.widthAnchor, multiplier: 0.30),
+            hat.heightAnchor.constraint(equalTo: hat.widthAnchor, multiplier: 0.84),
+            searchTextField.heightAnchor.constraint(equalToConstant: 54),
+            addWordButton.centerXAnchor.constraint(equalTo: safe.centerXAnchor), addWordButton.widthAnchor.constraint(equalTo: stack.widthAnchor),
+            addWordButton.heightAnchor.constraint(equalToConstant: 62)
+        ])
+        if #available(iOS 15.0, *) {
+            addWordButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -12).isActive = true
+        } else {
+            legacyButtonBottom = addWordButton.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -16)
+            legacyButtonBottom?.isActive = true
         }
-        else {
-            NSLayoutConstraint.activate(
-                [
-                    descriptionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
-                    addWordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
-                ]
-            )
-        }
-
-        NSLayoutConstraint.activate(
-            [
-                descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-                descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-
-                wordsInTheHatLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
-                wordsInTheHatLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-                wordsInTheHatLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-                
-                addWordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                addWordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                addWordButton.heightAnchor.constraint(equalToConstant: 65),
-                addWordButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-
-            ]
-        )
-
-        NSLayoutConstraint.activate(
-            [
-                searchTextField.leadingAnchor.constraint(
-                    equalTo: view.leadingAnchor,
-                    constant: 32
-                ),
-
-                searchTextField.leadingAnchor.constraint(
-                    equalTo: view.trailingAnchor,
-                    constant: -32
-                ),
-                searchTextField.topAnchor.constraint(
-                    equalTo: wordsInTheHatLabel.bottomAnchor,
-                    constant: 16
-                ),
-                searchTextField.heightAnchor.constraint(equalToConstant: 44),
-                searchTextField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64)
-            ]
-        )
     }
-
 }

@@ -32,6 +32,7 @@ class Game {
     var extraRoundDuration: Float = 3
     var type = GameType.EachToEach
     var wordsInTheHat = 60
+    var allowsSkipping = false
     
     var players: [Player] = []
     var previousPair: (Int, Int) = (0, 0)
@@ -209,12 +210,12 @@ class Game {
     
     func reinitialize(isPoolShouldBeUpdated: Bool = true) {
         isGameInProgress = false
-        initFirstRound()
-        self.isPoolShouldBeUpdated = isPoolShouldBeUpdated
-        updatePool()
         roundNumber = 0
         previousPair = (0, 0)
         playingPair = (0, 1)
+        initFirstRound()
+        self.isPoolShouldBeUpdated = isPoolShouldBeUpdated
+        updatePool()
     }
 }
 class GameSingleton {

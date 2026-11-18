@@ -1,106 +1,81 @@
-//
-//  TutorialViewController.swift
-//  thehat
-//
-//  Created by Eugene Yurtaev on 04/01/16.
-//  Copyright © 2016 dpfbop. All rights reserved.
-//
-
 import UIKit
 import FirebaseAnalytics
 
+struct RulePage {
+    let titleKey: String
+    let bodyKey: String
+    let artwork: String
 
-final class TutorialViewController: UIViewController {
+    static let all = [
+        RulePage(titleKey: "rule_players_title", bodyKey: "edit_players", artwork: "WarmRulesPlayers"),
+        RulePage(titleKey: "rule_settings_title", bodyKey: "edit_settings", artwork: "WarmRulesSettings"),
+        RulePage(titleKey: "rule_explain_title", bodyKey: "preparation", artwork: "WarmRulesExplain"),
+        RulePage(titleKey: "rule_guess_title", bodyKey: "round", artwork: "WarmRulesGuess"),
+        RulePage(titleKey: "rule_time_title", bodyKey: "extra_time", artwork: "WarmRulesTime"),
+        RulePage(titleKey: "rule_results_title", bodyKey: "results", artwork: "WarmRulesResults"),
+        RulePage(titleKey: "rule_ready_title", bodyKey: "rule_ready_body", artwork: "WarmHat")
+    ]
+}
 
-    var pageViewController: UIPageViewController!
-    var tutorialTitles: [String] = []
-    var tutorialImages: [String] = []
-
-    var tutorialPages: [TutorialPageViewController] = []
+final class TutorialViewController: UIViewController, UIPageViewControllerDataSource {
+    private let pager = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     weak var delegate: TutorialDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = AppColors.background
+        let heading = WarmUI.label(WarmUI.text("RULES"), size: 23, serif: true, centered: true)
+        heading.accessibilityIdentifier = "rules.heading"
+        heading.accessibilityTraits.insert(.header)
+        heading.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(heading)
 
-        tutorialTitles = [
-            LS.localizedString(forKey: "edit_players"),
-            LS.localizedString(forKey: "edit_settings"),
-            LS.localizedString(forKey: "preparation"),
-            LS.localizedString(forKey: "round"),
-            LS.localizedString(forKey: "extra_time"),
-            LS.localizedString(forKey: "results"),
-            "new game"
-        ]
-
-        tutorialImages = [
-            "edit_players",
-            "edit_settings",
-            "preparation",
-            "round",
-            "extra_time",
-            "results",
-            "new_game"
-        ]
-
-        pageViewController = storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
-        pageViewController.dataSource = self
-        tutorialPages = [viewControllerAtIndex(index: 0)!]
-
-        pageViewController.setViewControllers(tutorialPages, direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
-
-        self.pageViewController.view.frame = CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.size.height - 40)
-        
-        self.addChild(self.pageViewController)
-        self.view.addSubview(self.pageViewController.view)
-        self.pageViewController.didMove(toParent: self)
+        pager.dataSource = self
+        addChild(pager)
+        view.addSubview(pager.view)
+        pager.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heading.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            heading.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            heading.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            heading.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            pager.view.topAnchor.constraint(equalTo: heading.bottomAnchor),
+            pager.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            pager.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pager.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        pager.setViewControllers([page(at: 0)!], direction: .forward, animated: false)
+        pager.didMove(toParent: self)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationItem.title = LS.localizedString(forKey: "RULES")
+        super.viewWillAppear(animated)
         Analytics.logEvent("open_screen", parameters: ["screen_name": "Tutorial"])
     }
-}
 
-extension TutorialViewController: UIPageViewControllerDataSource {
-    func viewControllerAtIndex(index: Int) -> TutorialPageViewController? {
-        if (self.tutorialTitles.count == 0) || (index >= self.tutorialTitles.count) {
-            return nil;
-        }
-        
-        // Create a new view controller and pass suitable data.
-        let tutorialPage = storyboard?.instantiateViewController(withIdentifier: "TutorialPageViewController") as! TutorialPageViewController
-        tutorialPage.imageName = self.tutorialImages[index]
-        tutorialPage.descriptionText = self.tutorialTitles[index]
-        tutorialPage.pageIndex = index
-        tutorialPage.delegate = self.delegate
-        return tutorialPage
-        
+    private func page(at index: Int) -> TutorialPageViewController? {
+        guard RulePage.all.indices.contains(index) else { return nil }
+        let page = TutorialPageViewController()
+        page.pageIndex = index
+        page.delegate = delegate
+        return page
     }
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let index = (viewController as! TutorialPageViewController).pageIndex
-        
-        if index == tutorialTitles.count {
-            return nil
-        }
-        
-        return viewControllerAtIndex(index: index + 1)
+        guard let visible = viewController as? TutorialPageViewController else { return nil }
+        return page(at: visible.pageIndex + 1)
     }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let index = (viewController as! TutorialPageViewController).pageIndex
 
-        if index == 0 {
-            return nil
-        }
-        
-        return viewControllerAtIndex(index: index - 1)
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let visible = viewController as? TutorialPageViewController else { return nil }
+        return page(at: visible.pageIndex - 1)
     }
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return tutorialTitles.count
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        RulePage.all.count
     }
-    
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        (pageViewController.viewControllers?.first as? TutorialPageViewController)?.pageIndex ?? 0
     }
 }

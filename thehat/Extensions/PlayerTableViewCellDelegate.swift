@@ -10,7 +10,5 @@ import UIKit
 import Foundation
 
 protocol PlayerTableViewCellDelegate: AnyObject  {
-    func deleteButtonPressed(_ indexPath: IndexPath)
-    
-    func indexPathForCell(cell: UITableViewCell) -> IndexPath
+    func deletePlayer(in cell: PlayerTableViewCell)
 }

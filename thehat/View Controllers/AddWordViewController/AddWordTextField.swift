@@ -1,49 +1,28 @@
 import UIKit
 
-fileprivate extension NSAttributedString {
-    static let placeholder = NSAttributedString(
-        string: LS.localizedString(forKey: "write_word"),
-        attributes: [
-            .foregroundColor: AppColors.textSecondary,
-            .font : UIFont(name: "Excalifont", size: 20)!
-        ]
-    )
-}
-
-final class AddWordTextField: UITextField {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setUp()
-    }
+final class AddWordTextField: UITextField, UITextFieldDelegate {
+    override init(frame: CGRect) { super.init(frame: frame); setUp() }
+    required init?(coder: NSCoder) { super.init(coder: coder); setUp() }
 
     private func setUp() {
-        font = UIFont(name: "Excalifont", size: 20)
-        clearButtonMode = .whileEditing
-        attributedPlaceholder = .placeholder
+        font = .systemFont(ofSize: 18)
         textColor = AppColors.textPrimary
+        tintColor = AppColors.primary
+        clearButtonMode = .whileEditing
+        placeholder = LS.localizedString(forKey: "write_word")
         returnKeyType = .done
-        borderStyle = .roundedRect
+        backgroundColor = AppColors.surface
+        layer.cornerRadius = 14
+        layer.borderColor = AppColors.separator.cgColor
+        layer.borderWidth = 1
+        leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 1))
+        leftViewMode = .always
+        accessibilityIdentifier = "words.field"
         delegate = self
     }
 
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return textRect(forBounds: bounds)
-    }
-
-    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return textRect(forBounds: bounds)
-    }
-}
-
-extension AddWordTextField: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
-

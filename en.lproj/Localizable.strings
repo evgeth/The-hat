@@ -44,12 +44,23 @@ PAIR = "Pair";
 
 GUESSED_WORDS = "Guessed Words";
 
-edit_players = "Set names for players";
-edit_settings = "Choose words difficulty and other settings";
-preparation = "Alice should explain as many words as she can to Bob without using cognate and conformable words";
-round = "Tap \"Got it\" when your partner tells the right word. If you accidently say cognate word, hold \"Mistake\"";
-extra_time = "When the time is up, your partner has 3 extra seconds to guess. During this time, you should remain silent";
-results = "In the end of the game, you will see the results";
+edit_players = "Enter a name for everyone playing. In Singles, drag the handles to set the playing order.";
+edit_settings = "Choose the number of words, turn length, difficulty, and whether to play in singles or pairs.";
+preparation = "Press and hold “Hold to Start”. Help your partner guess the word without saying it, using a related word, or giving a sound-alike clue.";
+round = "Tap “Got it!” for a correct guess. Hold “Mistake” to end your turn. With skips enabled, tap “Skip” to return the word for a later turn without losing a point.";
+allow_skips = "Allow word skips";
+skip_word = "Skip";
+skip_no_penalty = "No penalty";
+hold_to_end = "Hold to end turn";
+keep_holding = "Keep holding to end turn";
+round_not_guessed = "Not guessed";
+tap_to_return = "Tap to return to hat";
+overtime_actions = "Tap to return · Hold for mistake";
+review_instruction = "Tap a word to change its result.";
+review_returned = "Back in the hat";
+review_guessed = "Guessed";
+extra_time = "When the timer runs out, stop giving clues. Your partner has three more seconds to guess the current word.";
+results = "The final table shows how many words each player explained and guessed, along with their total score.";
 
 
 social = "Social";
@@ -75,7 +86,7 @@ mistake = "Mistake";
 start = "Start";
 save = "Save";
 hold_to_start_new_game = "Hold to start new game";
-hold_to_start = "Hold to start";
+hold_to_start = "Hold to Start";
 HISTORY = "History";
 players = "Players:";
 add_words = "Add words";
@@ -84,3 +95,36 @@ go_to_game = "Go to game";
 add_word = "Add word";
 own_words = "You can add your words in the hat";
 empty_history_title = "The history of played games will be displayed here";
+
+/* Sample data used only when the app runs in App Store screenshot mode. */
+SCREENSHOT_PLAYERS = "Alice,Bob,Carol,David";
+SCREENSHOT_SAMPLE_WORDS = "river,thunder,garden,library,mountain,harbor,candle";
+SCREENSHOT_ROUND_WORD = "lighthouse";
+
+/* Warm Modern presentation */
+warm_title = "The Hat";
+warm_settings = "Game settings";
+warm_difficulty = "Difficulty";
+warm_your_turn = "Your turn";
+warm_explains = "Explains";
+warm_guesses = "Guesses";
+
+rule_players_title = "Gather your players";
+rule_settings_title = "Set up the game";
+rule_explain_title = "Give a clue";
+rule_guess_title = "Mark the word";
+rule_time_title = "Three quiet seconds";
+rule_results_title = "See the scores";
+rule_ready_title = "Ready to play?";
+rule_ready_body = "When everyone is ready, start a new game.";
+warm_player_placeholder = "Player";
+warm_delete = "Delete";
+warm_total = "Total";
+warm_explained = "Explained";
+warm_guessed = "Guessed";
+warm_about_links = "Share the game";
+warm_history_empty = "No games yet";
+warm_error = "Game settings";
+warm_min_players = "You need at least two players.";
+warm_ok = "OK";
+warm_game_menu = "Game options";

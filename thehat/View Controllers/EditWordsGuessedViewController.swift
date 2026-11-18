@@ -38,6 +38,7 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
             word.state = wordString.state
             wordList.append(word)
         }
+        WarmUI.review(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,26 +52,16 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "word") as! GuessedWordCell
         cell.wordLabel.text = wordList[indexPath.row].word
-        if wordList[indexPath.row].state == State.fail {
-            
+        let state = wordList[indexPath.row].state
+        switch state {
+        case .guessed: cell.wordStatus.text = "✓"; cell.wordStatus.textColor = AppColors.success
+        case .new: cell.wordStatus.text = "↶"; cell.wordStatus.textColor = AppColors.returnedWord
+        case .fail: cell.wordStatus.text = "×"; cell.wordStatus.textColor = AppColors.fail
         }
-        cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(0))
-        cell.wordStatus.font = UIFont(name: "Excalifont", size: 42)
-        if wordList[indexPath.row].state == State.guessed {
-            cell.wordStatus.text = "✓";
-            cell.wordStatus.textColor = AppColors.success
-            cell.wordLabel.textColor = AppColors.success
-        } else if wordList[indexPath.row].state == State.new {
-            cell.wordStatus.text = "🎩";
-            cell.wordStatus.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-            cell.wordStatus.font = UIFont(name: "Excalifont", size: 34)
-            cell.wordStatus.textColor = AppColors.textPrimary
-            cell.wordLabel.textColor = AppColors.textPrimary
-        } else {
-            cell.wordStatus.text = "✗";
-            cell.wordStatus.textColor = AppColors.fail
-            cell.wordLabel.textColor = AppColors.fail
-        }
+        cell.accessibilityLabel = cell.wordLabel.text
+        cell.accessibilityValue = LS.localizedString(forKey: state == .new ? "review_returned" : state == .guessed ? "review_guessed" : "mistake")
+        cell.accessibilityTraits = .button
+        WarmUI.reviewCell(cell, at: indexPath)
         return cell
     }
     
@@ -79,10 +70,7 @@ final class EditWordsGuessedViewController: UIViewController, UIPopoverPresentat
         return wordList.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        LS.localizedString(forKey: "GUESSED_WORDS")
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if wordList[indexPath.row].state == State.guessed{
             wordList[indexPath.row].state = State.new
