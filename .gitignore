@@ -138,3 +138,6 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/xcode,macos,swift,cocoapods
+
+# Local design exploration and visual verification artifacts
+/design-concepts/
