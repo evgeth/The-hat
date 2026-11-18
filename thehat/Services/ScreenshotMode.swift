@@ -107,13 +107,13 @@ enum ScreenshotMode {
                 previous.guessedWords += (1...24).map { Word(word: "Long demonstration word \($0)") }
             }
             nav.pushViewController(storyboard.instantiateViewController(withIdentifier: "preparation"), animated: false)
-        case "round", "round-skip", "round-skip-overtime":
+        case "round", "round-skip", "round-skip-overtime", "round-overtime":
             primeRound()
             if name != "round" {
                 let game = GameSingleton.gameInstance
-                game.allowsSkipping = true
+                game.allowsSkipping = name.hasPrefix("round-skip")
                 game.newWords = Set(localizedList("SCREENSHOT_SAMPLE_WORDS", fallback: ["garden", "river", "boat"]).prefix(3))
-                game.roundDuration = name == "round-skip-overtime" ? 2 : 30
+                game.roundDuration = name.hasSuffix("-overtime") ? 2 : 30
                 nav.pushViewController(storyboard.instantiateViewController(withIdentifier: "preparation"), animated: false)
             }
             let round = storyboard.instantiateViewController(withIdentifier: "RoundViewController")

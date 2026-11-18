@@ -30,7 +30,9 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     var isBasicTimeEnded = false
     var isBasicTimeAlmostEnded = false
     var isExtraTimeEnded = false
-    
+    /// True when the current press on the secondary button began after the basic time ran out.
+    private var didPressStartInOvertime = false
+
     @IBOutlet weak var wordPaper: NotebookWordView!
     @IBOutlet weak var errorLabel: UILabel! {
         didSet {
@@ -90,10 +92,13 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
     private func updateSecondaryAction() {
         let skipping = gameInstance.allowsSkipping
         let title = isBasicTimeEnded ? "round_not_guessed" : skipping ? "skip_word" : "mistake"
-        let hint = isBasicTimeEnded ? (skipping ? "tap_to_return" : "overtime_actions") : skipping ? "skip_no_penalty" : "hold_to_end"
+        let hint = isBasicTimeEnded ? "tap_to_return" : skipping ? "skip_no_penalty" : "hold_to_end"
         actionSymbol.text = isBasicTimeEnded ? "↶" : skipping ? "→" : "×"
         if isBasicTimeEnded {
+            // In overtime any press returns the word, so the button must not darken
+            // while held: that reads as "hold to confirm a mistake".
             redErrorView.startColor = AppColors.returnedWord
+            redErrorView.finishColor = AppColors.returnedWord
             redErrorView.backgroundColor = AppColors.returnedWord
         }
         errorLabel.text = LS.localizedString(forKey: title)
@@ -227,10 +232,17 @@ final class RoundViewController: UIViewController, ColorChangingViewDelegate {
         }
     }
     
+    func touchBegan() {
+        didPressStartInOvertime = isBasicTimeEnded
+    }
+
     func requiredTouchDurationReached() {
         guard !gameInstance.allowsSkipping, !isRoundVCDismissed else { return }
+        // Once time is up the button reads "Not guessed", so a slow press must put the
+        // word back in the hat just like a tap. Only a hold that began on "Mistake"
+        // discards it.
         let word = Word(word: currentWord)
-        word.state = .fail
+        word.state = didPressStartInOvertime ? .new : .fail
         wordsGuessed.append(word)
         endRound()
     }
