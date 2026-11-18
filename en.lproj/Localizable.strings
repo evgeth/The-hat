@@ -55,7 +55,6 @@ hold_to_end = "Hold to end turn";
 keep_holding = "Keep holding to end turn";
 round_not_guessed = "Not guessed";
 tap_to_return = "Tap to return to hat";
-overtime_actions = "Tap to return · Hold for mistake";
 review_instruction = "Tap a word to change its result.";
 review_returned = "Back in the hat";
 review_guessed = "Guessed";

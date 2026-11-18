@@ -55,7 +55,6 @@ hold_to_end = "Удерживайте, чтобы закончить ход";
 keep_holding = "Нажмите и держите, чтобы закончить ход";
 round_not_guessed = "Не угадано";
 tap_to_return = "Нажмите, чтобы вернуть";
-overtime_actions = "Нажать — вернуть\nДержать — ошибка";
 review_instruction = "Нажмите на слово, чтобы изменить результат.";
 review_returned = "Снова в шляпе";
 review_guessed = "Угадано";

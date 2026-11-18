@@ -370,6 +370,24 @@ final class WholeAppVisualTests: XCTestCase {
         XCTAssertEqual(app.staticTexts["handoff.wordsLeft"].label, "3 words left")
     }
 
+    /// Without skips, holding "Not guessed" once time is up used to record a mistake
+    /// and drop the word from the game. Tap and hold must both return it to the hat.
+    func testHoldingNotGuessedInOvertimeReturnsTheWord() {
+        let app = launch("en", screen: "round-overtime")
+        let notGuessed = app.staticTexts["Not guessed"]
+        XCTAssertTrue(notGuessed.waitForExistence(timeout: 10))
+        XCTAssertEqual(app.staticTexts["round.actionHint"].label, "Tap to return to hat")
+        notGuessed.press(forDuration: 1.0)
+        let count = app.staticTexts["handoff.wordsLeft"]
+        XCTAssertTrue(count.waitForExistence(timeout: 5))
+        XCTAssertEqual(count.label, "3 words left")
+        app.buttons["handoff.review"].tap()
+        let rows = app.tables.cells
+        XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(rows.count, 1)
+        XCTAssertEqual(rows.element(boundBy: 0).value as? String, "Back in the hat")
+    }
+
     func testReviewSheetInsetsStatusChangesAndScroll() {
         let app = launch("en", screen: "review-long")
         app.buttons["handoff.review"].tap()
